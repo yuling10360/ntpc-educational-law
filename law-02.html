@@ -4344,16 +4344,17 @@
        .trim();
      bodyEl.textContent=finalText;
    }
-   // 第 30 項「藝術教育法」：章名與條文標題各自獨立成行。
+   // 第 30 項「藝術教育法」：章名須在新行獨立呈現，不可接在前一條文後。
    if(i===29){
      finalText=finalText.replace(
        /藝術教育之主管教育行政機關[︰:][\s\S]*?(?=\n\s*第\s*4\s*條)/,
        '藝術教育之主管教育行政機關︰在中央為教育部；在直轄市為直轄市政府；在縣（市）為縣（市）政府。\n\n'
      );
      finalText=finalText
-       .replace(/(第[一二三四五六七八九十百]+章\s*[^。\n]*?)(?=\s*第\s*\d+\s*條)/g,'$1\n\n')
-       .replace(/第\s*(\d+(?:-\d+)?)\s*條\s*/g,'第 $1 條\n')
-       .replace(/\n{3,}/g,'\n\n')
+       .replace(/([^\n])\s*(第\s*[一二三四五六七八九十]+\s*章\s*[^\n]*?)(?=\s*第\s*\d+\s*條)/g,'$1\n\n$2\n\n')
+       .replace(/第\s*([一二三四五六七八九十]+)\s*章/g,'第$1章')
+       .replace(/第\s*(\d+(?:-\d+)?)\s*條\s*/g,'\n第 $1 條\n')
+       .replace(/\n[ \t]*\n(?:[ \t]*\n)+/g,'\n\n')
        .trim();
      bodyEl.textContent=finalText;
    }
