@@ -4334,55 +4334,7 @@
      }
    }
    let finalText=flowed.join('\n').trim()||'原始文件中未能自動定位此項文字，請核對原始手冊。';
-   // 第 29、30 項：依教育部主管法規共用系統現行法規核對，重新整理雙欄原始文字，
-   // 避免家庭教育法、藝術教育法的條文子目被誤判成右欄法規沿革而遺漏。
-   if(i===28 || i===29){
-     const rebuilt=[];
-     const historyEntries=[];
-     for(let j=start;j<end;j++){
-       const original=lines[j]||'';
-       const trimmed=original.trim();
-       if(!trimmed || trimmed==='二、課程與教學' || trimmed.includes('法 規 摘 要') ||
-          trimmed==='日期及文號' || trimmed.includes('法源簡述/備註') ||
-          /^\d{1,3}$/.test(trimmed) || trimmed.startsWith('<PARSED TEXT FOR PAGE')) continue;
-       if((i===28 && /^29\.\s*家庭教育法/.test(trimmed)) ||
-          (i===29 && /^30\.\s*藝術教育法/.test(trimmed))) continue;
-       const split=original.match(/^(.*?)(?:\s{5,})(\S.*)$/);
-       let left=trimmed;
-       if(split){
-         const lhs=split[1].trim();
-         const rhs=split[2].trim();
-         const isHistory=/^(?:中華民國|\d+\.\s*中華民國|月\s*\d|字第|號令|號令修正|修正公布|修正發布|訂定公布|制定公布|並自公布日|施行。|條；並自|條文；)/.test(rhs);
-         if(isHistory){
-           if(lhs) left=lhs;
-           else continue;
-         }else{
-           left=(lhs+' '+rhs).trim();
-         }
-       }
-       if(!left || left==='家庭教育法' || left==='藝術教育法') continue;
-       rebuilt.push(left.replace(/\s+/g,' '));
-     }
-     finalText=rebuilt.join('\n').replace(/\n{3,}/g,'\n\n').trim();
-     history.length=0;
-     if(i===28){
-       history.push(
-         '1. 中華民國92年2月6日總統華總一義字第09200017680號令制定公布全文20條；並自公布日施行。',
-         '2. 中華民國99年5月19日總統華總一義字第09900123181號令修正公布第2條條文。',
-         '3. 中華民國100年12月28日總統華總一義字第10000291431號令修正公布第2、14、15條條文。',
-         '4. 中華民國102年12月11日總統華總一義字第10200225101號令修正公布第2條條文。',
-         '5. 中華民國103年6月18日總統華總一義字第10300092671號令修正公布第14條條文。',
-         '6. 中華民國108年5月8日總統華總一義字第10800045121號令修正公布全文21條；並自公布日施行。'
-       );
-     }else{
-       history.push(
-         '1. 中華民國86年3月12日總統（86）華總（一）義字第8600060070號令制定公布全文27條。',
-         '2. 中華民國89年1月19日總統（89）華總（一）義字第8900011870號令修正公布第3條條文。',
-         '3. 中華民國104年12月30日總統華總一義字第10400151431號令修正公布第1、2、5、8條條文；並增訂第5-1、14-1、15-1、16-1、24-1條條文。'
-       );
-     }
-     bodyEl.textContent=finalText;
-   }
+   // 第 29、30 項改用上方共用擷取流程：正文取左欄，右欄法規沿革由 history 區獨立呈現。
 
    // 第 16 項正文被法規沿革字串插入，統一以核對後的第一點正文取代，避免沿革文字混入。
    if(i===15){
