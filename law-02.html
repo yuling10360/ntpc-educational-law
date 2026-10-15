@@ -4355,23 +4355,23 @@
    // 第 4 項「高級中等學校學生校外學習成就或教育訓練之學分及成績採計要點」：整份法規統一依編號層級排版。
    if(i===3){
      const esc=x=>x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-     const lines=finalText.split('\\n').map(x=>x.trim()).filter(Boolean);
+     const lines=finalText.split('\n').map(x=>x.trim()).filter(Boolean);
      const rendered=[];
      for(let n=0;n<lines.length;n++){
        const t=lines[n];
-       if(/^第\\s*\\d+\\s*條(?:之\\s*\\d+)?$/.test(t)){
-         rendered.push('<div class="font-semibold mt-5 mb-1 text-slate-800">'+esc(t.replace(/\\s+/g,' '))+'</div>'); continue;
+       if(/^第\s*\d+\s*條(?:之\s*\d+)?$/.test(t)){
+         rendered.push('<div class="font-semibold mt-5 mb-1 text-slate-800">'+esc(t.replace(/\s+/g,' '))+'</div>'); continue;
        }
-       const article=t.match(/^(第\\s*\\d+\\s*條(?:之\\s*\\d+)?)(.*)$/);
+       const article=t.match(/^(第\s*\d+\s*條(?:之\s*\d+)?)(.*)$/);
        if(article){
-         rendered.push('<div class="font-semibold mt-5 mb-1 text-slate-800">'+esc(article[1].replace(/\\s+/g,' '))+'</div>');
+         rendered.push('<div class="font-semibold mt-5 mb-1 text-slate-800">'+esc(article[1].replace(/\s+/g,' '))+'</div>');
          if(article[2].trim()) rendered.push('<div class="doc-row doc-level-1"><span class="doc-marker"></span><span class="doc-copy">'+esc(article[2].trim())+'</span></div>');
          continue;
        }
        const major=t.match(/^([一二三四五六七八九十百]+、)(.*)$/);
-       const sub=t.match(/^[（(]([一二三四五六七八九十百]+)[）)]\\s*(.*)$/);
+       const sub=t.match(/^[（(]([一二三四五六七八九十百]+)[）)]\s*(.*)$/);
        const num=t.match(/^([１２３４５６７８９０1-9]+[、.．、])(.*)$/);
-       const small=t.match(/^[（(]([１２３４５６７８９０1-9]+)[）)]\\s*(.*)$/);
+       const small=t.match(/^[（(]([１２３４５６７８９０1-9]+)[）)]\s*(.*)$/);
        if(major){rendered.push('<div class="doc-row doc-level-1"><span class="doc-marker">'+esc(major[1])+'</span><span class="doc-copy">'+esc(major[2].trim())+'</span></div>');continue;}
        if(sub){rendered.push('<div class="doc-row doc-level-2"><span class="doc-marker">（'+esc(sub[1])+'）</span><span class="doc-copy">'+esc(sub[2])+'</span></div>');continue;}
        if(num){rendered.push('<div class="doc-row doc-level-3"><span class="doc-marker">'+esc(num[1])+'</span><span class="doc-copy">'+esc(num[2].trim())+'</span></div>');continue;}
