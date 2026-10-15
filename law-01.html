@@ -389,7 +389,6 @@
           <h2 class="text-xl md:text-2xl font-bold text-slate-900 mt-2">新北市立高級中等學校教師每週教學節數標準</h2>
         </div>
         <div class="text-sm md:text-base text-slate-700 space-y-3 leading-relaxed whitespace-pre-line">
-1.	新北市立高級中等學校教師每週教學節數標準
 第  1  條
 本標準依高級中等教育法第三十二條規定訂定之。
 第  2  條
@@ -453,67 +452,290 @@
 本標準中華民國一百十二年二月十五日修正條文，自中華民國一百十一年八月一日施行。
 本標準中華民國一百十二年七月十九日修正條文，自中華民國一百十二年八月一日施行。
 本標準自中華民國○年○月○日修正條文，自中華民國一百十五年八月一日施行。
-附表一
-                        節  數
-課程(領域、科目)	      職別
-	專任教師	導 師
-語文領域	國文(國語文)	十四	九
-	英文(英語文)	十六	十一
-數學	十六	十一
-社會領域	十六	十一
-自然(自然科學)領域	十六	十一
-藝術領域	十六	十一
-生活(綜合活動)領域	十六	十一
-生活領域之計算機概論或資訊科技概論(科技領域)	十六	十一
-健康與體育領域	十六	十一
-全民國防教育	十六	十一
-各群、科、學程之專業科目及實習科目，包括專題製作(專題實作)	十六	十一
-選修課程，包括生命教育類、生涯規劃類、其他類	十六	十一
-備註：
-一、	教師擔任二種以上課程(領域、科目)教學時，各該課程(領域、科目)基本節數相同者，按各該課程(領域、科目)教學節數合併計算；基本節數不同者，依各該課程(領域、科目)教學節數比例折算後併計之。
-二、	括弧內文字為十二年國民基本教育課程綱要總綱適用之名稱。
-三、	各課程(領域、科目)包括必修(部定、校訂)及選修課程(領域、科目)。
-附表二
-      節數  班數
+                        <!-- 附表一：每週基本教學節數表 -->
+<div class="mt-6 border border-slate-300 rounded-xl overflow-hidden shadow-sm bg-white">
+  <div class="bg-slate-100 px-4 py-2 border-b border-slate-300 font-bold text-sm text-slate-800">
+    附表一：新北市立高級中等學校教師每週教學節數標準
+  </div>
+  
+  <div class="overflow-x-auto">
+    <table class="w-full text-xs md:text-sm text-slate-800 border-collapse">
+      <thead>
+        <tr class="bg-slate-50 border-b border-slate-300">
+          <!-- 表頭三向斜線格 -->
+          <th colspan="2" class="p-3 border-r border-slate-300 font-normal relative min-w-[240px] text-left align-top bg-gradient-to-tr from-slate-100 to-white">
+            <div class="flex justify-between items-start text-xs text-slate-600">
+              <span class="text-right w-full pr-12 font-medium">節 數</span>
+              <span class="font-medium">職別</span>
+            </div>
+            <div class="text-xs text-slate-700 font-semibold mt-4">
+              課程 (領域、科目)
+            </div>
+          </th>
+          <th class="p-3 border-r border-slate-300 text-center font-bold min-w-[100px] w-28 bg-slate-100/50">
+            專任教師
+          </th>
+          <th class="p-3 text-center font-bold min-w-[100px] w-28 bg-slate-100/50">
+            導 師
+          </th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-200">
+        <!-- 語文領域 (合併 2 列) -->
+        <tr>
+          <td rowspan="2" class="p-3 border-r border-slate-200 text-center font-medium bg-slate-50/50 w-28">
+            語文領域
+          </td>
+          <td class="p-3 border-r border-slate-200">國文 (國語文)</td>
+          <td class="p-3 border-r border-slate-200 text-center font-bold text-blue-700 text-base">十四</td>
+          <td class="p-3 text-center font-bold text-emerald-700 text-base">九</td>
+        </tr>
+        <tr>
+          <td class="p-3 border-r border-slate-200">英文 (英語文)</td>
+          <td class="p-3 border-r border-slate-200 text-center font-bold text-blue-700 text-base">十六</td>
+          <td class="p-3 text-center font-bold text-emerald-700 text-base">十一</td>
+        </tr>
 
-  職別	九班
-以下	十班至十八班	十九班至二十四班	二十五班至三十班	三十一班至四十班	四十一班至五十班	五十一班至六十班	六十一班以上
-副校長、秘書、處(室)主任、圖書館主任	七	五	三	一	一	○	○	○
-教學、註冊、訓育、生活輔導、衛生組長	八	八	六	五	三	一	○	○
-上列各組以外之編制內各處(室)組長	九	九	七	七	五	三	一	○
-各群、科、學程主任	全科總班數三班(含)以下者八節；四班至六班者七節；七班以上者六節。
-附表三
-總班級數	二十六班以下	二十七班至四十四班	四十五班至六十二班	六十三班以上
-協助校務酌減節數	八節至十二節	十二節至十八節	十八節至三十節	三十節至六十節
+        <!-- 其餘領域科目 -->
+        <tr>
+          <td colspan="2" class="p-3 border-r border-slate-200">數學</td>
+          <td class="p-3 border-r border-slate-200 text-center font-bold text-blue-700 text-base">十六</td>
+          <td class="p-3 text-center font-bold text-emerald-700 text-base">十一</td>
+        </tr>
+        <tr class="bg-slate-50/30">
+          <td colspan="2" class="p-3 border-r border-slate-200">社會領域</td>
+          <td class="p-3 border-r border-slate-200 text-center font-bold text-blue-700 text-base">十六</td>
+          <td class="p-3 text-center font-bold text-emerald-700 text-base">十一</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="p-3 border-r border-slate-200">自然 (自然科學) 領域</td>
+          <td class="p-3 border-r border-slate-200 text-center font-bold text-blue-700 text-base">十六</td>
+          <td class="p-3 text-center font-bold text-emerald-700 text-base">十一</td>
+        </tr>
+        <tr class="bg-slate-50/30">
+          <td colspan="2" class="p-3 border-r border-slate-200">藝術領域</td>
+          <td class="p-3 border-r border-slate-200 text-center font-bold text-blue-700 text-base">十六</td>
+          <td class="p-3 text-center font-bold text-emerald-700 text-base">十一</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="p-3 border-r border-slate-200">生活 (綜合活動) 領域</td>
+          <td class="p-3 border-r border-slate-200 text-center font-bold text-blue-700 text-base">十六</td>
+          <td class="p-3 text-center font-bold text-emerald-700 text-base">十一</td>
+        </tr>
+        <tr class="bg-slate-50/30">
+          <td colspan="2" class="p-3 border-r border-slate-200">生活領域之計算機概論或資訊科技概論 (科技領域)</td>
+          <td class="p-3 border-r border-slate-200 text-center font-bold text-blue-700 text-base">十六</td>
+          <td class="p-3 text-center font-bold text-emerald-700 text-base">十一</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="p-3 border-r border-slate-200">健康與體育領域</td>
+          <td class="p-3 border-r border-slate-200 text-center font-bold text-blue-700 text-base">十六</td>
+          <td class="p-3 text-center font-bold text-emerald-700 text-base">十一</td>
+        </tr>
+        <tr class="bg-slate-50/30">
+          <td colspan="2" class="p-3 border-r border-slate-200">全民國防教育</td>
+          <td class="p-3 border-r border-slate-200 text-center font-bold text-blue-700 text-base">十六</td>
+          <td class="p-3 text-center font-bold text-emerald-700 text-base">十一</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="p-3 border-r border-slate-200">各群、科、學程之專業科目及實習科目，包括專題製作 (專題實作)</td>
+          <td class="p-3 border-r border-slate-200 text-center font-bold text-blue-700 text-base">十六</td>
+          <td class="p-3 text-center font-bold text-emerald-700 text-base">十一</td>
+        </tr>
+        <tr class="bg-slate-50/30">
+          <td colspan="2" class="p-3 border-r border-slate-200">選修課程，包括生命教育類、生涯規劃類、其他類</td>
+          <td class="p-3 border-r border-slate-200 text-center font-bold text-blue-700 text-base">十六</td>
+          <td class="p-3 text-center font-bold text-emerald-700 text-base">十一</td>
+        </tr>
 
+        <!-- 備註區塊 (合併 4 欄) -->
+        <tr class="bg-slate-50 border-t border-slate-300">
+          <td colspan="4" class="p-4 text-xs leading-relaxed text-slate-700">
+            <span class="font-bold text-slate-900 block mb-1">備註：</span>
+            <ol class="list-decimal pl-5 space-y-1.5">
+              <li>
+                教師擔任二種以上課程(領域、科目)教學時，各該課程(領域、科目)基本節數相同者，按各該課程(領域、科目)教學節數合併計算；基本節數不同者，依各該課程(領域、科目)教學節數比例折算後併計之。
+              </li>
+              <li>
+                括弧內文字為十二年國民基本教育課程綱要總綱適用之名稱。
+              </li>
+              <li>
+                各課程(領域、科目)包括必修(部定、校訂)及選修課程(領域、科目)。
+              </li>
+            </ol>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- 附表一：每週基本教學節數表 -->
+<div class="mt-6 border border-slate-300 rounded-xl overflow-hidden shadow-sm bg-white">
+  <div class="bg-slate-100 px-4 py-2 border-b border-slate-300 font-bold text-sm text-slate-800">
+    附表一：新北市立高級中等學校教師每週教學節數標準
+  </div>
+  
+  <div class="overflow-x-auto">
+    <table class="w-full text-xs md:text-sm text-slate-800 border-collapse">
+      <thead>
+        <tr class="bg-slate-50 border-b border-slate-300">
+          <!-- 表頭三向斜線格 -->
+          <th colspan="2" class="p-3 border-r border-slate-300 font-normal relative min-w-[240px] text-left align-top bg-gradient-to-tr from-slate-100 to-white">
+            <div class="flex justify-between items-start text-xs text-slate-600">
+              <span class="text-right w-full pr-12 font-medium">節 數</span>
+              <span class="font-medium">職別</span>
+            </div>
+            <div class="text-xs text-slate-700 font-semibold mt-4">
+              課程 (領域、科目)
+            </div>
+          </th>
+          <th class="p-3 border-r border-slate-300 text-center font-bold min-w-[100px] w-28 bg-slate-100/50">
+            專任教師
+          </th>
+          <th class="p-3 text-center font-bold min-w-[100px] w-28 bg-slate-100/50">
+            導 師
+          </th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-200">
+        <!-- 語文領域 (合併 2 列) -->
+        <tr>
+          <td rowspan="2" class="p-3 border-r border-slate-200 text-center font-medium bg-slate-50/50 w-28">
+            語文領域
+          </td>
+          <td class="p-3 border-r border-slate-200">國文 (國語文)</td>
+          <td class="p-3 border-r border-slate-200 text-center font-bold text-blue-700 text-base">十四</td>
+          <td class="p-3 text-center font-bold text-emerald-700 text-base">九</td>
+        </tr>
+        <tr>
+          <td class="p-3 border-r border-slate-200">英文 (英語文)</td>
+          <td class="p-3 border-r border-slate-200 text-center font-bold text-blue-700 text-base">十六</td>
+          <td class="p-3 text-center font-bold text-emerald-700 text-base">十一</td>
+        </tr>
 
-        </div>
+        <!-- 其餘領域科目 -->
+        <tr>
+          <td colspan="2" class="p-3 border-r border-slate-200">數學</td>
+          <td class="p-3 border-r border-slate-200 text-center font-bold text-blue-700 text-base">十六</td>
+          <td class="p-3 text-center font-bold text-emerald-700 text-base">十一</td>
+        </tr>
+        <tr class="bg-slate-50/30">
+          <td colspan="2" class="p-3 border-r border-slate-200">社會領域</td>
+          <td class="p-3 border-r border-slate-200 text-center font-bold text-blue-700 text-base">十六</td>
+          <td class="p-3 text-center font-bold text-emerald-700 text-base">十一</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="p-3 border-r border-slate-200">自然 (自然科學) 領域</td>
+          <td class="p-3 border-r border-slate-200 text-center font-bold text-blue-700 text-base">十六</td>
+          <td class="p-3 text-center font-bold text-emerald-700 text-base">十一</td>
+        </tr>
+        <tr class="bg-slate-50/30">
+          <td colspan="2" class="p-3 border-r border-slate-200">藝術領域</td>
+          <td class="p-3 border-r border-slate-200 text-center font-bold text-blue-700 text-base">十六</td>
+          <td class="p-3 text-center font-bold text-emerald-700 text-base">十一</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="p-3 border-r border-slate-200">生活 (綜合活動) 領域</td>
+          <td class="p-3 border-r border-slate-200 text-center font-bold text-blue-700 text-base">十六</td>
+          <td class="p-3 text-center font-bold text-emerald-700 text-base">十一</td>
+        </tr>
+        <tr class="bg-slate-50/30">
+          <td colspan="2" class="p-3 border-r border-slate-200">生活領域之計算機概論或資訊科技概論 (科技領域)</td>
+          <td class="p-3 border-r border-slate-200 text-center font-bold text-blue-700 text-base">十六</td>
+          <td class="p-3 text-center font-bold text-emerald-700 text-base">十一</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="p-3 border-r border-slate-200">健康與體育領域</td>
+          <td class="p-3 border-r border-slate-200 text-center font-bold text-blue-700 text-base">十六</td>
+          <td class="p-3 text-center font-bold text-emerald-700 text-base">十一</td>
+        </tr>
+        <tr class="bg-slate-50/30">
+          <td colspan="2" class="p-3 border-r border-slate-200">全民國防教育</td>
+          <td class="p-3 border-r border-slate-200 text-center font-bold text-blue-700 text-base">十六</td>
+          <td class="p-3 text-center font-bold text-emerald-700 text-base">十一</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="p-3 border-r border-slate-200">各群、科、學程之專業科目及實習科目，包括專題製作 (專題實作)</td>
+          <td class="p-3 border-r border-slate-200 text-center font-bold text-blue-700 text-base">十六</td>
+          <td class="p-3 text-center font-bold text-emerald-700 text-base">十一</td>
+        </tr>
+        <tr class="bg-slate-50/30">
+          <td colspan="2" class="p-3 border-r border-slate-200">選修課程，包括生命教育類、生涯規劃類、其他類</td>
+          <td class="p-3 border-r border-slate-200 text-center font-bold text-blue-700 text-base">十六</td>
+          <td class="p-3 text-center font-bold text-emerald-700 text-base">十一</td>
+        </tr>
 
-        <div class="mt-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
-          <h4 class="font-bold text-xs text-slate-800 mb-2">【附表一：高中基本教學節數表】</h4>
-          <table class="w-full text-xs text-left border border-slate-300">
-            <thead class="bg-slate-200">
-              <tr><th class="p-2 border">領域 / 科目</th><th class="p-2 border">專任教師</th><th class="p-2 border">導師</th></tr>
-            </thead>
-            <tbody>
-              <tr><td class="p-2 border">國文(國語文)</td><td class="p-2 border font-bold text-blue-600">十四節</td><td class="p-2 border font-bold text-emerald-600">九節</td></tr>
-              <tr><td class="p-2 border">英文、數學、社會、自然科學、藝術、科技、健體、全民國防、專業科目等</td><td class="p-2 border font-bold text-blue-600">十六節</td><td class="p-2 border font-bold text-emerald-600">十一節</td></tr>
-            </tbody>
-          </table>
-        </div>
+        <!-- 備註區塊 (合併 4 欄) -->
+        <tr class="bg-slate-50 border-t border-slate-300">
+          <td colspan="4" class="p-4 text-xs leading-relaxed text-slate-700">
+            <span class="font-bold text-slate-900 block mb-1">備註：</span>
+            <ol class="list-decimal pl-5 space-y-1.5">
+              <li>
+                教師擔任二種以上課程(領域、科目)教學時，各該課程(領域、科目)基本節數相同者，按各該課程(領域、科目)教學節數合併計算；基本節數不同者，依各該課程(領域、科目)教學節數比例折算後併計之。
+              </li>
+              <li>
+                括弧內文字為十二年國民基本教育課程綱要總綱適用之名稱[cite: 18]。
+              </li>
+              <li>
+                各課程(領域、科目)包括必修(部定、校訂)及選修課程(領域、科目)[cite: 18]。
+              </li>
+            </ol>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+        <!-- 附表三：協助校務酌減節數表 -->
+<div class="mt-6 border border-slate-300 rounded-xl overflow-hidden shadow-sm bg-white">
+  <div class="bg-slate-100 px-4 py-2 border-b border-slate-300 font-bold text-sm text-slate-800">
+    附表三：新北市立高級中等學校教師協助校務酌減節數表
+  </div>
+  
+  <div class="overflow-x-auto">
+    <table class="w-full text-xs md:text-sm text-slate-800 border-collapse">
+      <tbody>
+        <!-- 第 1 列：總班級數 -->
+        <tr class="border-b border-slate-300">
+          <th class="p-3 border-r border-slate-300 text-center font-bold bg-slate-50/80 min-w-[120px] w-36">
+            總班級數
+          </th>
+          <td class="p-3 border-r border-slate-200 text-center font-medium min-w-[110px]">
+            二十六班以下
+          </td>
+          <td class="p-3 border-r border-slate-200 text-center font-medium min-w-[110px]">
+            二十七班至四十四班
+          </td>
+          <td class="p-3 border-r border-slate-200 text-center font-medium min-w-[110px]">
+            四十五班至六十二班
+          </td>
+          <td class="p-3 text-center font-medium min-w-[110px]">
+            六十三班以上
+          </td>
+        </tr>
 
-        <div class="mt-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
-          <h4 class="font-bold text-xs text-slate-800 mb-2">【附表二：兼任行政職務每週基本教學節數表】</h4>
-          <table class="w-full text-xs text-center border border-slate-300">
-            <thead class="bg-slate-200">
-              <tr><th class="p-1 border text-left">職別＼班數</th><th class="p-1 border">≦9班</th><th class="p-1 border">10-18</th><th class="p-1 border">19-24</th><th class="p-1 border">25-30</th><th class="p-1 border">31-40</th><th class="p-1 border">41-50</th><th class="p-1 border">51-60</th><th class="p-1 border">≧61班</th></tr>
-            </thead>
-            <tbody>
-              <tr><td class="p-1 border text-left">處(室)主任、秘書</td><td class="p-1 border">7</td><td class="p-1 border">5</td><td class="p-1 border">3</td><td class="p-1 border">1</td><td class="p-1 border">1</td><td class="p-1 border">0</td><td class="p-1 border">0</td><td class="p-1 border">0</td></tr>
-              <tr><td class="p-1 border text-left">教學、註冊、生輔組長</td><td class="p-1 border">8</td><td class="p-1 border">8</td><td class="p-1 border">6</td><td class="p-1 border">5</td><td class="p-1 border">3</td><td class="p-1 border">1</td><td class="p-1 border">0</td><td class="p-1 border">0</td></tr>
-              <tr><td class="p-1 border text-left">其餘編制內組長</td><td class="p-1 border">9</td><td class="p-1 border">9</td><td class="p-1 border">7</td><td class="p-1 border">7</td><td class="p-1 border">5</td><td class="p-1 border">3</td><td class="p-1 border">1</td><td class="p-1 border">0</td></tr>
-            </tbody>
-          </table>
+        <!-- 第 2 列：協助校務酌減節數 -->
+        <tr class="bg-slate-50/20">
+          <th class="p-3 border-r border-slate-300 text-center font-bold bg-slate-50/80">
+            協助校務<br>酌減節數
+          </th>
+          <td class="p-3 border-r border-slate-200 text-center font-bold text-blue-700 text-sm md:text-base">
+            八節至十二節
+          </td>
+          <td class="p-3 border-r border-slate-200 text-center font-bold text-blue-700 text-sm md:text-base">
+            十二節至十八節
+          </td>
+          <td class="p-3 border-r border-slate-200 text-center font-bold text-blue-700 text-sm md:text-base">
+            十八節至三十節
+          </td>
+          <td class="p-3 text-center font-bold text-blue-700 text-sm md:text-base">
+            三十節至六十節
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
         </div>
 
         <div class="law-history">
