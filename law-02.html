@@ -4364,7 +4364,8 @@
    if(!hasArticles){
      // 無條次的要點／行政規定：依公文格式呈現，主項加強辨識，子項與序號分層縮排。
      const safe=x=>x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-     bodyEl.innerHTML=finalText.split('\n').map(line=>{
+     const cleanText=finalText.replace(/1410258\s*號函訂定/g,'').replace(/全文\s*15\s*點\s*[；;，,]?\s*並自/g,'').replace(/113\s*年\s*8\s*月\s*1\s*日\s*生\s*效[。.]?/g,'');
+     bodyEl.innerHTML=cleanText.split('\n').map(line=>{
          if(!line.trim()) return '';
        const t=line.trim();
        // 與第一類 law-01.html 相同的公文排版：doc-level-1/2/3 控制縮排與段落間距。
