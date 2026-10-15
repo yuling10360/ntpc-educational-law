@@ -4376,8 +4376,8 @@
      const start=finalText.search(/十、\s*學分及成績採計基準如下：/);
      const end=start>=0?finalText.indexOf('十一、',start):-1;
      if(start>=0 && end>=0) finalText=finalText.slice(0,start)+officialSection+'\n'+finalText.slice(end);
-     else if(start>=0) finalText=finalText.slice(0,start)+officialSection;
-     else finalText=finalText+'\n'+officialSection;
+     else if(start>=0) finalText=finalText.slice(0,start)+officialSection+'\n十一、學校得依實際需要，於學生學習評量補充規定中，訂定學分及成績採計、抵免相關事宜。';
+     else finalText=finalText+'\n'+officialSection+'\n十一、學校得依實際需要，於學生學習評量補充規定中，訂定學分及成績採計、抵免相關事宜。';
 
      // 一律以替換後的完整 finalText 重畫內容，避免舊版只顯示第十點。
      const lines=finalText.split('\n').map(x=>x.trim()).filter(Boolean);
