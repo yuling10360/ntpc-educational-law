@@ -4314,23 +4314,30 @@
        }
      }
    }
-   // 將原始文件因欄寬產生的硬換行合併，讓文字使用整個右側面板寬度；
-   // 條號及列舉項目仍保留分段。
+   // 依內容結構排版：有「第 X 條」者採條文格式；沒有條號者採公文段落格式。
+   // 合併原始 Word 欄寬造成的硬換行，但保留「一、」「（一）」等段落層級。
    const rawBody=body.join('\n').trim();
    const bodyLines=rawBody.split('\n');
+   const hasArticles=bodyLines.some(line=>/^\s*第\s*\d+\s*條/.test(line.trim()));
    const flowed=[];
+   const major=/^(?:[一二三四五六七八九十百]+、|\d+[、.．、])/;
+   const sub=/^(?:[（(][一二三四五六七八九十百\d]+[）)]|[一二三四五六七八九十百]+、)/;
    for(const item of bodyLines){
      const line=item.trim();
-     if(!line){ if(flowed.length && flowed[flowed.length-1] !== '') flowed.push(''); continue; }
+     if(!line) continue;
      const isArticle=/^第\s*\d+\s*條/.test(line);
-     const isList=/^(?:[一二三四五六七八九十]+、|\d+[、.．]|[（(][一二三四五六七八九十\d]+[）)])/.test(line);
-     if(isArticle){
-       while(flowed.length && flowed[flowed.length-1]==='') flowed.pop();
+     const isMajor=major.test(line);
+     const isSub=sub.test(line);
+     if(hasArticles && isArticle){
        if(flowed.length) flowed.push('');
        flowed.push(line);
-     }else if(isList){
+     }else if(hasArticles && isMajor){
        flowed.push(line);
-     }else if(flowed.length && flowed[flowed.length-1]!=='' && !/^第\s*\d+\s*條/.test(flowed[flowed.length-1]) && !/^(?:[一二三四五六七八九十]+、|\d+[、.．]|[（(][一二三四五六七八九十\d]+[）)])/.test(flowed[flowed.length-1])){
+     }else if(!hasArticles && (isMajor||isSub)){
+       // 公文格式：每個主項及子項各自起行，並在主項間留出適當間距。
+       if(isMajor && flowed.length) flowed.push('');
+       flowed.push(line);
+     }else if(flowed.length && flowed[flowed.length-1] !== ''){
        flowed[flowed.length-1]+=' '+line;
      }else{
        flowed.push(line);
