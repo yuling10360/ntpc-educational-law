@@ -3207,48 +3207,49 @@
         if (!body || body.dataset.formattedDocument === 'true') return;
 
         const esc = value => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        const lines = body.textContent.replace(/\r/g, '').split('\n');
-        const articlePattern = /^第\s*\d+(?:-\d+)?\s*條(?:之\s*\d+)?$/;
-        const parenthesisPattern = /^([（(][一二三四五六七八九十百千\d]+[）)])\s*(.*)$/;
-        const numberedPattern = /^([一二三四五六七八九十百千]+、)\s*(.*)$/;
+        const articlePattern = /^第\\s*\\d+(?:-\\d+)?\\s*條(?:之\\s*\\d+)?$/;
+        const parenthesisPattern = /^([（(][一二三四五六七八九十百千\\d]+[）)])\\s*(.*)$/;
+        const numberedPattern = /^([一二三四五六七八九十百千]+、)\\s*(.*)$/;
 
-        body.classList.remove('whitespace-pre-line');
-        body.classList.add('space-y-1');
-
-        body.innerHTML = lines.map(line => {
+        const formatText = text => text.replace(/\\r/g, '').split('\\n').map(line => {
           const t = line.trim();
           if (!t) return '<div class="h-3"></div>';
           if (articlePattern.test(t)) {
             return '<div class="mt-5 mb-2 font-bold text-slate-900 border-b border-slate-100 pb-1">' + esc(t) + '</div>';
           }
-
           const sub = t.match(parenthesisPattern);
           if (sub) {
-            const marker = sub[1].replace(/^\(/, '（').replace(/\)$/, '）');
-            const namedSub = sub[2].match(/^([^：:]{1,36}[：:])\s*(.*)$/);
+            const marker = sub[1].replace(/^\\(/, '（').replace(/\\)$/, '）');
+            const namedSub = sub[2].match(/^([^：:]{1,36}[：:])\\s*(.*)$/);
             if (namedSub) {
               return '<div class="grid grid-cols-[4.5rem_minmax(6rem,auto)_minmax(0,1fr)] gap-2 pl-10 items-start"><span class="text-slate-600 font-medium">' + esc(marker) + '</span><span class="font-medium text-slate-800">' + esc(namedSub[1]) + '</span><span class="min-w-0">' + esc(namedSub[2]) + '</span></div>';
             }
             return '<div class="grid grid-cols-[4.5rem_minmax(0,1fr)] gap-2 pl-10 items-start"><span class="text-slate-600 font-medium">' + esc(marker) + '</span><span class="min-w-0">' + esc(sub[2]) + '</span></div>';
           }
-
           const numbered = t.match(numberedPattern);
           if (numbered) {
-            const namedItem = numbered[2].match(/^([^：:]{1,36}[：:])\s*(.*)$/);
+            const namedItem = numbered[2].match(/^([^：:]{1,36}[：:])\\s*(.*)$/);
             if (namedItem) {
               return '<div class="grid grid-cols-[3rem_minmax(6.5rem,auto)_minmax(0,1fr)] gap-2 pl-3 items-start"><span class="font-medium text-slate-700">' + esc(numbered[1]) + '</span><span class="font-medium text-slate-800">' + esc(namedItem[1]) + '</span><span class="min-w-0">' + esc(namedItem[2]) + '</span></div>';
             }
             return '<div class="grid grid-cols-[3rem_minmax(0,1fr)] gap-2 pl-3 items-start"><span class="font-medium text-slate-700">' + esc(numbered[1]) + '</span><span class="min-w-0">' + esc(numbered[2]) + '</span></div>';
           }
-
-          const named = t.match(/^([^：:]{1,36}[：:])\s*(.*)$/);
+          const named = t.match(/^([^：:]{1,36}[：:])\\s*(.*)$/);
           if (named && !/^(本法第|本標準第|依下列|應依下列|包括下列|其內容如下)/.test(t)) {
             return '<div class="grid grid-cols-[minmax(6.5rem,auto)_minmax(0,1fr)] gap-2 pl-3 items-start"><span class="font-medium text-slate-800">' + esc(named[1]) + '</span><span class="min-w-0">' + esc(named[2]) + '</span></div>';
           }
-
           return '<div class="pl-3">' + esc(t) + '</div>';
         }).join('');
 
+        // 只格式化文字節點；保留原始 HTML 附表、表格與其他嵌入內容。
+        body.classList.remove('whitespace-pre-line');
+        body.classList.add('space-y-1');
+        Array.from(body.childNodes).forEach(node => {
+          if (node.nodeType !== Node.TEXT_NODE || !node.textContent.trim()) return;
+          const template = document.createElement('template');
+          template.innerHTML = formatText(node.textContent);
+          node.replaceWith(template.content);
+        });
         body.dataset.formattedDocument = 'true';
       });
     }
