@@ -4302,7 +4302,14 @@
      const isArticle=/^第\s*\d+\s*條/.test(line);
      const isMajor=major.test(line);
      const isSub=sub.test(line);
-     if(hasArticles && isArticle){
+     if(i===27 && /^(?:一、目的|二、前導學校、機構遴選|三、說明會|四、前導學校、機構工作項目|五、分工及輔導|六、經費補助|七、經費核結|八、獎勵)$/.test(line)){
+       // 前導學校作業要點：每一點標題獨立一行，內文另起一行。
+       flowed.push(line);
+       articleJustAdded=true;
+     }else if(i===27 && articleJustAdded){
+       flowed.push(line);
+       articleJustAdded=false;
+     }else if(hasArticles && isArticle){
        // 前一條內文與下一條條次留一空行；條次與本條內文不留空行。
        if(flowed.length && flowed[flowed.length-1] !== '') flowed.push('');
        flowed.push(line);
