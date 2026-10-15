@@ -4376,6 +4376,8 @@
    }else{
      bodyEl.textContent=finalText;
    }
+   // 第 5 項已有下方完整表格，移除原始文字欄中重複的標題／日期文字。
+   if(i===4){ bodyEl.innerHTML=''; }
    // 指定法規：加入使用者提供的「共同不排課時段與教學研究會時間表」圖表內容
    if(i===4){
      bodyEl.insertAdjacentHTML('beforeend', `
