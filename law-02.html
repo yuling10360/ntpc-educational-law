@@ -4329,10 +4329,8 @@
      const isMajor=major.test(line);
      const isSub=sub.test(line);
      if(hasArticles && isArticle){
-       if(flowed.length && flowed[flowed.length-1] !== '') flowed.push('');
+       // 有條次：條次獨立一行，下一行直接接內文，不額外留空行。
        flowed.push(line);
-       // 條號獨立一行，條文內容從下一行開始。
-       flowed.push('');
      }else if(hasArticles && isMajor){
        flowed.push(line);
      }else if(!hasArticles && (isMajor||isSub)){
