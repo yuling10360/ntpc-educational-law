@@ -4352,58 +4352,31 @@
    }else{
      bodyEl.textContent=finalText;
    }
-   // 第十點：直接以教育部法規資料庫核對文字呈現，避免原始表格抽取造成缺漏。
-   if(i===3){
-     const officialSection=[
-       "十、學分及成績採計基準如下：",
-       "（一）校外學習成就：",
-       "１、取得政府機關發給之證照：",
-       "（１）丙級技術士證照：每張採計三學分；在進修部，每張採計三節。",
-       "（２）乙級技術士證照：每張採計六學分；在進修部，每張採計六節。",
-       "（３）修業年限內，前（１）（２）之採計，合計最高六學分或六節。",
-       "２、取得政府機關主辦之全國性、國際性技藝（能）競賽優勝以上者：",
-       "（１）政府機關主辦之全國性技藝（能）競賽優勝以上，採計三學分；在進修部，採計三節。",
-       "（２）國際性技藝（能）競賽優勝以上，採計六學分；在進修部，採計六節。",
-       "（３）修業年限內，前（１）（２）之採計，合計最高六學分或六節。",
-       "（二）校外教育訓練：",
-       "１、依學生所讀群、科、學程相關程度及學習時數，每學期採計一至二學分；在進修部，採計一至二節。",
-       "２、依學生所讀群、科、學程課程相關程度，分為高相關及基本相關：",
-       "（１）高相關者：以七十二小時採計一學分；在進修部，採計一節。",
-       "（２）基本相關者：以一百十二小時採計一學分；在進修部，採計一節。",
-       "（三）前二款之學分或成績採計，於修業年限內，合計最高採計二十四學分；在進修部，最高採計二十四節。"
-     ].join("\n");
-     const start=finalText.search(/十、\s*學分及成績採計基準如下：/);
-     const end=start>=0?finalText.indexOf('十一、',start):-1;
-     if(start>=0) finalText=finalText.slice(0,start)+officialSection+'\n'+(end>=0?finalText.slice(end):'');
-     else finalText=finalText+'\n'+officialSection;
-   }
-   // 第 4 項「高級中等學校學生校外學習成就或教育訓練之學分及成績採計要點」：整份法規統一依編號層級排版。
+   // 第十點：直接以完整條文資料逐項渲染，不再依賴原始表格抽取或文字搜尋替換。
    if(i===3){
      const esc=x=>x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-     const lines=finalText.split('\n').map(x=>x.trim()).filter(Boolean);
-     const rendered=[];
-     for(let n=0;n<lines.length;n++){
-       const t=lines[n];
-       if(/^第\s*\d+\s*條(?:之\s*\d+)?$/.test(t)){
-         rendered.push('<div class="font-semibold mt-5 mb-1 text-slate-800">'+esc(t.replace(/\s+/g,' '))+'</div>'); continue;
-       }
-       const article=t.match(/^(第\s*\d+\s*條(?:之\s*\d+)?)(.*)$/);
-       if(article){
-         rendered.push('<div class="font-semibold mt-5 mb-1 text-slate-800">'+esc(article[1].replace(/\s+/g,' '))+'</div>');
-         if(article[2].trim()) rendered.push('<div class="doc-row doc-level-1"><span class="doc-marker"></span><span class="doc-copy">'+esc(article[2].trim())+'</span></div>');
-         continue;
-       }
-       const major=t.match(/^([一二三四五六七八九十百]+、)(.*)$/);
-       const sub=t.match(/^[（(]([一二三四五六七八九十百]+)[）)]\s*(.*)$/);
-       const num=t.match(/^([１２３４５６７８９０1-9]+[、.．、])(.*)$/);
-       const small=t.match(/^[（(]([１２３４５６７８９０1-9]+)[）)]\s*(.*)$/);
-       if(major){rendered.push('<div class="doc-row doc-level-1"><span class="doc-marker">'+esc(major[1])+'</span><span class="doc-copy">'+esc(major[2].trim())+'</span></div>');continue;}
-       if(sub){rendered.push('<div class="doc-row doc-level-2"><span class="doc-marker">（'+esc(sub[1])+'）</span><span class="doc-copy">'+esc(sub[2])+'</span></div>');continue;}
-       if(num){rendered.push('<div class="doc-row doc-level-3"><span class="doc-marker">'+esc(num[1])+'</span><span class="doc-copy">'+esc(num[2].trim())+'</span></div>');continue;}
-       if(small){rendered.push('<div class="doc-row doc-level-4"><span class="doc-marker">（'+esc(small[1])+'）</span><span class="doc-copy">'+esc(small[2])+'</span></div>');continue;}
-       rendered.push('<div class="doc-row doc-paragraph"><span class="doc-marker"></span><span class="doc-copy">'+esc(t)+'</span></div>');
-     }
-     bodyEl.innerHTML=rendered.join('');
+     const creditItems=[
+       ["major","十、","學分及成績採計基準如下："],
+       ["sub","（一）","校外學習成就："],
+       ["num","１、","取得政府機關發給之證照："],
+       ["small","（１）","丙級技術士證照：每張採計三學分；在進修部，每張採計三節。"],
+       ["small","（２）","乙級技術士證照：每張採計六學分；在進修部，每張採計六節。"],
+       ["small","（３）","修業年限內，前（１）（２）之採計，合計最高六學分或六節。"],
+       ["num","２、","取得政府機關主辦之全國性、國際性技藝（能）競賽優勝以上者："],
+       ["small","（１）","政府機關主辦之全國性技藝（能）競賽優勝以上，採計三學分；在進修部，採計三節。"],
+       ["small","（２）","國際性技藝（能）競賽優勝以上，採計六學分；在進修部，採計六節。"],
+       ["small","（３）","修業年限內，前（１）（２）之採計，合計最高六學分或六節。"],
+       ["sub","（二）","校外教育訓練："],
+       ["num","１、","依學生所讀群、科、學程相關程度及學習時數，每學期採計一至二學分；在進修部，採計一至二節。"],
+       ["num","２、","依學生所讀群、科、學程課程相關程度，分為高相關及基本相關："],
+       ["small","（１）","高相關者：以七十二小時採計一學分；在進修部，採計一節。"],
+       ["small","（２）","基本相關者：以一百十二小時採計一學分；在進修部，採計一節。"],
+       ["sub","（三）","前二款之學分或成績採計，於修業年限內，合計最高採計二十四學分；在進修部，最高採計二十四節。"]
+     ];
+     bodyEl.innerHTML=creditItems.map(([level,marker,content])=>{
+       const cls={major:'doc-level-1',sub:'doc-level-2',num:'doc-level-3',small:'doc-level-4'}[level];
+       return '<div class="doc-row '+cls+'"><span class="doc-marker">'+esc(marker)+'</span><span class="doc-copy">'+esc(content)+'</span></div>';
+     }).join('');
    }
    // 第 1 項「高級中等學校教科用書審定辦法」第 25 條之 1 收費項目，採固定編號欄與文字欄，避免子項折行後跑版。
    if(i===0){
