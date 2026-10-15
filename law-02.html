@@ -4334,9 +4334,9 @@
      }else if(hasArticles && isMajor){
        flowed.push(line);
      }else if(!hasArticles && (isMajor||isSub)){
-       // 公文格式：每個主項及子項各自起行，並在主項間留出適當間距。
+       // 公文格式：主項另起一段，子項縮排呈現；同一段落內因原始欄寬造成的換行由下方合併。
        if(isMajor && flowed.length) flowed.push('');
-       flowed.push(line);
+       flowed.push(isSub && !isMajor ? '　　'+line : line);
      }else if(flowed.length && flowed[flowed.length-1] !== ''){
        flowed[flowed.length-1]+=' '+line;
      }else{
