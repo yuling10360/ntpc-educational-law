@@ -4301,6 +4301,8 @@
        const line=lines[j];
        const trim=line.trim();
        if(!trim || trim==='二、課程與教學' || trim.includes('法 規 摘 要') || trim==='日期及文號' || trim.includes('法源簡述/備註') || /^\d{1,3}$/.test(trim) || trim.startsWith('<PARSED TEXT FOR PAGE')) continue;
+       // 條文各條之間留一空行，仿照第一類法規頁面的閱讀間距
+       if(/^第\s*\d+\s*條/.test(trim) && body.length && body[body.length-1] !== '') body.push('');
        const match=line.match(/^(.*?)(?:\s{5,})(\S.*)$/);
        if(match){
          const left=match[1].trimEnd();
