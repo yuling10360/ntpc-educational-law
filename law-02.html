@@ -4309,7 +4309,7 @@
        if(match){
          const left=match[1].trimEnd();
          const right=match[2].trim();
-         if(left) body.push(left);
+         if(left && !(j===start && left.trim().startsWith((i+1)+'.'))) body.push(left);
          if(right) history.push(right);
        }else{
          body.push(line.trimEnd());
