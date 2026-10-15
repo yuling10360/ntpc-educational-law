@@ -29,35 +29,28 @@
           </div>
         </div>
 
-        <!-- 視圖切換按鈕 -->
         <div class="flex items-center bg-slate-100 p-1 rounded-xl text-xs md:text-sm">
-          <button id="btn-all" onclick="setView('all')" class="px-3 py-1.5 rounded-lg transition bg-white shadow text-blue-600 font-semibold">
-            雙欄對照
-          </button>
-          <button id="btn-laws" onclick="setView('laws')" class="px-3 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900 flex items-center gap-1">
-            <i class="fa-solid fa-book-bookmark text-xs"></i> 僅看法規
-          </button>
-          <button id="btn-tasks" onclick="setView('tasks')" class="px-3 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900 flex items-center gap-1">
-            <i class="fa-solid fa-list-check text-xs"></i> 僅看科室
-          </button>
+          <button id="btn-all" onclick="setView('all')" class="px-3 py-1.5 rounded-lg transition bg-white shadow text-blue-600 font-semibold">雙欄對照</button>
+          <button id="btn-laws" onclick="setView('laws')" class="px-3 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900">僅看法規</button>
+          <button id="btn-tasks" onclick="setView('tasks')" class="px-3 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900">僅看科室</button>
         </div>
       </div>
     </header>
 
-    <!-- 橫幅搜尋區 -->
+    <!-- 橫幅區 -->
     <section class="bg-gradient-to-r from-slate-900 via-indigo-950 to-blue-900 text-white py-8 px-4">
       <div class="max-w-4xl mx-auto text-center space-y-3">
         <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight">依法行政・處室協作指引</h2>
-        <p class="text-slate-300 text-xs md:text-sm">法規手冊目錄 ✕ 各科室指引快速檢索</p>
+        <p class="text-slate-300 text-xs md:text-sm">點擊各類別標題即可開啟專屬網頁查閱完整法規條文與業務指引</p>
 
-        <!-- 搜尋輸入框 -->
+        <!-- 搜尋列 -->
         <div class="relative max-w-2xl mx-auto pt-2">
           <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
           <input 
             type="text" 
             id="searchInput"
             oninput="handleSearch()"
-            placeholder="請輸入關鍵字（例如：中教科、特教科、授課時數...）"
+            placeholder="請輸入關鍵字（例如：授課時數、編班、中教科、校安...）"
             class="w-full pl-11 pr-4 py-3 bg-white text-slate-800 rounded-2xl shadow-lg focus:ring-4 focus:ring-blue-400/30 outline-none text-sm transition">
         </div>
       </div>
@@ -67,7 +60,7 @@
     <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
 
-        <!-- 左邊：法規彙編（11 大類標題） -->
+        <!-- 左邊：法規彙編（點擊開啟子網頁） -->
         <section id="section-laws" class="space-y-4">
           <div class="flex items-center justify-between pb-2 border-b border-slate-200">
             <div class="flex items-center gap-2">
@@ -75,14 +68,13 @@
               <h3 class="text-base font-bold text-slate-800">法規彙編</h3>
               <span class="text-xs bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full font-medium">共 11 大類</span>
             </div>
-            <span class="text-xs text-slate-400">手冊目錄分類</span>
+            <span class="text-xs text-slate-400">點擊卡片進入詳細頁面</span>
           </div>
 
-          <!-- 11 大類法規標題容器 -->
           <div id="laws-container" class="space-y-3"></div>
         </section>
 
-        <!-- 右邊：重點工作（只保留純科室名稱） -->
+        <!-- 右邊：重點工作（點擊開啟子網頁） -->
         <section id="section-tasks" class="space-y-4">
           <div class="flex items-center justify-between pb-2 border-b border-slate-200">
             <div class="flex items-center gap-2">
@@ -90,10 +82,9 @@
               <h3 class="text-base font-bold text-slate-800">重點工作（科室）</h3>
               <span id="tasks-count" class="text-xs bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full font-medium">共 11 科室</span>
             </div>
-            <span class="text-xs text-slate-400">局端業務科室</span>
+            <span class="text-xs text-slate-400">點擊科室進入詳細頁面</span>
           </div>
 
-          <!-- 純科室清單容器 -->
           <div id="tasks-container" class="space-y-3"></div>
         </section>
 
@@ -107,49 +98,46 @@
   </div>
 
   <script>
-    // 左邊：法規 11 大類目錄
+    // 11 大類目錄（設定跳轉網址 link）
     const lawsCategories = [
-      { id: "law-01", title: "一、組織編制、員額基準、授課時數", icon: "fa-users-gear" },
-      { id: "law-02", title: "二、課程與教學", icon: "fa-book-open-reader" },
-      { id: "law-03", title: "三、常態編班、正常教學", icon: "fa-chalkboard-user" },
-      { id: "law-04", title: "四、新生入學、學籍管理、成績評量", icon: "fa-id-card-clip" },
-      { id: "law-05", title: "五、教師聘任、兼任代課、代理、權利義務、教師甄選等", icon: "fa-user-tie" },
-      { id: "law-06", title: "六、教師研習、進修、請假", icon: "fa-calendar-check" },
-      { id: "law-07", title: "七、課後照顧、寒暑假學藝活動", icon: "fa-sun" },
-      { id: "law-08", title: "八、特殊教育、技藝教育、補習進修學校", icon: "fa-hand-holding-heart" },
-      { id: "law-09", title: "九、高級中等教育、職業教育、實習課程、技能檢定、職業安全", icon: "fa-wrench" },
-      { id: "law-10", title: "十、實驗教育", icon: "fa-flask-vial" },
-      { id: "law-11", title: "十一、其它", icon: "fa-folder-open" }
+      { id: "law-01", title: "一、組織編制、員額基準、授課時數", icon: "fa-users-gear", link: "law-01.html" },
+      { id: "law-02", title: "二、課程與教學", icon: "fa-book-open-reader", link: "law-02.html" },
+      { id: "law-03", title: "三、常態編班、正常教學", icon: "fa-chalkboard-user", link: "law-03.html" },
+      { id: "law-04", title: "四、新生入學、學籍管理、成績評量", icon: "fa-id-card-clip", link: "law-04.html" },
+      { id: "law-05", title: "五、教師聘任、兼任代課、代理、權利義務、教師甄選等", icon: "fa-user-tie", link: "law-05.html" },
+      { id: "law-06", title: "六、教師研習、進修、請假", icon: "fa-calendar-check", link: "law-06.html" },
+      { id: "law-07", title: "七、課後照顧、寒暑假學藝活動", icon: "fa-sun", link: "law-07.html" },
+      { id: "law-08", title: "八、特殊教育、技藝教育、補習進修學校", icon: "fa-hand-holding-heart", link: "law-08.html" },
+      { id: "law-09", title: "九、高級中等教育、職業教育、實習課程、技能檢定、職業安全", icon: "fa-wrench", link: "law-09.html" },
+      { id: "law-10", title: "十、實驗教育", icon: "fa-flask-vial", link: "law-10.html" },
+      { id: "law-11", title: "十一、其它", icon: "fa-folder-open", link: "law-11.html" }
     ];
 
-    // 右邊：純科室清單（不帶數字、不帶多餘字句）
+    // 11 個科室清單（設定跳轉網址 link）
     const deptList = [
-      { name: "小教科", icon: "fa-child" },
-      { name: "中教科", icon: "fa-school" },
-      { name: "技職科", icon: "fa-gears" },
-      { name: "特教科", icon: "fa-heart" },
-      { name: "社教科", icon: "fa-users" },
-      { name: "衛環科", icon: "fa-seedling" },
-      { name: "教資科", icon: "fa-laptop-code" },
-      { name: "新民科", icon: "fa-globe" },
-      { name: "政風室", icon: "fa-shield-halved" },
-      { name: "校安室", icon: "fa-bell" },
-      { name: "家庭教育中心", icon: "fa-house-chimney-window" }
+      { name: "小教科", icon: "fa-child", link: "dept-01.html" },
+      { name: "中教科", icon: "fa-school", link: "dept-02.html" },
+      { name: "技職科", icon: "fa-gears", link: "dept-03.html" },
+      { name: "特教科", icon: "fa-heart", link: "dept-04.html" },
+      { name: "社教科", icon: "fa-users", link: "dept-05.html" },
+      { name: "衛環科", icon: "fa-seedling", link: "dept-06.html" },
+      { name: "教資科", icon: "fa-laptop-code", link: "dept-07.html" },
+      { name: "新民科", icon: "fa-globe", link: "dept-08.html" },
+      { name: "政風室", icon: "fa-shield-halved", link: "dept-09.html" },
+      { name: "校安室", icon: "fa-bell", link: "dept-10.html" },
+      { name: "家庭教育中心", icon: "fa-house-chimney-window", link: "dept-11.html" }
     ];
-
-    let currentView = 'all';
 
     function setView(view) {
-      currentView = view;
       document.getElementById('btn-all').className = view === 'all' 
         ? 'px-3 py-1.5 rounded-lg transition bg-white shadow text-blue-600 font-semibold' 
         : 'px-3 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900';
       document.getElementById('btn-laws').className = view === 'laws' 
-        ? 'px-3 py-1.5 rounded-lg transition bg-white shadow text-blue-600 font-semibold flex items-center gap-1' 
-        : 'px-3 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900 flex items-center gap-1';
+        ? 'px-3 py-1.5 rounded-lg transition bg-white shadow text-blue-600 font-semibold' 
+        : 'px-3 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900';
       document.getElementById('btn-tasks').className = view === 'tasks' 
-        ? 'px-3 py-1.5 rounded-lg transition bg-white shadow text-blue-600 font-semibold flex items-center gap-1' 
-        : 'px-3 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900 flex items-center gap-1';
+        ? 'px-3 py-1.5 rounded-lg transition bg-white shadow text-blue-600 font-semibold' 
+        : 'px-3 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900';
 
       const secLaws = document.getElementById('section-laws');
       const secTasks = document.getElementById('section-tasks');
@@ -173,50 +161,45 @@
       const lawsContainer = document.getElementById('laws-container');
       const tasksContainer = document.getElementById('tasks-container');
 
-      // 渲染左邊：法規 11 大類標題
+      // 渲染左邊（帶有超連結標籤 <a>）
       const filteredLaws = lawsCategories.filter(cat => q === '' || cat.title.toLowerCase().includes(q));
-
-      lawsContainer.innerHTML = filteredLaws.map(cat => {
-        return `
-          <div class="bg-white rounded-xl border border-slate-200/90 shadow-sm p-4 hover:border-blue-400 hover:shadow-md transition cursor-pointer">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-3">
-                <span class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-sm flex-shrink-0">
-                  <i class="fa-solid ${cat.icon}"></i>
-                </span>
-                <h4 class="font-bold text-slate-900 text-sm md:text-base leading-snug">${cat.title}</h4>
-              </div>
-              <span class="text-xs text-slate-400 font-medium ml-2 flex-shrink-0">整理中</span>
+      lawsContainer.innerHTML = filteredLaws.map(cat => `
+        <a href="${cat.link}" class="block bg-white rounded-xl border border-slate-200/90 shadow-sm p-4 hover:border-blue-500 hover:shadow-md transition group">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-sm group-hover:bg-blue-600 group-hover:text-white transition">
+                <i class="fa-solid ${cat.icon}"></i>
+              </span>
+              <h4 class="font-bold text-slate-900 text-sm md:text-base leading-snug group-hover:text-blue-600 transition">${cat.title}</h4>
+            </div>
+            <div class="flex items-center gap-1.5 text-slate-400 group-hover:text-blue-600 text-xs">
+              <span>前往查閱</span>
+              <i class="fa-solid fa-arrow-right text-[11px]"></i>
             </div>
           </div>
-        `;
-      }).join('');
+        </a>
+      `).join('');
 
-      // 渲染右邊：純科室名稱卡片
+      // 渲染右邊（帶有超連結標籤 <a>）
       const filteredDepts = deptList.filter(d => q === '' || d.name.toLowerCase().includes(q));
-
       document.getElementById('tasks-count').innerText = `${filteredDepts.length} 科室`;
 
-      if (filteredDepts.length === 0) {
-        tasksContainer.innerHTML = `<div class="p-8 text-center text-slate-400 bg-white rounded-xl border border-dashed border-slate-200">查無此科室</div>`;
-        return;
-      }
-
-      tasksContainer.innerHTML = filteredDepts.map(d => {
-        return `
-          <div class="bg-white rounded-xl border border-slate-200/90 shadow-sm p-4 hover:border-emerald-400 hover:shadow-md transition cursor-pointer">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-3">
-                <span class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center text-sm flex-shrink-0">
-                  <i class="fa-solid ${d.icon}"></i>
-                </span>
-                <h4 class="font-bold text-slate-900 text-base leading-snug">${d.name}</h4>
-              </div>
-              <span class="text-xs text-slate-400 font-medium ml-2 flex-shrink-0">整理中</span>
+      tasksContainer.innerHTML = filteredDepts.map(d => `
+        <a href="${d.link}" class="block bg-white rounded-xl border border-slate-200/90 shadow-sm p-4 hover:border-emerald-500 hover:shadow-md transition group">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center text-sm group-hover:bg-emerald-600 group-hover:text-white transition">
+                <i class="fa-solid ${d.icon}"></i>
+              </span>
+              <h4 class="font-bold text-slate-900 text-base leading-snug group-hover:text-emerald-700 transition">${d.name}</h4>
+            </div>
+            <div class="flex items-center gap-1.5 text-slate-400 group-hover:text-emerald-700 text-xs">
+              <span>前往查閱</span>
+              <i class="fa-solid fa-arrow-right text-[11px]"></i>
             </div>
           </div>
-        `;
-      }).join('');
+        </a>
+      `).join('');
     }
 
     function handleSearch() {
