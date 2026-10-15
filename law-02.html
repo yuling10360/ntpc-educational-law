@@ -4376,6 +4376,47 @@
    }else{
      bodyEl.textContent=finalText;
    }
+   // 指定法規：加入使用者提供的「共同不排課時段與教學研究會時間表」圖表內容
+   if(i===4){
+     bodyEl.insertAdjacentHTML('beforeend', `
+       <section class="mt-8 rounded-xl border border-slate-200 bg-white p-4 sm:p-6 shadow-sm" aria-label="共同不排課時段與教學研究會時間表">
+         <div class="mx-auto max-w-4xl">
+           <h3 class="text-center text-xl sm:text-2xl font-bold leading-relaxed text-slate-900 mb-5">新北市 114 學年度高級中等學校各學習領域<br class="hidden sm:block">教師共同不排課時段與教學研究會時間表</h3>
+           <div class="overflow-x-auto">
+             <table class="w-full border-collapse text-sm sm:text-base text-center text-slate-800" style="min-width:540px">
+               <thead><tr class="bg-slate-50">
+                 <th class="border-2 border-slate-700 px-2 py-3">序號</th><th class="border-2 border-slate-700 px-2 py-3">部定必修領域</th><th class="border-2 border-slate-700 px-2 py-3">領域教師<br>共同不排課時段</th><th class="border-2 border-slate-700 px-2 py-3">領域研究會<br>時間</th>
+               </tr></thead>
+               <tbody>
+                 <tr><td class="border-2 border-slate-700 p-2">1</td><td class="border-2 border-slate-700 p-2 font-semibold">國文（國語文）</td><td class="border-2 border-slate-700 p-2">星期四下午半天</td><td class="border-2 border-slate-700 p-2">星期四 5–6 節</td></tr>
+                 <tr><td class="border-2 border-slate-700 p-2">2</td><td class="border-2 border-slate-700 p-2 font-semibold">英文（英語文）</td><td class="border-2 border-slate-700 p-2">星期一下午半天</td><td class="border-2 border-slate-700 p-2">星期一 5–6 節</td></tr>
+                 <tr><td class="border-2 border-slate-700 p-2">3</td><td class="border-2 border-slate-700 p-2 font-semibold">數學</td><td class="border-2 border-slate-700 p-2">星期三下午半天</td><td class="border-2 border-slate-700 p-2">星期三 5–6 節</td></tr>
+                 <tr><td class="border-2 border-slate-700 p-2">4</td><td class="border-2 border-slate-700 p-2 font-semibold">社會</td><td class="border-2 border-slate-700 p-2">星期三上午半天</td><td class="border-2 border-slate-700 p-2">星期三 3–4 節</td></tr>
+                 <tr><td class="border-2 border-slate-700 p-2">5</td><td class="border-2 border-slate-700 p-2 font-semibold">自然（自然科學）領域</td><td class="border-2 border-slate-700 p-2">星期二下午半天</td><td class="border-2 border-slate-700 p-2">星期二 5–6 節</td></tr>
+                 <tr><td class="border-2 border-slate-700 p-2">6</td><td class="border-2 border-slate-700 p-2 font-semibold">藝術、生活（綜合活動）、科技、健康與體育</td><td class="border-2 border-slate-700 p-2">星期二上午半天</td><td class="border-2 border-slate-700 p-2">星期二 3–4 節</td></tr>
+                 <tr><td class="border-2 border-slate-700 p-2">7</td><td class="border-2 border-slate-700 p-2 font-semibold">全民國防教育</td><td class="border-2 border-slate-700 p-2">星期四上午半天</td><td class="border-2 border-slate-700 p-2">星期四 3–4 節</td></tr>
+               </tbody>
+             </table>
+           </div>
+           <h4 class="font-bold mt-6 mb-2 text-slate-900">※ 各學習領域教師共同不排課時段：</h4>
+           <div class="overflow-x-auto">
+             <table class="w-full border-collapse text-sm text-center text-slate-800" style="min-width:540px">
+               <thead><tr><th class="border border-slate-700 p-2 bg-slate-50">星期</th><th class="border border-slate-700 p-2 bg-slate-50">一</th><th class="border border-slate-700 p-2 bg-slate-50">二</th><th class="border border-slate-700 p-2 bg-slate-50">三</th><th class="border border-slate-700 p-2 bg-slate-50">四</th><th class="border border-slate-700 p-2 bg-slate-50">五</th></tr></thead>
+               <tbody>
+                 <tr><th class="border border-slate-700 p-2 bg-slate-50">上午</th><td class="border border-slate-700 p-2"></td><td class="border border-slate-700 p-2">藝術、生活（綜合活動）、科技、健康與體育</td><td class="border border-slate-700 p-2">社會</td><td class="border border-slate-700 p-2">全民國防教育</td><td class="border border-slate-700 p-2"></td></tr>
+                 <tr><th class="border border-slate-700 p-2 bg-slate-50">下午</th><td class="border border-slate-700 p-2 font-semibold">英文（英語文）</td><td class="border border-slate-700 p-2 font-semibold">自然（自然科學）</td><td class="border border-slate-700 p-2 font-semibold">數學</td><td class="border border-slate-700 p-2 font-semibold">國文（國語文）</td><td class="border border-slate-700 p-2"></td></tr>
+               </tbody>
+             </table>
+           </div>
+           <div class="mt-5 text-sm leading-7 text-slate-700">
+             <p class="font-bold mb-1">備註：</p>
+             <p>一、請各普通型高級中等學校依本表內容安排各領域教師共同不排課時段，俾利本市教師教學支持系統「課程發展中心」與教育部普通高中學科中心、新北市教師教學支持系統之連結與運作。</p>
+             <p>二、另綜合型及技術型高級中等學校請依本表內容安排各領域教師共同不排課時段，惟各校得依行政或課務之實際情形調整。</p>
+             <p>三、括弧內文字為十二年國民基本教育課程綱要適用之名稱。</p>
+           </div>
+         </div>
+       </section>`);
+   }
    // 沿革欄在來源中也會被窄欄換行，先合併成完整句，再按每次修正分項。
    let historyText=history.join(' ').replace(/\s+/g,' ').trim();
    historyText=historyText.replace(/\s+(?=\d+\.)/g,'\n\n');
