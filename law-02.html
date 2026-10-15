@@ -1,1 +1,59 @@
-
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>二、課程與教學 - 新北市115學年度教務行政法規手冊</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<style>@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');body{font-family:'Noto Sans TC',sans-serif}</style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm"><div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-3"><a href="index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-blue-600"><i class="fa-solid fa-arrow-left"></i> 返回手冊目錄</a><span class="text-xs bg-blue-50 text-blue-700 font-semibold px-2.5 py-1 rounded-full border border-blue-200">第二類法規查閱</span></div></header>
+<section class="bg-gradient-to-r from-slate-900 via-indigo-950 to-blue-900 text-white py-8 px-4"><div class="max-w-7xl mx-auto space-y-3"><div class="inline-flex items-center gap-2 text-blue-300 text-xs font-semibold"><i class="fa-solid fa-book-open-reader"></i> 法規章節</div><h1 class="text-2xl md:text-3xl font-extrabold">二、課程與教學</h1><p class="text-xs md:text-sm text-slate-300">請從左側選取項目，查看手冊目錄所列標題與頁碼。</p><div class="relative max-w-xl pt-1"><i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i><input id="searchInput" type="search" oninput="render()" placeholder="搜尋法規名稱或關鍵字" class="w-full pl-11 pr-4 py-3 bg-white text-slate-800 rounded-2xl shadow-lg outline-none text-sm"></div></div></section>
+<main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start"><aside class="lg:col-span-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] overflow-y-auto"><div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3"><h2 class="text-xs font-bold text-slate-500">點選項目查閱</h2><span id="count" class="text-[11px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full font-semibold">共36項</span></div><div id="lawList" class="space-y-1 text-xs"></div><p id="none" class="hidden text-sm text-slate-500 py-4">找不到符合的項目。</p></aside>
+<section class="lg:col-span-8 bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm min-h-[500px]"><div id="detail"></div><div class="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900 leading-relaxed"><i class="fa-solid fa-circle-info mr-1"></i>本頁依您提供的《00.目錄.docx》建置標題與手冊頁碼。目錄檔未包含法規全文，因此目前不會自行補寫條文；若要顯示完整條文及法規沿革，請再提供手冊正文或法規內容。</div></section></main>
+<footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500 mt-12">新北市立中等學校法規彙編與重點工作指引平台</footer>
+<script>
+const laws = [
+["高級中等學校教科用書審定辦法",68],
+["高級中等學校教科用書採購應行注意事項",71],
+["高級中等學校群科學程設立變更停辦辦法",72],
+["高級中等學校學生校外學習成就或教育訓練之學分及成績採計要點",74],
+["新北市114學年度高級中等學校各學習領域教師共同不排課時段與教學研究會時間表",77],
+["教師有依學校所安排課程實施教學之義務",78],
+["新北市各國民中小學評選採購教科書應行注意事項",79],
+["新北市國民小學及國民中學藝能及活動科目教科圖書免費借用實施要點",80],
+["自九十一學年度起，有關本縣國中小「學校舉辦畢業典禮補假事宜」，請依下列規定辦理",81],
+["辦理學校暨社區聯合運動會補假事宜",81],
+["為訂定本市各級學校因應重大活動調整補假原則",81],
+["高級中等學校辦理戶外教育實施原則",82],
+["教育部國民及學前教育署補助高級中等學校辦理戶外教育要點",84],
+["新北市各級學校辦理校外教學活動注意事項",86],
+["本市各國民中小學辦理校外教學活動，每學年最低教學時數之相關規範",86],
+["新北市政府教育局國民教育地方輔導團設置及運作要點",86],
+["公告本市115學年度「國民教育輔導團各分團團務時間」、「國民中小學行政人員共同不排課時間」、「國民中學各領域教師共同不排課時段與教學研究會時間」及「國小部份領域教師建議不排課時間」，請查照。",91],
+["原住民族教育法",95],
+["高級中等以下學校規劃及實施臺灣手語課程應注意事項",105],
+["新北市公立國民中小學教育實驗辦法",107],
+["高級中等學校課程規劃及實施要點",109],
+["高級中等學校課程諮詢教師設置要點",113],
+["新北市政府教育局高級中等學校課程諮詢教師設置要點",114],
+["高級中等學校課程評鑑實施要點",115],
+["有關因應十二年國民基本教育課程綱要新設科技領域，請各公私立國中於校內課程發展相關會議納入科技領域教師代表",116],
+["校外人士協助高級中等以下學校教學或活動注意事項",116],
+["十二年國民基本教育課程綱要",118],
+["十二年國民基本教育課程綱要前導學校暨機構作業要點",118],
+["家庭教育法",121],
+["藝術教育法",125],
+["藝術教育法施行細則",128],
+["教育部國民及學前教育署補助高級中等以下學校辦理藝術教育作業要點",130],
+["教育部國民及學前教育署專案補助中小學科學教育計畫申請作業要點",132],
+["教育部補助國際數理學科奧林匹亞競賽及國際科學展覽成績優良學生出國參加國際學術會議作業要點",136],
+["參加國際數理學科奧林匹亞競賽及國際科學展覽成績優良學生出國留學獎學金申請要點",140],
+["教育部國民及學前教育署補助高級中等以下學校推動國際教育經費作業要點",145]
+];
+let active=0;
+function render(){const q=document.getElementById('searchInput').value.trim().toLocaleLowerCase();const matches=laws.map((x,i)=>({x,i})).filter(o=>!q||o.x[0].toLocaleLowerCase().includes(q)||String(o.x[1]).includes(q));document.getElementById('count').textContent=q?'符合 '+matches.length+' / '+laws.length+' 項':'共 '+laws.length+' 項';document.getElementById('none').classList.toggle('hidden',matches.length>0);document.getElementById('lawList').innerHTML=matches.map(o=>'<button onclick="choose('+o.i+')" class="w-full text-left p-2.5 rounded-xl transition flex items-start justify-between gap-2 '+(o.i===active?'bg-blue-600 text-white font-bold shadow-sm':'text-slate-700 hover:bg-slate-100')+'"><span class="leading-relaxed">'+(o.i+1)+'. '+o.x[0]+'</span><span class="shrink-0 text-[10px] '+(o.i===active?'text-white':'text-slate-400')+'">'+o.x[1]+'頁</span></button>').join('');if(matches.length){const x=laws[active]||matches[0].x;document.getElementById('detail').innerHTML='<div class="border-b border-slate-200 pb-3"><span class="text-xs font-semibold px-2.5 py-1 rounded bg-blue-50 text-blue-700 border border-blue-200">課程與教學｜目錄項目</span><h2 class="text-xl md:text-2xl font-bold text-slate-900 mt-3 leading-snug">'+x[0]+'</h2><p class="text-sm text-slate-500 mt-3"><i class="fa-regular fa-file-lines mr-1"></i>手冊頁碼：第 '+x[1]+' 頁</p></div><div class="rounded-xl bg-slate-50 border border-slate-200 p-5 mt-5"><p class="text-sm text-slate-600 leading-7">此項目已依提供之手冊目錄建檔。請以手冊正文及最新正式法規資料確認完整條文。</p></div>';}else{document.getElementById('detail').innerHTML='';}}
+function choose(i){active=i;render();if(window.innerWidth<1024)document.getElementById('detail').scrollIntoView({behavior:'smooth',block:'start'});}
+render();
+</script></body></html>
