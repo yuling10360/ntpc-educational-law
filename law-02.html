@@ -4386,8 +4386,21 @@
 '　(一)本署於補助期間得依需要組成訪視小組，實際訪視督導實施成效，其訪視結果得作為下年度補助之依據。',
 '　(二)執行本要點項目之承辦績優人員，得予以獎勵。',
 '　(三)受補助計畫之項目執行結束後，受補助之直轄市、縣（市）政府及學校應提出成果報告書；其報告書格式，由本署定之。'
-     ].join('\\n');
-     bodyEl.textContent = finalText;
+     ];
+     // 使用分層區塊與懸掛縮排，避免 whitespace-pre-line 折疊全形空白造成項次錯位。
+     const escapeHtml = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+     bodyEl.innerHTML = finalText.map(line => {
+       if(!line) return '<div style="height:.65em"></div>';
+       const safe = escapeHtml(line);
+       if(/^[一二三四五六七八九十]+、/.test(line))
+         return '<div style="margin-top:.45em;">'+safe+'</div>';
+       if(/^　\(\一|^　\([一二三四五六七八九十]+\)/.test(line))
+         return '<div style="padding-left:2em;text-indent:-1.3em;">'+safe.trimStart()+'</div>';
+       if(/^　　[１-９]+、/.test(line))
+         return '<div style="padding-left:4em;text-indent:-2em;">'+safe.trimStart()+'</div>';
+       return '<div>'+safe+'</div>';
+     }).join('');
+     finalText = finalText.join('\\n');
      history.length=0;
      history.push(
        '1. 中華民國103年4月23日教育部臺教國部字第1030019951B號令訂定發布全文8點，並自即日生效。',
