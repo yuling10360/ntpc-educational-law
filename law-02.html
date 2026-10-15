@@ -4322,6 +4322,7 @@
    const flowed=[];
    const major=/^(?:[一二三四五六七八九十百]+、|\d+[、.．、])/;
    const sub=/^(?:[（(][一二三四五六七八九十百\d]+[）)]|[一二三四五六七八九十百]+、)/;
+   let articleJustAdded=false;
    for(const item of bodyLines){
      const line=item.trim();
      if(!line) continue;
@@ -4329,19 +4330,27 @@
      const isMajor=major.test(line);
      const isSub=sub.test(line);
      if(hasArticles && isArticle){
-       // 條次與本條內文不留空行；上一條內文與下一條條次之間保留一個空行。
+       // 前一條內文與下一條條次留一空行；條次與本條內文不留空行。
        if(flowed.length && flowed[flowed.length-1] !== '') flowed.push('');
        flowed.push(line);
+       articleJustAdded=true;
      }else if(hasArticles && isMajor){
        flowed.push(line);
+       articleJustAdded=false;
      }else if(!hasArticles && (isMajor||isSub)){
-       // 公文格式：主項另起一段，子項縮排呈現；同一段落內因原始欄寬造成的換行由下方合併。
+       // 無條次公文：按項次層級對齊，不額外加大行距。
        if(isMajor && flowed.length) flowed.push('');
        flowed.push(isSub && !isMajor ? '　　'+line : line);
+       articleJustAdded=false;
+     }else if(hasArticles && articleJustAdded){
+       // 條文第一行另起一行，但緊接條次；後續硬換行併入此段。
+       flowed.push(line);
+       articleJustAdded=false;
      }else if(flowed.length && flowed[flowed.length-1] !== ''){
        flowed[flowed.length-1]+=' '+line;
      }else{
        flowed.push(line);
+       articleJustAdded=false;
      }
    }
    const finalText=flowed.join('\n').trim()||'原始文件中未能自動定位此項文字，請核對原始手冊。';
