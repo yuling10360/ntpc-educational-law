@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1120" viewBox="0 0 800 1120">
+<rect width="800" height="1120" fill="#fff"/>
+<style>
+.title{font-family:'Noto Serif TC','Microsoft JhengHei',serif;font-weight:700;font-size:27px;fill:#111;text-anchor:middle}
+.cell{font-family:'Noto Serif TC','Microsoft JhengHei',serif;font-size:17px;fill:#111;text-anchor:middle}
+.bold{font-weight:700}.note{font-family:'Noto Serif TC','Microsoft JhengHei',serif;font-size:15px;fill:#111}
+.grid{stroke:#111;stroke-width:2;fill:none}
+</style>
+<text x="400" y="42" class="title">新北市114學年度高級中等學校各學習領域</text>
+<text x="400" y="76" class="title">教師共同不排課時段與教學研究會時間表</text>
+<g class="grid">
+<rect x="35" y="110" width="730" height="485"/>
+<path d="M105 110V595 M355 110V595 M575 110V595 M35 165H765 M35 220H765 M35 275H765 M35 330H765 M35 385H765 M35 465H765 M35 530H765"/>
+</g>
+<g class="cell bold">
+<text x="70" y="145">序號</text><text x="230" y="145">部定必修領域</text><text x="465" y="137">領域教師</text><text x="465" y="157">共同不排課時段</text><text x="670" y="137">領域研究會</text><text x="670" y="157">時間</text>
+<text x="70" y="200">1</text><text x="230" y="200">國文（國語文）</text><text x="465" y="200">星期四下午半天</text><text x="670" y="200">星期四 5–6 節</text>
+<text x="70" y="255">2</text><text x="230" y="255">英文（英語文）</text><text x="465" y="255">星期一下午半天</text><text x="670" y="255">星期一 5–6 節</text>
+<text x="70" y="310">3</text><text x="230" y="310">數學</text><text x="465" y="310">星期三下午半天</text><text x="670" y="310">星期三 5–6 節</text>
+<text x="70" y="365">4</text><text x="230" y="365">社會</text><text x="465" y="365">星期三上午半天</text><text x="670" y="365">星期三 3–4 節</text>
+<text x="70" y="420">5</text><text x="230" y="420">自然（自然科學）領域</text><text x="465" y="420">星期二下午半天</text><text x="670" y="420">星期二 5–6 節</text>
+<text x="70" y="495">6</text><text x="230" y="425">藝術</text><text x="230" y="447">生活（綜合活動）</text><text x="230" y="469">（科技）</text><text x="230" y="491">健康與體育</text><text x="465" y="495">星期二上午半天</text><text x="670" y="495">星期二 3–4 節</text>
+<text x="70" y="565">7</text><text x="230" y="565">全民國防教育</text><text x="465" y="565">星期四上午半天</text><text x="670" y="565">星期四 3–4 節</text>
+</g>
+<text x="35" y="632" class="note bold">※ 各學習領域教師共同不排課時段：</text>
+<g class="grid"><rect x="35" y="650" width="730" height="245"/><path d="M100 650V895 M100 690H765 M100 790H765 M230 650V895 M360 650V895 M490 650V895 M620 650V895"/></g>
+<g class="cell bold"><text x="67" y="677">星期</text><text x="165" y="677">一</text><text x="295" y="677">二</text><text x="425" y="677">三</text><text x="555" y="677">四</text><text x="690" y="677">五</text><text x="67" y="740">上午</text><text x="295" y="715">藝術</text><text x="295" y="737">生活</text><text x="295" y="759">（綜合活動）</text><text x="295" y="781">（科技）</text><text x="425" y="740">社會</text><text x="555" y="715">全民國防</text><text x="555" y="737">教育</text><text x="165" y="835">英文</text><text x="165" y="857">（英語文）</text><text x="295" y="835">自然</text><text x="295" y="857">（自然科學）</text><text x="425" y="835">數學</text><text x="555" y="835">國文</text><text x="555" y="857">（國語文）</text><text x="67" y="850">下午</text></g>
+<text x="35" y="930" class="note bold">備註：</text>
+<text x="35" y="958" class="note">一、請各普通型高級中等學校依本表內容安排各領域教師共同不排課時段，俾利</text>
+<text x="58" y="982" class="note">本市教師教學支持系統－「課程發展中心」與教育部普通高中學科中心、鄰</text>
+<text x="58" y="1006" class="note">近縣市教師教學支持系統之連結與運作。</text>
+<text x="35" y="1034" class="note">二、另綜合型及技術型高級中等學校請依本表內容安排各領域教師共同不排課時</text>
+<text x="58" y="1058" class="note">段，惟各校得依行政暨課務安排及學校屬性調整。</text>
+<text x="35" y="1086" class="note">三、括弧內文字為十二年國民基本教育課程綱要適用之名稱。</text>
+</svg>
