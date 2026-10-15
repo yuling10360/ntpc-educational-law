@@ -19,24 +19,27 @@
         color: #1e293b;
         text-align: justify;
       }
+      .doc-row { display: grid; grid-template-columns: 2.2em minmax(0, 1fr); align-items: start; column-gap: 0; }
+      .doc-marker { display: block; white-space: nowrap; }
+      .doc-copy { display: block; min-width: 0; }
       .doc-level-1 {
-        margin-top: 1rem;
-        margin-bottom: 0.5rem;
-        padding-left: 2em;
-        text-indent: -2em;
+        margin-top: 0;
+        margin-bottom: 0;
         font-weight: 600;
       }
+      .doc-level-1 + .doc-level-1 { margin-top: 0; }
       .doc-level-2 {
-        margin-top: 0.35rem;
-        padding-left: 3.5em;
-        text-indent: -1.75em;
+        margin-top: 0;
+        padding-left: 1.75em;
+        grid-template-columns: 2em minmax(0, 1fr);
       }
       .doc-level-3 {
-        margin-top: 0.25rem;
-        padding-left: 5em;
-        text-indent: -1.5em;
+        margin-top: 0;
+        padding-left: 3.5em;
+        grid-template-columns: 1.5em minmax(0, 1fr);
         color: #334155;
       }
+      .doc-row-continuation { grid-template-columns: 2.2em minmax(0, 1fr); }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
@@ -4361,10 +4364,14 @@
          if(!line.trim()) return '';
        const t=line.trim();
        // 與第一類 law-01.html 相同的公文排版：doc-level-1/2/3 控制縮排與段落間距。
-       if(/^[一二三四五六七八九十百]+、/.test(t)) return '<div class="doc-level-1">'+safe(t)+'</div>';
-       if(/^[（(][一二三四五六七八九十百\d]+[）)]/.test(t)) return '<div class="doc-level-2 font-medium">'+safe(t)+'</div>';
-       if(/^\d+[、.．]/.test(t)) return '<div class="doc-level-3">'+safe(t)+'</div>';
-       return '<div class="doc-level-1">'+safe(t)+'</div>';
+       const majorMatch=t.match(/^([一二三四五六七八九十百]+、)(.*)$/);
+       const subMatch=t.match(/^([（(][一二三四五六七八九十百\d]+[）)])(.*)$/);
+       const numMatch=t.match(/^(\d+[、.．])(.*)$/);
+       // 編號與文字分欄：所有項目的文字起點固定，換行後也與文字對齊。
+       if(majorMatch) return '<div class="doc-row doc-level-1"><span class="doc-marker">'+safe(majorMatch[1])+'</span><span class="doc-copy">'+safe(majorMatch[2].trimStart())+'</span></div>';
+       if(subMatch) return '<div class="doc-row doc-level-2 font-medium"><span class="doc-marker">'+safe(subMatch[1])+'</span><span class="doc-copy">'+safe(subMatch[2].trimStart())+'</span></div>';
+       if(numMatch) return '<div class="doc-row doc-level-3"><span class="doc-marker">'+safe(numMatch[1])+'</span><span class="doc-copy">'+safe(numMatch[2].trimStart())+'</span></div>';
+       return '<div class="doc-row doc-level-1 doc-row-continuation"><span class="doc-marker"></span><span class="doc-copy">'+safe(t)+'</span></div>';
      }).join('');
    }else{
      bodyEl.textContent=finalText;
