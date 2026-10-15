@@ -63,4 +63,210 @@
       </div>
     </section>
 
-    <!-- 主
+    <!-- 主體內容區塊（純雙欄） -->
+    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+
+        <!-- 欄位 A：法規彙編（依 11 大類標題分組展示） -->
+        <section id="section-laws" class="space-y-4">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+            <div class="flex items-center gap-2">
+              <span class="p-1.5 bg-blue-100 text-blue-700 rounded-lg"><i class="fa-solid fa-book-bookmark text-sm"></i></span>
+              <h3 class="text-base font-bold text-slate-800">法規彙編</h3>
+              <span class="text-xs bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full font-medium">共 11 大類</span>
+            </div>
+            <span class="text-xs text-slate-400">依手冊目錄章節分類</span>
+          </div>
+
+          <!-- 11 大類別容器 -->
+          <div id="laws-categories-container" class="space-y-4"></div>
+        </section>
+
+        <!-- 欄位 B：重點工作 -->
+        <section id="section-tasks" class="space-y-4">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+            <div class="flex items-center gap-2">
+              <span class="p-1.5 bg-emerald-100 text-emerald-700 rounded-lg"><i class="fa-solid fa-list-check text-sm"></i></span>
+              <h3 class="text-base font-bold text-slate-800">重點工作指引</h3>
+              <span id="tasks-count" class="text-xs bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full font-medium">0 項</span>
+            </div>
+            <span class="text-xs text-slate-400">依時程與承辦處室落實執行</span>
+          </div>
+
+          <!-- 工作項目容器 -->
+          <div id="tasks-container" class="space-y-3"></div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- 頁尾 -->
+    <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500 mt-12">
+      <p>新北市立中等學校法規彙編與重點工作指引平台 ｜ 依據新北市政府教育局及教育部相關法規手冊編修</p>
+    </footer>
+  </div>
+
+  <script>
+    // 嚴格對應手冊目錄的 11 大分類標題
+    const categoriesList = [
+      { id: "cat-01", title: "一、組織編制、員額基準、授課時數", icon: "fa-users-gear" },
+      { id: "cat-02", title: "二、課程與教學", icon: "fa-book-open-reader" },
+      { id: "cat-03", title: "三、常態編班、正常教學", icon: "fa-chalkboard-user" },
+      { id: "cat-04", title: "四、新生入學、學籍管理、成績評量", icon: "fa-id-card-clip" },
+      { id: "cat-05", title: "五、教師聘任、兼任代課、代理、權利義務、教師甄選等", icon: "fa-user-tie" },
+      { id: "cat-06", title: "六、教師研習、進修、請假", icon: "fa-calendar-check" },
+      { id: "cat-07", title: "七、課後照顧、寒暑假學藝活動", icon: "fa-sun" },
+      { id: "cat-08", title: "八、特殊教育、技藝教育、補習進修學校", icon: "fa-hand-holding-heart" },
+      { id: "cat-09", title: "九、高級中等教育、職業教育、實習課程、技能檢定、職業安全", icon: "fa-wrench" },
+      { id: "cat-10", title: "十、實驗教育", icon: "fa-flask-vial" },
+      { id: "cat-11", title: "十一、其它", icon: "fa-folder-open" }
+    ];
+
+    // 重點工作資料示例
+    const tasksData = [
+      {
+        id: "task-01",
+        dept: "教務處教學組",
+        timeline: "開學前及開學後1個月內",
+        priority: "緊急",
+        title: "全校教師課表編排與超時鐘點費核算",
+        desc: "依專長排課並依每週教學節數標準核算超時授課節數，造冊報支鐘點費。",
+        law: "新北市立高級中等學校教師每週教學節數標準"
+      },
+      {
+        id: "task-02",
+        dept: "人事室 / 校長室",
+        timeline: "每學年度開始前（6-7月）",
+        priority: "高",
+        title: "處室二級組別設置與行政主管聘兼",
+        desc: "檢視班級數規模與組數上限，辦理兼行政主管教師簽聘作業。",
+        law: "新北市立高級中等學校組織規程準則"
+      },
+      {
+        id: "task-03",
+        dept: "教務處註冊組 / 學務處",
+        timeline: "每年7月至8月中旬",
+        priority: "緊急",
+        title: "新生常態編班與導師公開抽籤作業",
+        desc: "落實S型排列或電腦亂數編班，邀請家長與教師會代表到場公開抽籤導師並公告名冊至少15日。",
+        law: "國民小學及國民中學常態編班及分組學習準則"
+      },
+      {
+        id: "task-04",
+        dept: "人事室 / 教務處",
+        timeline: "每年6月至8月（開學前完成）",
+        priority: "緊急",
+        title: "代理代課教師公開甄選與聘約簽訂",
+        desc: "經教評會通過辦理三階段公開招考，給予一學年或一學期之完整聘期並依法敘薪。",
+        law: "高級中等以下學校兼任代課及代理教師聘任辦法"
+      }
+    ];
+
+    let currentView = 'all';
+
+    function setView(view) {
+      currentView = view;
+      document.getElementById('btn-all').className = view === 'all' 
+        ? 'px-3 py-1.5 rounded-lg transition bg-white shadow text-blue-600 font-semibold' 
+        : 'px-3 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900';
+      document.getElementById('btn-laws').className = view === 'laws' 
+        ? 'px-3 py-1.5 rounded-lg transition bg-white shadow text-blue-600 font-semibold flex items-center gap-1' 
+        : 'px-3 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900 flex items-center gap-1';
+      document.getElementById('btn-tasks').className = view === 'tasks' 
+        ? 'px-3 py-1.5 rounded-lg transition bg-white shadow text-blue-600 font-semibold flex items-center gap-1' 
+        : 'px-3 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900 flex items-center gap-1';
+
+      const secLaws = document.getElementById('section-laws');
+      const secTasks = document.getElementById('section-tasks');
+
+      if (view === 'all') {
+        secLaws.classList.remove('hidden', 'lg:col-span-2');
+        secTasks.classList.remove('hidden', 'lg:col-span-2');
+      } else if (view === 'laws') {
+        secLaws.classList.remove('hidden');
+        secLaws.classList.add('lg:col-span-2');
+        secTasks.classList.add('hidden');
+      } else if (view === 'tasks') {
+        secLaws.classList.add('hidden');
+        secTasks.classList.remove('hidden');
+        secTasks.classList.add('lg:col-span-2');
+      }
+    }
+
+    function badgeColor(priority) {
+      if (priority === '緊急') return 'bg-rose-100 text-rose-700';
+      if (priority === '高') return 'bg-amber-100 text-amber-700';
+      return 'bg-blue-100 text-blue-700';
+    }
+
+    function renderPage() {
+      const q = (document.getElementById('searchInput').value || '').toLowerCase().trim();
+      const lawsContainer = document.getElementById('laws-categories-container');
+      const tasksContainer = document.getElementById('tasks-container');
+
+      // 渲染 11 大類別標題卡片
+      const filteredCategories = categoriesList.filter(cat => q === '' || cat.title.toLowerCase().includes(q));
+
+      lawsContainer.innerHTML = filteredCategories.map(cat => {
+        return `
+          <div class="bg-white rounded-xl border border-slate-200/90 shadow-sm p-4 hover:border-blue-300 transition">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <span class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-sm">
+                  <i class="fa-solid ${cat.icon}"></i>
+                </span>
+                <h4 class="font-bold text-slate-900 text-sm md:text-base">${cat.title}</h4>
+              </div>
+              <span class="text-xs text-slate-400 font-medium">整理中</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // 渲染重點工作卡片
+      const filteredTasks = tasksData.filter(t => 
+        q === '' || 
+        t.title.toLowerCase().includes(q) || 
+        t.desc.toLowerCase().includes(q) || 
+        t.dept.toLowerCase().includes(q) || 
+        t.law.toLowerCase().includes(q)
+      );
+
+      document.getElementById('tasks-count').innerText = `${filteredTasks.length} 項`;
+
+      tasksContainer.innerHTML = filteredTasks.map(task => {
+        return `
+          <div class="bg-white p-4 rounded-xl border border-slate-200/90 shadow-sm hover:shadow transition space-y-3">
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="text-[11px] font-semibold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">${task.dept}</span>
+                <span class="text-[11px] font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded"><i class="fa-regular fa-clock mr-1"></i>${task.timeline}</span>
+              </div>
+              <span class="text-[10px] px-2 py-0.5 rounded-full font-bold ${badgeColor(task.priority)}">${task.priority}優先度</span>
+            </div>
+            <div>
+              <h4 class="font-bold text-slate-900 text-sm md:text-base">${task.title}</h4>
+              <p class="text-xs text-slate-600 mt-1 leading-relaxed">${task.desc}</p>
+            </div>
+            <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+              <div class="text-slate-500 flex items-center gap-1">
+                <i class="fa-solid fa-scale-balanced text-emerald-600"></i>
+                <span>法源依據：</span>
+                <span class="font-medium text-slate-800 underline decoration-emerald-400 decoration-2">${task.law}</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function handleSearch() {
+      renderPage();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderPage();
+    });
+  </script>
+</body>
+</html>
