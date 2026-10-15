@@ -4270,22 +4270,18 @@
  function norm(s){return s.replace(/\s+/g,' ').trim();}
  function findStart(i){
    const prefix=(i+1)+'.';
-   const title=norm(titles[i]).replace(/^17\./,'');
-   const keys=[title.slice(0,14),title.slice(0,8)];
+   const compact=x=>x.replace(/\\s+/g,'');
+   const title=compact(titles[i]).replace(/^17\\./,'');
+   const keys=[title.slice(0,18),title.slice(0,10)];
    for(let j=0;j<lines.length;j++){
      const line=lines[j].trim();
-     if(!line.startsWith(prefix)) continue;
-     const normalized=norm(line);
-     if(keys.some(key=>key && normalized.includes(key))) return j;
+     if(line.startsWith(prefix) && keys.some(key=>key && compact(line).includes(key))) return j;
    }
-   const fallback={
-     4:'共同不排課時段與教學研',
-     16:'公告本市115學年度'
-   }[i];
+   const fallback={4:'共同不排課時段與教學研',16:'公告本市115學年度'}[i];
    if(fallback){
      for(let j=0;j<lines.length;j++){
        const line=lines[j].trim();
-       if(line.startsWith(prefix) && norm(line).includes(fallback)) return j;
+       if(line.startsWith(prefix) && compact(line).includes(compact(fallback))) return j;
      }
    }
    return -1;
