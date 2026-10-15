@@ -4390,10 +4390,10 @@
    if(i===0){
      const esc = x => x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
      const structuredFeeText=finalText
-       .replace(/(高級中等學校教科用書審定及修訂費收費數額如下：)/, '$1\\n')
-       .replace(/(一、普通型學校：|二、技術型學校、綜合型學校、單科型學校：)/g, '\\n$1')
-       .replace(/[（(]([一二])([）)])(?=審定：|修訂：)/g, '\\n（$1）');
-     const lines=structuredFeeText.split(/\\n/).map(x=>x.trim()).filter(Boolean);
+       .replace(/(高級中等學校教科用書審定及修訂費收費數額如下：)/, '$1\n')
+       .replace(/(一、普通型學校：|二、技術型學校、綜合型學校、單科型學校：)/g, '\n$1')
+       .replace(/[（(]([一二])([）)])(?=審定：|修訂：)/g, '\n（$1）');
+     const lines=structuredFeeText.split(/\n/).map(x=>x.trim()).filter(Boolean);
      bodyEl.innerHTML=lines.map(line=>{
        if(/^第\s*\d+\s*條(?:之\s*\d+)?$/.test(line))
          return '<div class="font-semibold mt-5 mb-1 text-slate-800">'+esc(line.replace(/\s+/g,' '))+'</div>';
