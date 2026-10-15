@@ -4541,14 +4541,14 @@
 分團召集人應了解輔導員參與教育部及本局辦理之培訓狀況。
 十五、輔導團及分團之辦公及活動處所，由本局指定設置。`;
      const safe=x=>x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-     bodyEl.innerHTML=regulation.split('\\n').map(line=>{
+     bodyEl.innerHTML=regulation.split('\n').map(line=>{
        const t=line.trim();
        if(!t) return '';
        const major=t.match(/^([一二三四五六七八九十百]+、)(.*)$/);
-       const sub=t.match(/^[（(]([一二三四五六七八九十百]+)[）)]\s*(.*)$/);
+       const sub=t.match(/^([（(][一二三四五六七八九十百]+[）)])\s*(.*)$/);
        const num=t.match(/^(\d+、)(.*)$/);
        if(major) return '<div class="doc-row doc-level-1"><span class="doc-marker">'+safe(major[1])+'</span><span class="doc-copy">'+safe(major[2].trim())+'</span></div>';
-       if(sub) return '<div class="doc-row doc-level-2"><span class="doc-marker">'+safe(sub[0].slice(0,3))+'</span><span class="doc-copy">'+safe(sub[2].trim())+'</span></div>';
+       if(sub) return '<div class="doc-row doc-level-2"><span class="doc-marker">'+safe(sub[1])+'</span><span class="doc-copy">'+safe(sub[2].trim())+'</span></div>';
        if(num) return '<div class="doc-row doc-level-3"><span class="doc-marker">'+safe(num[1])+'</span><span class="doc-copy">'+safe(num[2].trim())+'</span></div>';
        return '<div class="doc-row doc-paragraph"><span class="doc-marker"></span><span class="doc-copy">'+safe(t)+'</span></div>';
      }).join('');
