@@ -4352,8 +4352,9 @@
    }else{
      bodyEl.textContent=finalText;
    }
-   // 第十點：先將原始法規中的第十點文字替換為完整條文，再對整份法規統一分層排版。
+   // 第 4 項：保留原始全文，只替換第十點，再統一渲染全文。
    if(i===3){
+     const esc=x=>x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
      const officialSection=[
        "十、學分及成績採計基準如下：",
        "（一）校外學習成就：",
@@ -4377,18 +4378,16 @@
      if(start>=0 && end>=0) finalText=finalText.slice(0,start)+officialSection+'\n'+finalText.slice(end);
      else if(start>=0) finalText=finalText.slice(0,start)+officialSection;
      else finalText=finalText+'\n'+officialSection;
-   }
-   // 第 4 項：保留整份法規其他條文，僅依項次層級排版。
-   if(i===3){
-     const esc=x=>x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+     // 一律以替換後的完整 finalText 重畫內容，避免舊版只顯示第十點。
      const lines=finalText.split('\n').map(x=>x.trim()).filter(Boolean);
      const rendered=[];
-     for(let n=0;n<lines.length;n++){
-       const t=lines[n];
-       if(/^第\s*\d+\s*條(?:之\s*\d+)?$/.test(t)){
-         rendered.push('<div class="font-semibold mt-5 mb-1 text-slate-800">'+esc(t.replace(/\s+/g,' '))+'</div>'); continue;
-       }
+     for(const t of lines){
        const article=t.match(/^(第\s*\d+\s*條(?:之\s*\d+)?)(.*)$/);
+       if(/^第\s*\d+\s*條(?:之\s*\d+)?$/.test(t)){
+         rendered.push('<div class="font-semibold mt-5 mb-1 text-slate-800">'+esc(t.replace(/\s+/g,' '))+'</div>');
+         continue;
+       }
        if(article){
          rendered.push('<div class="font-semibold mt-5 mb-1 text-slate-800">'+esc(article[1].replace(/\s+/g,' '))+'</div>');
          if(article[2].trim()) rendered.push('<div class="doc-row doc-level-1"><span class="doc-marker"></span><span class="doc-copy">'+esc(article[2].trim())+'</span></div>');
