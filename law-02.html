@@ -4269,10 +4269,24 @@
  const historyBox=document.getElementById('lawHistory');
  function norm(s){return s.replace(/\s+/g,' ').trim();}
  function findStart(i){
-   const key=norm(titles[i]).replace(/^17\./,'').slice(0,Math.min(14,norm(titles[i]).length));
+   const prefix=(i+1)+'.';
+   const title=norm(titles[i]).replace(/^17\./,'');
+   const keys=[title.slice(0,14),title.slice(0,8)];
    for(let j=0;j<lines.length;j++){
      const line=lines[j].trim();
-     if(line.startsWith((i+1)+'.') && norm(line).includes(key)) return j;
+     if(!line.startsWith(prefix)) continue;
+     const normalized=norm(line);
+     if(keys.some(key=>key && normalized.includes(key))) return j;
+   }
+   const fallback={
+     4:'共同不排課時段與教學研',
+     16:'公告本市115學年度'
+   }[i];
+   if(fallback){
+     for(let j=0;j<lines.length;j++){
+       const line=lines[j].trim();
+       if(line.startsWith(prefix) && norm(line).includes(fallback)) return j;
+     }
    }
    return -1;
  }
