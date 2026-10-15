@@ -4334,6 +4334,17 @@
      }
    }
    let finalText=flowed.join('\n').trim()||'原始文件中未能自動定位此項文字，請核對原始手冊。';
+   // 第 31 項「教育部國民及學前教育署補助高級中等以下學校辦理藝術教育作業要點」：
+   // 重建第一點，避免原始表格雙欄擷取時漏掉前半句、只留下「規定，特訂定本要點」。
+   if(i===30){
+     finalText=finalText.replace(
+       /一、[\\s\\S]*?(?=\\n\\s*二、)/,
+       '一、教育部國民及學前教育署（以下簡稱本署）為執行藝術教育法第十八條規定，特訂定本要點。'
+     );
+     finalText=finalText.replace(/\\n[ \\t]*\\n(?:[ \\t]*\\n)+/g,'\\n\\n').trim();
+     bodyEl.textContent=finalText;
+   }
+
    // 第 29 項：移除家庭教育法第 1 條中混入的沿革字樣，修復被插入文字切斷的「未規定者」。
    if(i===28){
      finalText=finalText
