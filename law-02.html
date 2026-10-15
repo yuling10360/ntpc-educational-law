@@ -1,26 +1,86 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>二、課程與教學 - 新北市115學年度教務行政法規手冊</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<style>body{font-family:'Noto Sans TC',sans-serif}.law-text{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.85;font-size:.9rem}.law-history{font-size:.75rem;color:#64748b;background:#f8fafc;border-left:3px solid #94a3b8;padding:.5rem .75rem;margin-top:1rem}</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>二、課程與教學 - 新北市115學年度教務行政法規手冊</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome 圖示 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+    body { font-family: 'Noto Sans TC', sans-serif; }
+    .law-panel { display: none; }
+    .law-panel.active { display: block; }
+    .law-history { font-size: 0.75rem; color: #64748b; background-color: #f8fafc; border-left: 3px solid #94a3b8; padding: 0.5rem 0.75rem; margin-top: 1.5rem; }
+  .official-doc {
+        line-height: 2;
+        color: #1e293b;
+        text-align: justify;
+      }
+      .doc-level-1 {
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+        padding-left: 2em;
+        text-indent: -2em;
+        font-weight: 600;
+      }
+      .doc-level-2 {
+        margin-top: 0.35rem;
+        padding-left: 3.5em;
+        text-indent: -1.75em;
+      }
+      .doc-level-3 {
+        margin-top: 0.25rem;
+        padding-left: 5em;
+        text-indent: -1.5em;
+        color: #334155;
+      }
+  </style>
 </head>
-<body class="bg-slate-50 text-slate-800">
-<header class="sticky top-0 z-20 bg-white/95 border-b border-slate-200 shadow-sm">
-<div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
-<a href="index.html" class="text-sm text-slate-600 hover:text-blue-700"><i class="fa-solid fa-arrow-left mr-2"></i>返回手冊目錄</a>
-<span class="text-xs font-bold text-slate-500">第二類規章全文查閱</span>
-</div></header>
-<section class="bg-gradient-to-r from-blue-800 to-indigo-700 text-white">
-<div class="max-w-7xl mx-auto px-4 py-9"><p class="text-blue-100 text-sm mb-2">新北市 115 學年度教務行政法規手冊</p><h1 class="text-2xl md:text-3xl font-bold"><i class="fa-solid fa-book-open-reader mr-3"></i>二、課程與教學</h1><p class="mt-3 text-blue-100 text-sm">依據提供之《02.課程與教學(1151014)》文件整理</p></div></section>
-<main class="max-w-7xl mx-auto px-4 py-6">
-<div class="bg-white rounded-xl border border-slate-200 p-4 mb-5">
-<label for="lawSearch" class="font-bold text-sm block mb-2">搜尋法規內容</label><input id="lawSearch" type="search" placeholder="輸入法規名稱或關鍵字…" class="w-full rounded-lg border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
-<p id="matchCount" class="text-xs text-slate-500 mt-2"></p></div>
-<div class="bg-white rounded-xl border border-slate-200 p-4 md:p-6"><h2 class="font-bold text-lg mb-3">法規原始內容</h2><p class="text-sm text-slate-500 mb-4">以下依原文件文字保留法規標題、條文及日期文號等資訊；搜尋可快速定位關鍵字。</p><pre id="sourceText" class="law-text text-slate-700">二、課程與教學
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+
+  <!-- 頂部返回導覽列 -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <a href="index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-blue-600 transition">
+        <i class="fa-solid fa-arrow-left"></i> 返回手冊目錄
+      </a>
+      <span class="text-xs bg-blue-50 text-blue-700 font-semibold px-2.5 py-1 rounded-full border border-blue-200">
+        第二類規章全文查閱
+      </span>
+    </div>
+  </header>
+
+  <!-- 章節橫幅 -->
+  <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-blue-900 text-white py-8 px-4">
+    <div class="max-w-7xl mx-auto space-y-2">
+      <div class="inline-flex items-center gap-2 text-blue-400 text-xs font-semibold uppercase tracking-wider">
+        <i class="fa-solid fa-book-open-reader"></i> 法規章節
+      </div>
+      <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight">二、課程與教學</h1>
+      <p class="text-xs md:text-sm text-slate-300">請從左側點選法規項目，右側將即時顯示該法規之完整條文與令釋內容</p>
+    </div>
+  </div>
+
+  <!-- 主體內容區塊 -->
+  <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+    <!-- 左側法規點選清單 (Sticky) -->
+    <aside class="lg:col-span-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
+        <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider">點選法規查閱</h3>
+        <span class="text-[11px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full font-semibold">共 36 項目</span>
+      </div>
+      <div id="lawList" class="space-y-1 text-xs"></div>
+    </aside>
+
+    <!-- 右側法規條文展示區 -->
+    <div class="lg:col-span-8 bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm min-h-[500px]">
+      <div id="lawPanels"></div>
+    </div>
+    <pre id="rawSource" class="hidden">二、課程與教學
                                         日期及文號
              法 規 摘 要   內 容             法源簡述/備註
 
@@ -4123,11 +4183,70 @@
                           國際教育經費作業要
                           點」第 3 點附表，並
                           自中華民國 113 年 8
-                          月 1 日生效。</pre></div>
-</main>
-<footer class="text-center text-xs text-slate-500 py-8">新北市教務行政法規手冊｜課程與教學</footer>
-<script>
-const input=document.getElementById('lawSearch'), source=document.getElementById('sourceText'), original=source.textContent, count=document.getElementById('matchCount');
-function search(){const q=input.value.trim();if(!q){source.textContent=original;count.textContent='共 '+(original.match(/(?:^|\\n)\\s*\\d+\\. /g)||[]).length+' 項編號項目；可輸入關鍵字搜尋。';return;}const lines=original.split('\\n');const found=lines.map((line,i)=>({line,i})).filter(x=>x.line.toLowerCase().includes(q.toLowerCase()));source.textContent=found.length?found.map(x=>x.line).join('\\n'):'找不到符合的內容。';count.textContent='找到 '+found.length+' 行符合「'+q+'」的內容。';}
-input.addEventListener('input',search);search();
-</script></body></html>
+                          月 1 日生效。</pre>
+  <!-- 頁尾 -->
+  <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500 mt-12">
+    <p>新北市立中等學校法規彙編與重點工作指引平台 ｜ 依據新北市政府教育局及教育部法規手冊編修</p>
+  </footer>
+
+  <script>
+    const lawTitles = ["高級中等學校教科用書審定辦法","高級中等學校教科用書採購應行注意事項","高級中等學校群科學程設立變更停辦辦法","高級中等學校學生校外學習成就或教育訓練之學分及成績採計要點","新北市114學年度高級中等學校各學習領域教師共同不排課時段與教學研究會時間表","教師有依學校所安排課程實施教學之義務","新北市各國民中小學評選採購教科書應行注意事項","新北市國民小學及國民中學藝能及活動科目教科圖書免費借用實施要點","自九十一學年度起，有關本縣國中小……「學校舉辦畢業典禮補假事宜」，請依下列規定辦理。","辦理學校暨社區聯合運動會補假事宜","為訂定本市各級學校因應重大活動調整補假原則","高級中等學校辦理戶外教育實施原則","教育部國民及學前教育署補助高級中等學校辦理戶外教育要點","新北市各級學校辦理校外教學活動注意事項","本市各國民中小學辦理校外教學活動，每學年最低教學時數之相關規範","新北市政府教育局國民教育地方輔導團設置運作要點","公告本市115學年度「國民教育輔導團各分團團務時間」、「國民中小學行政人員共同不排課時間」及「國民中學各領域教師共同不排課時段與教學研究會時間」及「國小部份領域教師建議不排課時間」，請查照。","原住民族教育法","高級中等以下學校規劃及實施臺灣手語課程應注意事項","新北市公立國民中小學教育實驗辦法","高級中等學校課程規劃及實施要點","高級中等學校課程諮詢教師設置要點","新北市政府教育局高級中等學校課程諮詢教師設置要點","高級中等學校課程評鑑實施要點","有關因應十二年國民基本教育課程綱要新設科技領域，請各公私立國中於校內課程發展相關會議納入科技領域教師代表。","校外人士協助高級中等以下學校教學或活動注意事項","十二年國民基本教育課程綱要","十二年國民基本教育課程綱要前導學校暨機構作業要點","家庭教育法","藝術教育法","藝術教育法施行細則","教育部國民及學前教育署補助高級中等以下學校辦理藝術教育作業要點","教育部國民及學前教育署專案補助中小學科學教育計畫申請作業要點","教育部補助國際數理學科奧林匹亞競賽及國際科學展覽成績優良學生出國參加國際學術會議作業要點","參加國際數理學科奧林匹亞競賽及國際科學展覽成績優良學生出國留學獎學金申請要點","教育部國民及學前教育署補助高級中等以下學校推動國際教育經費作業要點"];
+    const rawText = document.getElementById('rawSource').textContent.replace(/\\r/g,'');
+    const lawList = document.getElementById('lawList');
+    const lawPanels = document.getElementById('lawPanels');
+    function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+    function norm(s){return s.replace(/\\s+/g,' ').trim();}
+    const lines=rawText.split('\\n');
+    const starts=[];
+    lawTitles.forEach((title,idx)=>{
+      const short=title.replace(/^公告本市/,'本市');
+      let found=-1;
+      for(let i=0;i<lines.length;i++){
+        const line=lines[i].trim();
+        if((line.startsWith((idx+1)+'.') || (idx===16 && line.startsWith('17.'))) && norm(line).includes(norm(short).slice(0,Math.min(24,norm(short).length)))){
+          found=i;break;
+        }
+      }
+      if(found<0){
+        const key=norm(title).slice(0,Math.min(22,norm(title).length));
+        found=lines.findIndex(line=>norm(line).includes(key));
+      }
+      starts.push(found);
+    });
+    function splitColumns(line){
+      const m=line.match(/^(.*?)(?:\\s{5,})(\\S.*)$/);
+      if(!m) return {left:line.trimEnd(),right:''};
+      return {left:m[1].trimEnd(),right:m[2].trim()};
+    }
+    function extractEntry(idx){
+      let start=starts[idx];
+      let end=idx+1<starts.length?starts[idx+1]:lines.length;
+      if(start<0) return {body:'原始文件中未能自動定位此項內容，請以原始手冊核對。',history:''};
+      if(end<=start) end=Math.min(lines.length,start+1);
+      const body=[],history=[];
+      for(let i=start+1;i<end;i++){
+        const raw=lines[i];
+        if(/<PARSED TEXT FOR PAGE|^\\s*二、課程與教學\\s*$|法\\s*規\\s*摘\\s*要|日期及文號|法源簡述\\s*\\/\\s*備註/.test(raw)) continue;
+        if(/^\\s*\\d{1,3}\\s*$/.test(raw)) continue;
+        const c=splitColumns(raw);
+        if(c.left) body.push(c.left);
+        if(c.right && /中華民國|\\d{2,3}年|教育部|新北|北府|字第|號函|號令|公報|修正|發布|訂定|施行|生效|備註/.test(c.right)) history.push(c.right);
+      }
+      return {body:body.join('\\n').trim(),history:[...new Set(history)].join('\\n').trim()};
+    }
+    function showLaw(idx){
+      document.querySelectorAll('.law-btn').forEach((b,i)=>{
+        b.className='law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100';
+        const icon=b.querySelector('i'); if(icon) icon.className='fa-solid fa-angle-right text-[10px] text-slate-400';
+      });
+      const btn=lawList.children[idx];
+      if(btn){btn.className='law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between bg-blue-600 text-white font-bold shadow-sm';const icon=btn.querySelector('i');if(icon)icon.className='fa-solid fa-angle-right text-[10px] text-white';}
+      const e=extractEntry(idx);
+      lawPanels.innerHTML='<section class="law-panel active space-y-4"><div class="border-b border-slate-200 pb-3"><span class="text-xs font-semibold px-2.5 py-1 rounded bg-blue-50 text-blue-700 border border-blue-200">課程與教學法規</span><h2 class="text-xl md:text-2xl font-bold text-slate-900 mt-2">'+escHtml(lawTitles[idx])+'</h2></div><div class="official-doc text-sm md:text-base text-slate-700 whitespace-pre-line">'+escHtml(e.body||'請參考原始文件。')+'</div>'+(e.history?'<div class="law-history rounded-lg mt-6"><span class="font-bold text-slate-700 block mb-1">【日期及文號／法源簡述／備註】</span>'+escHtml(e.history)+'</div>':'')+'</section>';
+      if(window.innerWidth<1024) lawPanels.scrollIntoView({behavior:'smooth',block:'start'});
+    }
+    lawTitles.forEach((title,idx)=>{const b=document.createElement('button');b.type='button';b.className='law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100';b.innerHTML='<span class="pr-2">'+(idx+1)+'. '+escHtml(title)+'</span><i class="fa-solid fa-angle-right text-[10px] text-slate-400"></i>';b.addEventListener('click',()=>showLaw(idx));lawList.appendChild(b);});
+    showLaw(0);
+  </script>
+</body>
+</html>
