@@ -25,7 +25,7 @@
           </div>
           <div>
             <h1 class="font-bold text-base md:text-lg text-slate-900 leading-tight">新北市115學年度教務行政法規手冊</h1>
-            <p class="text-xs text-slate-500 hidden sm:block">法規彙編 ✕ 重點工作指引平台</p>
+            <p class="text-xs text-slate-500 hidden sm:block">法規彙編 ✕ 局端重點工作指引平台</p>
           </div>
         </div>
 
@@ -38,7 +38,7 @@
             <i class="fa-solid fa-book-bookmark text-xs"></i> 僅看法規
           </button>
           <button id="btn-tasks" onclick="setView('tasks')" class="px-3 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900 flex items-center gap-1">
-            <i class="fa-solid fa-list-check text-xs"></i> 僅看工作
+            <i class="fa-solid fa-list-check text-xs"></i> 僅看重點工作
           </button>
         </div>
       </div>
@@ -48,7 +48,7 @@
     <section class="bg-gradient-to-r from-slate-900 via-indigo-950 to-blue-900 text-white py-8 px-4">
       <div class="max-w-4xl mx-auto text-center space-y-3">
         <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight">依法行政・處室協作指引</h2>
-        <p class="text-slate-300 text-xs md:text-sm">支援跨大類、條文內容、處室權責即時篩選檢索</p>
+        <p class="text-slate-300 text-xs md:text-sm">法規手冊目錄彙整 ✕ 各科室重點工作項目檢索</p>
 
         <!-- 搜尋輸入框 -->
         <div class="relative max-w-2xl mx-auto pt-2">
@@ -57,7 +57,7 @@
             type="text" 
             id="searchInput"
             oninput="handleSearch()"
-            placeholder="請輸入關鍵字（例如：授課時數、常態編班、代課、請假...）"
+            placeholder="請輸入關鍵字（例如：中教科、特教科、授課時數、編班、校安、請假...）"
             class="w-full pl-11 pr-4 py-3 bg-white text-slate-800 rounded-2xl shadow-lg focus:ring-4 focus:ring-blue-400/30 outline-none text-sm transition">
         </div>
       </div>
@@ -67,7 +67,7 @@
     <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
 
-        <!-- 欄位 A：法規彙編（依 11 大類標題分組展示） -->
+        <!-- 左邊：法規彙編（保留原 11 大類標題） -->
         <section id="section-laws" class="space-y-4">
           <div class="flex items-center justify-between pb-2 border-b border-slate-200">
             <div class="flex items-center gap-2">
@@ -75,14 +75,14 @@
               <h3 class="text-base font-bold text-slate-800">法規彙編</h3>
               <span class="text-xs bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full font-medium">共 11 大類</span>
             </div>
-            <span class="text-xs text-slate-400">依手冊目錄章節分類</span>
+            <span class="text-xs text-slate-400">手冊目錄分類標題</span>
           </div>
 
-          <!-- 11 大類別容器 -->
-          <div id="laws-categories-container" class="space-y-4"></div>
+          <!-- 11 大類法規標題容器 -->
+          <div id="laws-container" class="space-y-3"></div>
         </section>
 
-        <!-- 欄位 B：重點工作 -->
+        <!-- 右邊：重點工作指引（各科室重點工作，已去除前面代號數字） -->
         <section id="section-tasks" class="space-y-4">
           <div class="flex items-center justify-between pb-2 border-b border-slate-200">
             <div class="flex items-center gap-2">
@@ -93,7 +93,7 @@
             <span class="text-xs text-slate-400">依時程與承辦處室落實執行</span>
           </div>
 
-          <!-- 工作項目容器 -->
+          <!-- 重點工作清單容器 -->
           <div id="tasks-container" class="space-y-3"></div>
         </section>
 
@@ -102,63 +102,167 @@
 
     <!-- 頁尾 -->
     <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500 mt-12">
-      <p>新北市立中等學校法規彙編與重點工作指引平台 ｜ 依據新北市政府教育局及教育部相關法規手冊編修</p>
+      <p>新北市立中等學校法規彙編與重點工作指引平台 ｜ 依據新北市政府教育局相關科室重點業務編修</p>
     </footer>
   </div>
 
   <script>
-    // 嚴格對應手冊目錄的 11 大分類標題
-    const categoriesList = [
-      { id: "cat-01", title: "一、組織編制、員額基準、授課時數", icon: "fa-users-gear" },
-      { id: "cat-02", title: "二、課程與教學", icon: "fa-book-open-reader" },
-      { id: "cat-03", title: "三、常態編班、正常教學", icon: "fa-chalkboard-user" },
-      { id: "cat-04", title: "四、新生入學、學籍管理、成績評量", icon: "fa-id-card-clip" },
-      { id: "cat-05", title: "五、教師聘任、兼任代課、代理、權利義務、教師甄選等", icon: "fa-user-tie" },
-      { id: "cat-06", title: "六、教師研習、進修、請假", icon: "fa-calendar-check" },
-      { id: "cat-07", title: "七、課後照顧、寒暑假學藝活動", icon: "fa-sun" },
-      { id: "cat-08", title: "八、特殊教育、技藝教育、補習進修學校", icon: "fa-hand-holding-heart" },
-      { id: "cat-09", title: "九、高級中等教育、職業教育、實習課程、技能檢定、職業安全", icon: "fa-wrench" },
-      { id: "cat-10", title: "十、實驗教育", icon: "fa-flask-vial" },
-      { id: "cat-11", title: "十一、其它", icon: "fa-folder-open" }
+    // 左邊：保留原手冊目錄 11 大類標題
+    const lawsCategories = [
+      { id: "law-01", title: "一、組織編制、員額基準、授課時數", icon: "fa-users-gear" },
+      { id: "law-02", title: "二、課程與教學", icon: "fa-book-open-reader" },
+      { id: "law-03", title: "三、常態編班、正常教學", icon: "fa-chalkboard-user" },
+      { id: "law-04", title: "四、新生入學、學籍管理、成績評量", icon: "fa-id-card-clip" },
+      { id: "law-05", title: "五、教師聘任、兼任代課、代理、權利義務、教師甄選等", icon: "fa-user-tie" },
+      { id: "law-06", title: "六、教師研習、進修、請假", icon: "fa-calendar-check" },
+      { id: "law-07", title: "七、課後照顧、寒暑假學藝活動", icon: "fa-sun" },
+      { id: "law-08", title: "八、特殊教育、技藝教育、補習進修學校", icon: "fa-hand-holding-heart" },
+      { id: "law-09", title: "九、高級中等教育、職業教育、實習課程、技能檢定、職業安全", icon: "fa-wrench" },
+      { id: "law-10", title: "十、實驗教育", icon: "fa-flask-vial" },
+      { id: "law-11", title: "十一、其它", icon: "fa-folder-open" }
     ];
 
-    // 重點工作資料示例
-    const tasksData = [
+    // 右邊：純科室名稱（已移除前面的 11501 等數字）
+    const deptTasksData = [
       {
         id: "task-01",
-        dept: "教務處教學組",
+        deptTag: "小教科",
+        timeline: "開學後兩週內完成",
+        priority: "高",
+        title: "國小課後照顧班開課與弱勢學童補助申報",
+        desc: "調查學童參加意願，編排班別，造具低收、身障、原住民學生名冊報局請撥補助款。",
+        law: "兒童課後照顧服務班與中心設立及管理辦法",
+        lawLink: "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0070051"
+      },
+      {
+        id: "task-02",
+        deptTag: "中教科",
         timeline: "開學前及開學後1個月內",
         priority: "緊急",
         title: "全校教師課表編排與超時鐘點費核算",
         desc: "依專長排課並依每週教學節數標準核算超時授課節數，造冊報支鐘點費。",
-        law: "新北市立高級中等學校教師每週教學節數標準"
-      },
-      {
-        id: "task-02",
-        dept: "人事室 / 校長室",
-        timeline: "每學年度開始前（6-7月）",
-        priority: "高",
-        title: "處室二級組別設置與行政主管聘兼",
-        desc: "檢視班級數規模與組數上限，辦理兼行政主管教師簽聘作業。",
-        law: "新北市立高級中等學校組織規程準則"
+        law: "新北市立高級中等學校教師每週教學節數標準",
+        lawLink: "https://law.ntpc.gov.tw/"
       },
       {
         id: "task-03",
-        dept: "教務處註冊組 / 學務處",
+        deptTag: "中教科",
         timeline: "每年7月至8月中旬",
         priority: "緊急",
         title: "新生常態編班與導師公開抽籤作業",
         desc: "落實S型排列或電腦亂數編班，邀請家長與教師會代表到場公開抽籤導師並公告名冊至少15日。",
-        law: "國民小學及國民中學常態編班及分組學習準則"
+        law: "國民小學及國民中學常態編班及分組學習準則",
+        lawLink: "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0070019"
       },
       {
         id: "task-04",
-        dept: "人事室 / 教務處",
-        timeline: "每年6月至8月（開學前完成）",
+        deptTag: "中教科",
+        timeline: "每學年度開始前（6-7月）",
+        priority: "高",
+        title: "處室二級組別設置與行政主管聘兼",
+        desc: "檢視班級數規模與組數上限，辦理兼行政主管教師簽聘作業。",
+        law: "新北市立高級中等學校組織規程準則",
+        lawLink: "https://law.ntpc.gov.tw/"
+      },
+      {
+        id: "task-05",
+        deptTag: "技職科",
+        timeline: "開學前及校外實習前",
+        priority: "高",
+        title: "實習工場設備安全維護與校外實習合作評估",
+        desc: "執行實習工場機具自動檢查與安全教育，實地評估校外實習廠家並辦理學生意外保險。",
+        law: "高級中等學校實習課程實施辦法",
+        lawLink: "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0060046"
+      },
+      {
+        id: "task-06",
+        deptTag: "技職科",
+        timeline: "年度計畫申辦及學生受訓期間",
         priority: "緊急",
-        title: "代理代課教師公開甄選與聘約簽訂",
-        desc: "經教評會通過辦理三階段公開招考，給予一學年或一學期之完整聘期並依法敘薪。",
-        law: "高級中等以下學校兼任代課及代理教師聘任辦法"
+        title: "建教合作專班審查申辦與定期現場訪視",
+        desc: "送審建教合作計畫書，監督廠家依約給付生活津貼，指派教師每兩週實地訪視做成紀錄。",
+        law: "高級中等學校建教合作實施及建教生權益保障法",
+        lawLink: "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=H0060042"
+      },
+      {
+        id: "task-07",
+        deptTag: "特教科",
+        timeline: "開學後1個月內完成",
+        priority: "高",
+        title: "身心障礙學生個別化教育計畫（IEP）訂定與執行",
+        desc: "召開期初IEP會議，確認抽離或外加課程節數，協調普通班排課與申請特教輔具及評量服務。",
+        law: "新北市政府辦理國民教育階段身心障礙分散式資源班實施要點",
+        lawLink: "https://law.ntpc.gov.tw/"
+      },
+      {
+        id: "task-08",
+        deptTag: "社教科",
+        timeline: "每學期開學前1個月",
+        priority: "高",
+        title: "學期課後社團開班審議與師資簽約",
+        desc: "召開社團推行委員會審議開班計畫，辦理外聘教師性平查核並簽約，精算代收代付費用。",
+        law: "新北市立高級中等以下學校課後社團活動實施要點",
+        lawLink: "https://law.ntpc.gov.tw/"
+      },
+      {
+        id: "task-09",
+        deptTag: "衛環科",
+        timeline: "每學期初及腸病毒流行期",
+        priority: "高",
+        title: "校園傳染病防制通報與環境清消落實",
+        desc: "掌握各班學生出缺席與健康狀況，依規通報校園疑似傳染病例並啟動停課評估機制。",
+        law: "新北市公私立學校及幼兒園腸病毒通報及停課作業規定",
+        lawLink: "https://law.ntpc.gov.tw/"
+      },
+      {
+        id: "task-10",
+        deptTag: "教資科",
+        timeline: "每學年寒暑假及備課期間",
+        priority: "中",
+        title: "教師專業進修研習時數審核與系統登錄",
+        desc: "督導校內教師參與法定進修研習，落實學校本位進修時數核發與校務行政系統審查。",
+        law: "新北市教師進修研習實施要點",
+        lawLink: "https://law.ntpc.gov.tw/"
+      },
+      {
+        id: "task-11",
+        deptTag: "新民科",
+        timeline: "每學期開學前選修調查",
+        priority: "中",
+        title: "新住民語文與本土語文開課規劃",
+        desc: "依學生選習意願全面開班，延聘合格教學支援工作人員到校授課或安排遠距直播共學。",
+        law: "國民中小學開設本土語文課程應注意事項",
+        lawLink: "https://law.moj.gov.tw/"
+      },
+      {
+        id: "task-12",
+        deptTag: "政風室",
+        timeline: "每學期末及定期採購期間",
+        priority: "高",
+        title: "教科書採購與營繕採購廉政倫理查核",
+        desc: "落實教科書評選利益迴避原則，杜絕廠商不當餽贈，確保校園採購程序公開透明合法。",
+        law: "政府採購法及校園誠信倫理規範",
+        lawLink: "https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=A0030057"
+      },
+      {
+        id: "task-13",
+        deptTag: "校安室",
+        timeline: "即時通報（法定24小時內）",
+        priority: "緊急",
+        title: "校園安全偶發事件通報與緊急應變",
+        desc: "知悉各類校園危安、性別或霸凌事件，依限至教育部校安中心系統登錄並啟動輔導機制。",
+        law: "校園安全及災害事件通報作業要點",
+        lawLink: "https://law.moj.gov.tw/"
+      },
+      {
+        id: "task-14",
+        deptTag: "家庭教育中心",
+        timeline: "每學年定期實施",
+        priority: "中",
+        title: "重大違規學生家長家庭教育諮商輔導通知",
+        desc: "落實每學年正式課程外實施4小時以上家庭教育，對高關懷家庭提供親職諮詢轉介服務。",
+        law: "新北市高級中等以下學校提供家庭教育諮商輔導辦法",
+        lawLink: "https://law.ntpc.gov.tw/"
       }
     ];
 
@@ -201,58 +305,78 @@
 
     function renderPage() {
       const q = (document.getElementById('searchInput').value || '').toLowerCase().trim();
-      const lawsContainer = document.getElementById('laws-categories-container');
+      const lawsContainer = document.getElementById('laws-container');
       const tasksContainer = document.getElementById('tasks-container');
 
-      // 渲染 11 大類別標題卡片
-      const filteredCategories = categoriesList.filter(cat => q === '' || cat.title.toLowerCase().includes(q));
+      // 渲染左邊：法規 11 大類標題卡片
+      const filteredLaws = lawsCategories.filter(cat => q === '' || cat.title.toLowerCase().includes(q));
 
-      lawsContainer.innerHTML = filteredCategories.map(cat => {
+      lawsContainer.innerHTML = filteredLaws.map(cat => {
         return `
-          <div class="bg-white rounded-xl border border-slate-200/90 shadow-sm p-4 hover:border-blue-300 transition">
+          <div class="bg-white rounded-xl border border-slate-200/90 shadow-sm p-4 hover:border-blue-400 hover:shadow-md transition cursor-pointer">
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-3">
-                <span class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-sm">
+                <span class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-sm flex-shrink-0">
                   <i class="fa-solid ${cat.icon}"></i>
                 </span>
-                <h4 class="font-bold text-slate-900 text-sm md:text-base">${cat.title}</h4>
+                <h4 class="font-bold text-slate-900 text-sm md:text-base leading-snug">${cat.title}</h4>
               </div>
-              <span class="text-xs text-slate-400 font-medium">整理中</span>
+              <span class="text-xs text-slate-400 font-medium ml-2 flex-shrink-0">整理中</span>
             </div>
           </div>
         `;
       }).join('');
 
-      // 渲染重點工作卡片
-      const filteredTasks = tasksData.filter(t => 
+      // 渲染右邊：依科室分類的重點工作卡片（純科室標籤）
+      const filteredTasks = deptTasksData.filter(t => 
         q === '' || 
         t.title.toLowerCase().includes(q) || 
         t.desc.toLowerCase().includes(q) || 
-        t.dept.toLowerCase().includes(q) || 
+        t.deptTag.toLowerCase().includes(q) || 
         t.law.toLowerCase().includes(q)
       );
 
       document.getElementById('tasks-count').innerText = `${filteredTasks.length} 項`;
 
+      if (filteredTasks.length === 0) {
+        tasksContainer.innerHTML = `<div class="p-8 text-center text-slate-400 bg-white rounded-xl border border-dashed border-slate-200">查無相關重點工作資料</div>`;
+        return;
+      }
+
       tasksContainer.innerHTML = filteredTasks.map(task => {
         return `
-          <div class="bg-white p-4 rounded-xl border border-slate-200/90 shadow-sm hover:shadow transition space-y-3">
+          <div class="bg-white p-5 rounded-2xl border border-slate-200/90 shadow-sm hover:shadow-md transition space-y-3">
             <div class="flex items-start justify-between gap-2">
               <div class="flex items-center gap-2 flex-wrap">
-                <span class="text-[11px] font-semibold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">${task.dept}</span>
-                <span class="text-[11px] font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded"><i class="fa-regular fa-clock mr-1"></i>${task.timeline}</span>
+                <!-- 純科室名稱標籤 (綠框白底綠字，無數字) -->
+                <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-300">
+                  ${task.deptTag}
+                </span>
+                <!-- 時程標籤 -->
+                <span class="text-xs text-slate-500 bg-slate-100 px-2.5 py-1 rounded-md flex items-center gap-1">
+                  <i class="fa-regular fa-clock text-[11px]"></i> ${task.timeline}
+                </span>
               </div>
-              <span class="text-[10px] px-2 py-0.5 rounded-full font-bold ${badgeColor(task.priority)}">${task.priority}優先度</span>
+              <!-- 優先度標籤 -->
+              <span class="text-[11px] px-2.5 py-0.5 rounded-full font-bold ${badgeColor(task.priority)}">
+                ${task.priority}優先度
+              </span>
             </div>
-            <div>
-              <h4 class="font-bold text-slate-900 text-sm md:text-base">${task.title}</h4>
-              <p class="text-xs text-slate-600 mt-1 leading-relaxed">${task.desc}</p>
-            </div>
-            <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
-              <div class="text-slate-500 flex items-center gap-1">
+
+            <!-- 工作標題 -->
+            <h4 class="font-bold text-slate-900 text-base leading-snug">${task.title}</h4>
+
+            <!-- 工作說明 -->
+            <p class="text-xs text-slate-600 leading-relaxed">${task.desc}</p>
+
+            <!-- 法源依據超連結 -->
+            <div class="pt-2 border-t border-slate-100 flex items-center text-xs">
+              <div class="text-slate-500 flex items-center gap-1.5 flex-wrap">
                 <i class="fa-solid fa-scale-balanced text-emerald-600"></i>
                 <span>法源依據：</span>
-                <span class="font-medium text-slate-800 underline decoration-emerald-400 decoration-2">${task.law}</span>
+                <a href="${task.lawLink}" target="_blank" rel="noopener noreferrer" class="font-medium text-blue-600 underline hover:text-blue-800 transition">
+                  ${task.law}
+                </a>
               </div>
             </div>
           </div>
