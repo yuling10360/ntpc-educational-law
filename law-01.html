@@ -3200,24 +3200,30 @@
   </footer>
 
   <script>
-    // 第 2 項「高級中等學校組織設置及員額編制標準」依法規網站層級呈現條文與（一）（二）子項。
+    // 第 2 項「高級中等學校組織設置及員額編制標準」依公文格式分層排版。
     function formatLawSubitems() {
       const panel = document.getElementById('law-02');
       if (!panel || panel.dataset.formattedSubitems === 'true') return;
       const body = panel.querySelector('.whitespace-pre-line');
       if (!body) return;
-      const lines = body.textContent.replace(/\\r/g, '').split('\\n');
+      const lines = body.textContent.replace(/\r/g, '').split('\n');
       const esc = value => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
       body.classList.remove('whitespace-pre-line');
       body.classList.add('space-y-1');
       body.innerHTML = lines.map(line => {
         const t = line.trim();
-        if (!t) return '<div class="h-2"></div>';
-        if (/^第\\s*\\d+\\s*條/.test(t)) return '<div class="mt-5 mb-1 font-semibold text-slate-900">' + esc(t) + '</div>';
-        const sub = t.match(/^([（(][一二三四五六七八九十百\\d]+[）)])\\s*(.*)$/);
-        if (sub) return '<div class="flex items-start pl-6 gap-2"><span class="shrink-0">' + esc(sub[1]) + '</span><span class="min-w-0 flex-1">' + esc(sub[2]) + '</span></div>';
-        const major = t.match(/^([一二三四五六七八九十百]+、)\\s*(.*)$/);
-        if (major) return '<div class="flex items-start pl-3 gap-2"><span class="shrink-0">' + esc(major[1]) + '</span><span class="min-w-0 flex-1">' + esc(major[2]) + '</span></div>';
+        if (!t) return '<div class="h-3"></div>';
+        if (/^第\s*\d+\s*條/.test(t)) {
+          return '<div class="mt-5 mb-1 font-semibold text-slate-900">' + esc(t) + '</div>';
+        }
+        const sub = t.match(/^([（(][一二三四五六七八九十百\d]+[）)])\s*(.*)$/);
+        if (sub) {
+          return '<div class="flex items-start pl-6 gap-2"><span class="shrink-0">' + esc(sub[1]) + '</span><span class="min-w-0 flex-1">' + esc(sub[2]) + '</span></div>';
+        }
+        const major = t.match(/^([一二三四五六七八九十百]+、)\s*(.*)$/);
+        if (major) {
+          return '<div class="flex items-start pl-3 gap-2"><span class="shrink-0">' + esc(major[1]) + '</span><span class="min-w-0 flex-1">' + esc(major[2]) + '</span></div>';
+        }
         return '<div class="pl-3">' + esc(t) + '</div>';
       }).join('');
       body.dataset.formattedSubitems = 'true';
