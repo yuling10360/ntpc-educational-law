@@ -4353,34 +4353,37 @@
    // 第 4 項「高級中等學校學生校外學習成就或教育訓練之學分及成績採計要點」第十點：依正式法規層級排版。
    if(i===3){
      const esc=x=>x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-     const start=finalText.indexOf('十、   學分及成績採計基準如下：');
+     const match=finalText.match(/十、\s*學分及成績採計基準如下：/);
+     const start=match?match.index:-1;
      const end=finalText.indexOf('十一、',start);
      if(start>=0 && end>start){
        const head=finalText.slice(0,start);
-       const section=`十、 學分及成績採計基準如下：
-（一）校外學習成就：
-　　１、取得政府機關發給之證照：
-　　　　（１）丙級技術士證照：每張採計三學分；在進修部，每張採計三節。
-　　　　（２）乙級技術士證照：每張採計六學分；在進修部，每張採計六節。
-　　　　（３）修業年限內，前（１）（２）之採計，合計最高六學分或六節。
-　　２、取得政府機關主辦之全國性、國際性技藝（能）競賽優勝以上者：
-　　　　（１）政府機關主辦之全國性技藝（能）競賽優勝以上，採計三學分；在進修部，採計三節。
-　　　　（２）國際性技藝（能）競賽優勝以上，採計六學分；在進修部，採計六節。
-　　　　（３）修業年限內，前（１）（２）之採計，合計最高六學分或六節。
-（二）校外教育訓練：
-　　１、依學生所讀群、科、學程相關程度及學習時數，每學期採計一至二學分；在進修部，採計一至二節。
-　　２、依學生所讀群、科、學程課程相關程度，分為高相關及基本相關：
-　　　　（１）高相關者：以七十二小時採計一學分；在進修部，採計一節。
-　　　　（２）基本相關者：以一百十二小時採計一學分；在進修部，採計一節。
-（三）前二款之學分或成績採計，於修業年限內，合計最高採計二十四學分；在進修部，最高採計二十四節。`;
+       const section=[
+        "十、學分及成績採計基準如下：",
+        "（一）校外學習成就：",
+        "　　１、取得政府機關發給之證照：",
+        "　　　　（１）丙級技術士證照：每張採計三學分；在進修部，每張採計三節。",
+        "　　　　（２）乙級技術士證照：每張採計六學分；在進修部，每張採計六節。",
+        "　　　　（３）修業年限內，前（１）（２）之採計，合計最高六學分或六節。",
+        "　　２、取得政府機關主辦之全國性、國際性技藝（能）競賽優勝以上者：",
+        "　　　　（１）政府機關主辦之全國性技藝（能）競賽優勝以上，採計三學分；在進修部，採計三節。",
+        "　　　　（２）國際性技藝（能）競賽優勝以上，採計六學分；在進修部，採計六節。",
+        "　　　　（３）修業年限內，前（１）（２）之採計，合計最高六學分或六節。",
+        "（二）校外教育訓練：",
+        "　　１、依學生所讀群、科、學程相關程度及學習時數，每學期採計一至二學分；在進修部，採計一至二節。",
+        "　　２、依學生所讀群、科、學程課程相關程度，分為高相關及基本相關：",
+        "　　　　（１）高相關者：以七十二小時採計一學分；在進修部，採計一節。",
+        "　　　　（２）基本相關者：以一百十二小時採計一學分；在進修部，採計一節。",
+        "（三）前二款之學分或成績採計，於修業年限內，合計最高採計二十四學分；在進修部，最高採計二十四節。"
+       ].join('\n');
        const tail=finalText.slice(end);
-       const textToRender=head+section+'\\n'+tail;
-       bodyEl.innerHTML=textToRender.split('\\n').map(line=>{
+       const textToRender=head+section+'\n'+tail;
+       bodyEl.innerHTML=textToRender.split('\n').map(line=>{
          const t=line.trim();
          if(!t) return '';
-         const major=t.match(/^(十、|十一、|十二、|[（(][一二三四五六七八九十]+[）)])\\s*(.*)$/);
-         const level2=t.match(/^(１、|２、|３、)\\s*(.*)$/);
-         const level3=t.match(/^[（(](１|２|３)[）)]\\s*(.*)$/);
+         const major=t.match(/^(十、|十一、|十二、|[（(][一二三四五六七八九十]+[）)])\s*(.*)$/);
+         const level2=t.match(/^(１、|２、|３、)\s*(.*)$/);
+         const level3=t.match(/^[（(](１|２|３)[）)]\s*(.*)$/);
          if(major) return '<div class="doc-row doc-level-1"><span class="doc-marker">'+esc(major[1])+'</span><span class="doc-copy">'+esc(major[2])+'</span></div>';
          if(level2) return '<div class="doc-row doc-level-2"><span class="doc-marker">'+esc(level2[1])+'</span><span class="doc-copy">'+esc(level2[2])+'</span></div>';
          if(level3) return '<div class="doc-row doc-level-3"><span class="doc-marker">（'+esc(level3[1])+'）</span><span class="doc-copy">'+esc(level3[2])+'</span></div>';
