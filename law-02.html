@@ -4362,10 +4362,12 @@
      bodyEl.textContent=finalText;
    }
    // 第 4 項：完整呈現第一點至第十一點；只替換第十點的排版文字，前九點保留自 rawSource 擷取的原文。
-   // 觸發 Vercel 重新部署：包含公告五點正文與附表 1 團務時間表。
+   // 第 17 項：公告正文下方呈現附表 1、附表 2、附表 3。
    if(i===16){
-     const scheduleRows = [
-       ["國語文領域分團","星期二下午半天／星期五下午半天","星期二全天"],
+     const escSchedule=x=>x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+     const table=(title,headers,rows,opts={})=>'<section class="mt-6 rounded-xl border border-slate-200 bg-white p-3 sm:p-5"><h3 class="mb-3 text-center text-base sm:text-lg font-bold text-slate-900">'+title+'</h3><div class="overflow-x-auto"><table class="w-full border-collapse text-sm sm:text-base text-center text-slate-800" style="min-width:'+ (opts.width||'620px') +'"><thead><tr class="bg-slate-50">'+headers.map(h=>'<th class="border border-slate-700 p-2">'+h+'</th>').join('')+'</tr></thead><tbody>'+rows.map(row=>'<tr>'+row.map((cell,j)=>'<td class="border border-slate-700 p-2">'+(cell===null?'':escSchedule(cell).replace(/\n/g,'<br>'))+'</td>').join('')+'</tr>').join('')+'</tbody></table></div>'+(opts.note?'<p class="mt-2 text-xs text-slate-600">'+opts.note+'</p>':'')+'</section>';
+     const a1=[
+       ["國語文領域分團","星期二下午半天\n星期五下午半天","星期二全天"],
        ["英語文領域分團","星期一全天","星期一全天"],
        ["本土語文領域輔導團－閩南語分團","星期五全天","星期三全天"],
        ["本土語文領域輔導團－客語分團","星期五全天","星期五全天"],
@@ -4378,14 +4380,38 @@
        ["綜合活動領域分團","星期四全天","星期四全天"],
        ["科技領域分團","—","星期二全天"],
        ["性別平等教育議題分團","星期五全天","星期五全天"],
-       ["人權教育議題分團","星期五全天","星期二下午半天／星期五下午半天"],
+       ["人權教育議題分團","星期五全天","星期二下午半天\n星期五下午半天"],
        ["環境教育議題分團","星期四全天","星期四全天"],
        ["資訊教育議題分團","星期二全天","—"],
        ["生活課程分團","星期二全天","—"],
-       ["新住民語文領域分團","星期五全天","—"]
+       ["新住民語文領域分團","星期五全天","—"],
+       ["STEAM 跨域分團","—","星期五全天"],
+       ["教師專業發展分團","—","星期四下午"],
+       ["學習共同體分團","—","星期五下午"]
      ];
-     const escSchedule=x=>x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-     bodyEl.insertAdjacentHTML('beforeend', '<section class="mt-6 rounded-xl border border-slate-200 bg-white p-3 sm:p-5"><h3 class="mb-3 text-center text-base sm:text-lg font-bold text-slate-900">附表 1：新北市 115 學年度國民教育地方輔導團各分團團務時間表</h3><div class="overflow-x-auto"><table class="w-full border-collapse text-sm sm:text-base text-center text-slate-800" style="min-width:620px"><thead><tr class="bg-slate-50"><th class="border border-slate-700 p-2">分團名稱／領域／議題</th><th class="border border-slate-700 p-2">國小組團務時間</th><th class="border border-slate-700 p-2">國中組團務時間</th></tr></thead><tbody>'+scheduleRows.map(row=>'<tr>'+row.map((cell,j)=>'<td class="border border-slate-700 p-2">'+escSchedule(cell.replace(/／/g,'<br>'))+'</td>').join('')+'</tr>').join('')+'</tbody></table></div><p class="mt-2 text-xs text-slate-500">註：依提供圖片轉錄；原圖以斜線標示的空白欄位以「—」呈現。</p></section>');
+     bodyEl.insertAdjacentHTML('beforeend',table('附表 1：新北市 115 學年度國民教育地方輔導團各分團團務時間表',['分團名稱／領域／議題','國小組團務時間','國中組團務時間'],a1,{width:'620px',note:'依提供圖片轉錄；原圖斜線表示之空白欄位以「—」呈現。'}));
+     const a2=[
+       ["1","國語文","星期二下午半天","星期二 5–6 節"],
+       ["2","英語文","星期一下午半天","星期一 5–6 節"],
+       ["3","數學","星期四下午半天","星期四 5–6 節"],
+       ["4","社會","星期三下午半天","星期三 5–6 節"],
+       ["5","自然科學","星期二下午半天","星期二 5–6 節"],
+       ["6","藝術","星期三下午半天","星期三 5–6 節"],
+       ["7","健康與體育","星期三上午半天","星期三 1–2 節"],
+       ["8","綜合活動","星期四上午半天","星期四 3–4 節"],
+       ["9","科技","星期二全天","星期二 5–6 節"],
+       ["10","本土語（閩南語、原漁）","星期三下午半天","星期三 5–6 節"],
+       ["11","本土語（客語）","星期五下午半天","星期五 5–6 節"]
+     ];
+     bodyEl.insertAdjacentHTML('beforeend',table('附表 2：新北市 115 學年度國民中學各領域教師共同不排課時段與教學研究會時間表',['序號','領域','共同不排課時段','領域研究會時間'],a2,{width:'700px'}));
+     const a3=[
+       ["1","國語文","星期二上午 1 至 2 節","領召、教學研究會等學習分配的領域，優先安排共同不排課時間。"],
+       ["2","數學","星期五上午 1 至 2 節",null],
+       ["3","英語文","星期一下午 1 至 2 節",null],
+       ["4","自然科學","星期三上午 1 至 2 節",null],
+       ["5","社會","星期二上午 1 至 2 節",null]
+     ];
+     bodyEl.insertAdjacentHTML('beforeend',table('附表 3：新北市 115 學年度國民小學部分領域教師建議不排課時段',['序號','領域','共同不排課時段','領域研究會時間'],a3,{width:'700px',note:'補充說明：建議各校規劃部分領域共同不排課的時間，以利教師專業成長與共備。'}));
    }
    if(i===3){
      const esc=x=>x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
