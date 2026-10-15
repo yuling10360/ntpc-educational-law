@@ -4566,14 +4566,17 @@
      ];
      const esc34 = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
      bodyEl.innerHTML = finalText.map(line => {
-       if(!line) return '<div style="height:.65em"></div>';
+       if(!line) return '<div class="law-gap"></div>';
        const safe = esc34(line);
-       if(/^[一二三四五六七八]+、/.test(line)) return '<div style="margin-top:.45em;">'+safe+'</div>';
-       if(/^（[一二三四五六七八九十]+）/.test(line)) return '<div style="padding-left:2em;text-indent:-2em;">'+safe+'</div>';
-       if(/^１、|^２、/.test(line)) return '<div style="padding-left:4em;text-indent:-2em;">'+safe+'</div>';
-       return '<div>'+safe+'</div>';
+       if(/^[一二三四五六七八九十]+、/.test(line))
+         return '<div class="law-major">'+safe+'</div>';
+       if(/^（[一二三四五六七八九十]+）/.test(line))
+         return '<div class="law-sub">'+safe+'</div>';
+       if(/^[１２３４５６７８９１０]+、/.test(line))
+         return '<div class="law-detail">'+safe+'</div>';
+       return '<div class="law-paragraph">'+safe+'</div>';
      }).join('');
-     finalText = finalText.join('\\n');
+     finalText = finalText.join('\n');
      history.length=0;
      history.push(
        '1. 中華民國108年6月10日教育部臺教授國部字第1080061328B號令訂定發布全文8點。',
