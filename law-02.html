@@ -4349,13 +4349,13 @@
      // 無條次的要點／行政規定：依公文格式呈現，主項加強辨識，子項與序號分層縮排。
      const safe=x=>x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
      bodyEl.innerHTML=finalText.split('\n').map(line=>{
-       if(!line.trim()) return '';
+         if(!line.trim()) return '';
        const t=line.trim();
-       // 採用懸掛縮排：換行後的文字會對齊項目文字，而不是對齊編號。
-       if(/^[一二三四五六七八九十百]+、/.test(t)) return '<div style="padding-left:2em;text-indent:-2em">'+safe(t)+'</div>';
-       if(/^[（(][一二三四五六七八九十百\d]+[）)]/.test(t)) return '<div style="padding-left:3.5em;text-indent:-2em">'+safe(t)+'</div>';
-       if(/^\d+[、.．]/.test(t)) return '<div style="padding-left:5em;text-indent:-2em">'+safe(t)+'</div>';
-       return '<div style="padding-left:5em">'+safe(t)+'</div>';
+       // 與第一類 law-01.html 相同的公文排版：doc-level-1/2/3 控制縮排與段落間距。
+       if(/^[一二三四五六七八九十百]+、/.test(t)) return '<div class="doc-level-1">'+safe(t)+'</div>';
+       if(/^[（(][一二三四五六七八九十百\d]+[）)]/.test(t)) return '<div class="doc-level-2 font-medium">'+safe(t)+'</div>';
+       if(/^\d+[、.．]/.test(t)) return '<div class="doc-level-3">'+safe(t)+'</div>';
+       return '<div class="doc-level-1">'+safe(t)+'</div>';
      }).join('');
    }else{
      bodyEl.textContent=finalText;
