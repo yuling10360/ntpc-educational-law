@@ -4334,6 +4334,24 @@
      }
    }
    let finalText=flowed.join('\n').trim()||'原始文件中未能自動定位此項文字，請核對原始手冊。';
+   // 第 29、30 項：刪除原始表格右欄法規沿革誤混入正文的字串。
+   if(i===28){
+     finalText=finalText
+       .replace(/號令制定公布全文\\s*20\\s*條；?並自公布日施行。?/g,'')
+       .replace(/制定公布全文\\s*20\\s*條；?並自公布日施行。?/g,'')
+       .replace(/\\s{2,}/g,' ')
+       .trim();
+     bodyEl.textContent=finalText;
+   }
+   if(i===29){
+     finalText=finalText
+       .replace(/並增訂第\\s*5-1、?\\s*14-1、?\\s*15-1、?\\s*16-1、?\\s*24-1\\s*條條文。?/g,'')
+       .replace(/增訂第\\s*5-1、?\\s*14-1、?\\s*15-1、?\\s*16-1、?\\s*24-1\\s*條條文。?/g,'')
+       .replace(/\\s{2,}/g,' ')
+       .trim();
+     bodyEl.textContent=finalText;
+   }
+
    // 第 29、30 項改用上方共用擷取流程：正文取左欄，右欄法規沿革由 history 區獨立呈現。
 
    // 第 16 項正文被法規沿革字串插入，統一以核對後的第一點正文取代，避免沿革文字混入。
