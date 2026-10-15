@@ -4355,8 +4355,9 @@
      const esc=x=>x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
      const match=finalText.match(/十、\s*學分及成績採計基準如下：/);
      const start=match?match.index:-1;
-     const end=finalText.indexOf('十一、',start);
-     if(start>=0 && end>start){
+     const foundEnd=finalText.indexOf('十一、',start);
+     const end=foundEnd>start?foundEnd:finalText.length;
+     if(start>=0){
        const head=finalText.slice(0,start);
        const section=[
         "十、學分及成績採計基準如下：",
