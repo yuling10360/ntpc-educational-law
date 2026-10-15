@@ -4341,6 +4341,22 @@
 (一)國中各領域教師共同不排課時段，以半天為原則，如確有困難，應至少安排2節課作為領域教學研究會時間。
 (二)各領域召集人務必於該時段不排課，以利參與輔導團各領域/議題分團辦理的研習活動。`;
    }
+   // 第 21 項「高級中等學校課程規劃及實施要點」：優先清除 OCR 雙欄資料中的法規沿革、頁眉及頁碼，保留正文。
+   if(i===20){
+     const historyLine=/中\s*華\s*民\s*國\s*\d{2,3}\s*年|教育部臺教|教育部臺教授|總\s*統.*義\s*字|\d{8,}\s*號\s*令|\d{8,}\s*號令|修正發布|修正「高級中等學校|訂定發布全文|生效前|法源簡述|日期及文號|二、課程與教學|法\s*規\s*摘\s*要|全文\s*10\s*點|即日生效|並自\s*108\s*年|得指定學校試辦/;
+     const pageLine=/^\s*(?:10[0-9]|11[0-9]|\d{1,3})\s*$/;
+     const cleanedLines=[];
+     for(const raw of body){
+       const t=raw.trim();
+       if(!t || pageLine.test(t)) continue;
+       if(historyLine.test(t)) continue;
+       // Remove standalone OCR fragments that belong to the right-hand legal-history column.
+       if(/^(?:月\s*\d+\s*日|授\s*國\s*部|字\s*第|訂\s*定\s*發\s*布|修\s*正\s*公\s*布|生\s*效|即\s*日\s*生\s*效|或\s*部\s*分\s*內\s*容|點\s*，並自|全文\s*10\s*點)/.test(t)) continue;
+       cleanedLines.push(t.replace(/\s{2,}/g,' ').trim());
+     }
+     // Preserve all surviving body lines and their item markers; layout is handled by the normal renderer.
+     finalText=cleanedLines.join('\n');
+   }
    // 第 18 項「原住民族教育法」：清除原始雙欄文件右側沿革文字，優先保留左欄正式條文。
    if(i===17){
      const historyPatterns=[
