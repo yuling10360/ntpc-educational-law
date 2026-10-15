@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>校務法規彙編與重點工作指引平台</title>
+  <title>新北市115學年度教務行政法規手冊與重點工作平台</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Vue 3 -->
@@ -26,8 +26,8 @@
             <i class="fa-solid fa-scale-balanced text-lg"></i>
           </div>
           <div>
-            <h1 class="font-bold text-base md:text-lg text-slate-900 leading-tight">校務法規彙編與重點工作平台</h1>
-            <p class="text-xs text-slate-500 hidden sm:block">新北市中等學校教育行政實務指引手冊</p>
+            <h1 class="font-bold text-base md:text-lg text-slate-900 leading-tight">新北市115學年度教務行政法規手冊</h1>
+            <p class="text-xs text-slate-500 hidden sm:block">法規彙編 ✕ 重點工作指引平台</p>
           </div>
         </div>
 
@@ -55,53 +55,48 @@
       </div>
     </header>
 
-    <!-- 橫幅精簡搜尋區（已刪除上方橫向8個標籤） -->
+    <!-- 橫幅搜尋區 -->
     <section class="bg-gradient-to-r from-slate-900 via-indigo-950 to-blue-900 text-white py-8 px-4">
       <div class="max-w-4xl mx-auto text-center space-y-3">
         <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight">依法行政・處室協作指引</h2>
-        <p class="text-slate-300 text-xs md:text-sm">支援全條文、承辦業務、期程節點即時比對檢索</p>
+        <p class="text-slate-300 text-xs md:text-sm">支援跨大類、條文內容、處室權責及期程節點檢索</p>
 
-        <!-- 搜尋列 -->
+        <!-- 搜尋輸入框 -->
         <div class="relative max-w-2xl mx-auto pt-2">
           <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 translate-y-[-20%] text-slate-400"></i>
           <input 
             type="text" 
             v-model="searchKeyword" 
-            placeholder="請輸入關鍵字（例如：授課時數、代理教師、常態編班、課後社團、IEP、請假...）"
+            placeholder="請輸入關鍵字（例如：授課時數、常態編班、課後社團、IEP、實驗教育、敘獎...）"
             class="w-full pl-11 pr-4 py-3 bg-white text-slate-800 rounded-2xl shadow-lg focus:ring-4 focus:ring-blue-400/30 outline-none text-sm transition">
         </div>
       </div>
     </section>
 
-    <!-- 主體內容區塊（左側 8 大分類選單 + 右側內容） -->
+    <!-- 主體內容區塊（左側手冊目錄導覽 + 右側內容） -->
     <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full">
-      <div v-if="loading" class="text-center py-20 text-slate-400">
-        <i class="fa-solid fa-circle-notch fa-spin text-3xl mb-3 text-blue-600"></i>
-        <p class="text-sm">正在載入法規與重點工作資料庫...</p>
-      </div>
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
 
-      <div v-else class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-
-        <!-- 左側側邊欄：8 個分類選單（佔 3 欄） -->
-        <aside class="md:col-span-4 lg:col-span-3 bg-white p-3 rounded-2xl border border-slate-200/90 shadow-sm sticky top-20">
+        <!-- 左側側邊欄：手冊 11 大類目錄 -->
+        <aside class="md:col-span-4 lg:col-span-4 bg-white p-3 rounded-2xl border border-slate-200/90 shadow-sm sticky top-20">
           <div class="flex items-center justify-between pb-3 px-2 border-b border-slate-100">
-            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">法規主題導覽</span>
-            <span class="text-[11px] bg-blue-50 text-blue-600 font-semibold px-2 py-0.5 rounded-full">共 8 大類</span>
+            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">手冊目錄導覽</span>
+            <span class="text-[11px] bg-blue-50 text-blue-600 font-semibold px-2 py-0.5 rounded-full">共 11 大類</span>
           </div>
 
           <nav class="space-y-1 mt-2">
-            <!-- 全部選項 -->
+            <!-- 全部類別按鈕 -->
             <button 
               @click="selectedCategory = ''"
               :class="selectedCategory === '' ? 'bg-blue-600 text-white font-semibold shadow-sm' : 'text-slate-600 hover:bg-slate-100'"
               class="w-full text-left px-3 py-2.5 rounded-xl text-xs flex items-center justify-between transition">
               <span class="flex items-center gap-2">
-                <i class="fa-solid fa-layer-group text-xs"></i> 全部八大分類
+                <i class="fa-solid fa-layer-group text-xs"></i> 全部手冊章節
               </span>
               <span class="text-[10px] opacity-75">({{ allData.length }})</span>
             </button>
 
-            <!-- 8 個獨立分類 -->
+            <!-- 11 大目錄分類 -->
             <button 
               v-for="cat in categories" 
               :key="cat"
@@ -114,8 +109,8 @@
           </nav>
         </aside>
 
-        <!-- 右側展示區塊（佔 9 欄） -->
-        <div class="md:col-span-8 lg:col-span-9 grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+        <!-- 右側展示區塊 -->
+        <div class="md:col-span-8 lg:col-span-8 grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
 
           <!-- 欄位 A：法規彙編 -->
           <section 
@@ -222,82 +217,9 @@
 
     <!-- 頁尾 -->
     <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500 mt-12">
-      <p>新北市立中等學校法規彙編與重點工作指引平台 ｜ 依據新北市政府教育局及教育部相關法規令釋建置</p>
+      <p>新北市立中等學校法規彙編與重點工作指引平台 ｜ 依據新北市政府教育局及教育部相關法規手冊編修</p>
     </footer>
   </div>
 
   <script>
-    const { createApp, ref, computed, onMounted } = Vue;
-
-    createApp({
-      setup() {
-        const activeView = ref('all');
-        const searchKeyword = ref('');
-        const selectedCategory = ref('');
-        const allData = ref([]);
-        const loading = ref(true);
-
-        // 8 大原始檔案分類
-        const categories = [
-          "01.組織編制、員額基準、授課時數",
-          "02.課程與教學",
-          "03.常態編班、教學正常化",
-          "04.新生入學、學籍管理、成績評量",
-          "05.教師聘任、兼任代課、代理、權利義務、教師甄選等",
-          "06.教師研習、進修、請假",
-          "07.課後照顧、寒暑假學藝活動",
-          "08.特殊教育、技藝教育、補習進修學校"
-        ];
-
-        onMounted(async () => {
-          try {
-            const res = await fetch('./regulations.json');
-            const data = await res.json();
-            allData.value = data.map(item => ({ ...item, isOpen: false }));
-          } catch (e) {
-            console.error('無法讀取 regulations.json', e);
-          } finally {
-            loading.value = false;
-          }
-        });
-
-        const getCategoryCount = (cat) => {
-          return allData.value.filter(item => item.category === cat).length;
-        };
-
-        const filteredData = computed(() => {
-          return allData.value.filter(item => {
-            const matchCategory = selectedCategory.value === '' || item.category === selectedCategory.value;
-            const q = searchKeyword.value.toLowerCase().trim();
-            const matchKeyword = q === '' || 
-              item.title.toLowerCase().includes(q) ||
-              item.summary.toLowerCase().includes(q) ||
-              item.content.toLowerCase().includes(q) ||
-              item.taskName.toLowerCase().includes(q) ||
-              item.taskDept.toLowerCase().includes(q) ||
-              item.taskDesc.toLowerCase().includes(q);
-            return matchCategory && matchKeyword;
-          });
-        });
-
-        const badgeClass = (priority) => {
-          if (priority === '緊急') return 'bg-rose-100 text-rose-700';
-          if (priority === '高') return 'bg-amber-100 text-amber-700';
-          return 'bg-blue-100 text-blue-700';
-        };
-
-        return {
-          activeView,
-          searchKeyword,
-          selectedCategory,
-          categories,
-          filteredData,
-          loading,
-          badgeClass,
-          getCategoryCount
-        };
-      }
-    }).mount('#app');
-  </script>
-</body>
-</html>
+    const { createApp
