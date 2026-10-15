@@ -4352,10 +4352,11 @@
      bodyEl.innerHTML=finalText.split('\n').map(line=>{
        if(!line.trim()) return '';
        const t=line.trim();
-       if(/^[一二三四五六七八九十百]+、/.test(t)) return '<div class="font-semibold">'+safe(t)+'</div>';
-       if(/^[（(][一二三四五六七八九十百\d]+[）)]/.test(t)) return '<div class="pl-4">'+safe(t)+'</div>';
-       if(/^\d+[、.．]/.test(t)) return '<div class="pl-8">'+safe(t)+'</div>';
-       return '<div class="pl-12">'+safe(t)+'</div>';
+       // 採用懸掛縮排：換行後的文字會對齊項目文字，而不是對齊編號。
+       if(/^[一二三四五六七八九十百]+、/.test(t)) return '<div style="padding-left:2em;text-indent:-2em">'+safe(t)+'</div>';
+       if(/^[（(][一二三四五六七八九十百\d]+[）)]/.test(t)) return '<div style="padding-left:3.5em;text-indent:-2em">'+safe(t)+'</div>';
+       if(/^\d+[、.．]/.test(t)) return '<div style="padding-left:5em;text-indent:-2em">'+safe(t)+'</div>';
+       return '<div style="padding-left:5em">'+safe(t)+'</div>';
      }).join('');
    }else{
      bodyEl.textContent=finalText;
