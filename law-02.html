@@ -4386,6 +4386,24 @@
    }else{
      bodyEl.textContent=finalText;
    }
+   // 第 1 項「高級中等學校教科用書審定辦法」第 25 條之 1 收費項目，採固定編號欄與文字欄，避免子項折行後跑版。
+   if(i===0){
+     const esc = x => x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+     const lines=finalText.split('\n').map(x=>x.trim()).filter(Boolean);
+     bodyEl.innerHTML=lines.map(line=>{
+       if(/^第\s*\d+\s*條(?:之\s*\d+)?$/.test(line))
+         return '<div class="font-semibold mt-5 mb-1 text-slate-800">'+esc(line.replace(/\s+/g,' '))+'</div>';
+       if(line==='高級中等學校教科用書審定及修訂費收費數額如下：')
+         return '<div class="mb-2">'+esc(line)+'</div>';
+       const major=line.match(/^([一二三四五六七八九十百]+、)\s*(.*)$/);
+       if(major)
+         return '<div class="doc-row doc-level-1"><span class="doc-marker">'+esc(major[1])+'</span><span class="doc-copy">'+esc(major[2])+'</span></div>';
+       const sub=line.match(/^[（(]([一二三四五六七八九十百\d]+)[）)]\s*(.*)$/);
+       if(sub)
+         return '<div class="doc-row doc-level-2"><span class="doc-marker">（'+esc(sub[1])+'）</span><span class="doc-copy">'+esc(sub[2])+'</span></div>';
+       return '<div class="mb-1">'+esc(line)+'</div>';
+     }).join('');
+   }
    // 第 16 項「國民教育地方輔導團設置運作要點」屬多層次編號公文，強制使用分層排版。
    if(i===15){
      const safe=x=>x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
