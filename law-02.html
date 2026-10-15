@@ -4380,6 +4380,21 @@
    }else{
      bodyEl.textContent=finalText;
    }
+   // 第 16 項「國民教育地方輔導團設置運作要點」屬多層次編號公文，強制使用分層排版。
+   if(i===15){
+     const safe=x=>x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+     bodyEl.innerHTML=finalText.split('\n').map(line=>{
+       const t=line.trim();
+       if(!t) return '';
+       const major=t.match(/^([一二三四五六七八九十百]+、)\s*(.*)$/);
+       const sub=t.match(/^([（(][一二三四五六七八九十百\d]+[）)])\s*(.*)$/);
+       const num=t.match(/^(\d+[、.．])\s*(.*)$/);
+       if(major) return '<div class="doc-row doc-level-1"><span class="doc-marker">'+safe(major[1])+'</span><span class="doc-copy">'+safe(major[2])+'</span></div>';
+       if(sub) return '<div class="doc-row doc-level-2"><span class="doc-marker">'+safe(sub[1])+'</span><span class="doc-copy">'+safe(sub[2])+'</span></div>';
+       if(num) return '<div class="doc-row doc-level-3"><span class="doc-marker">'+safe(num[1])+'</span><span class="doc-copy">'+safe(num[2])+'</span></div>';
+       return '<div class="doc-row doc-level-1 doc-row-continuation"><span class="doc-marker"></span><span class="doc-copy">'+safe(t)+'</span></div>';
+     }).join('');
+   }
    // 第 5 項已有下方完整表格，移除原始文字欄中重複的標題／日期文字。
    if(i===4){ bodyEl.innerHTML=''; }
    // 指定法規：加入使用者提供的「共同不排課時段與教學研究會時間表」圖表內容
