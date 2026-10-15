@@ -4352,7 +4352,7 @@
    }else{
      bodyEl.textContent=finalText;
    }
-   // 第 4 項：保留原始全文，只替換第十點，再統一渲染全文。
+   // 第 4 項：完整呈現第一點至第十一點；只替換第十點的排版文字，前九點保留自 rawSource 擷取的原文。
    if(i===3){
      const esc=x=>x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
      const officialSection=[
@@ -4373,6 +4373,7 @@
        "（２）基本相關者：以一百十二小時採計一學分；在進修部，採計一節。",
        "（三）前二款之學分或成績採計，於修業年限內，合計最高採計二十四學分；在進修部，最高採計二十四節。"
      ].join("\n");
+     // 先保留第十點之前的完整內容（即第一點至第九點），再替換第十點並接回第十一點。
      const start=finalText.search(/十、\s*學分及成績採計基準如下：/);
      const end=start>=0?finalText.indexOf('十一、',start):-1;
      if(start>=0 && end>=0) finalText=finalText.slice(0,start)+officialSection+'\n'+finalText.slice(end);
