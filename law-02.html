@@ -4329,7 +4329,8 @@
      const isMajor=major.test(line);
      const isSub=sub.test(line);
      if(hasArticles && isArticle){
-       // 有條次：條次獨立一行，下一行直接接內文，不額外留空行。
+       // 有條次：上一條內文與下一個條次間留空行；條次與本條內文不留空行。
+       if(flowed.length) flowed.push('');
        flowed.push(line);
      }else if(hasArticles && isMajor){
        flowed.push(line);
