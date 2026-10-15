@@ -4354,7 +4354,7 @@
    }
    // 第十點原始資料受表格欄位切分影響，使用已核對的完整法規文字取代，確保項目不遺漏。
    if(i===3){
-     const sectionStart=finalText.search(/十、\\s*學分及成績採計基準如下：/);
+     const sectionStart=finalText.search(/十、\s*學分及成績採計基準如下：/);
      const sectionEnd=finalText.indexOf('十一、',sectionStart);
      if(sectionStart>=0){
        const officialSection=[
@@ -4374,8 +4374,8 @@
          "（１）高相關者：以七十二小時採計一學分；在進修部，採計一節。",
          "（２）基本相關者：以一百十二小時採計一學分；在進修部，採計一節。",
          "（三）前二款之學分或成績採計，於修業年限內，合計最高採計二十四學分；在進修部，最高採計二十四節。"
-       ].join('\\n');
-       finalText=finalText.slice(0,sectionStart)+officialSection+'\\n'+(sectionEnd>=0?finalText.slice(sectionEnd):'');
+       ].join('\n');
+       finalText=finalText.slice(0,sectionStart)+officialSection+'\n'+(sectionEnd>=0?finalText.slice(sectionEnd):'');
      }
    }
    // 第 4 項「高級中等學校學生校外學習成就或教育訓練之學分及成績採計要點」：整份法規統一依編號層級排版。
