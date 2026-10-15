@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>一、組織編制、員額基準、授課時數 - 新北市教務法規手冊</title>
+  <title>一、組織編制、員額基準、授課時數 - 新北市115學年度教務行政法規手冊</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome 圖示 -->
@@ -11,6 +11,9 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
     body { font-family: 'Noto Sans TC', sans-serif; scroll-behavior: smooth; }
+    .law-section h2 { border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; margin-bottom: 1rem; }
+    .law-article { margin-bottom: 1.25rem; line-height: 1.75; }
+    .law-history { font-size: 0.75rem; color: #64748b; background-color: #f8fafc; border-left: 3px solid #94a3b8; padding: 0.5rem 0.75rem; margin-top: 1rem; }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
@@ -21,11 +24,9 @@
       <a href="index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-blue-600 transition">
         <i class="fa-solid fa-arrow-left"></i> 返回手冊目錄
       </a>
-      <div class="flex items-center gap-3">
-        <span class="text-xs bg-blue-50 text-blue-700 font-semibold px-2.5 py-1 rounded-full border border-blue-200">
-          第一類規章（115學年度）
-        </span>
-      </div>
+      <span class="text-xs bg-blue-50 text-blue-700 font-semibold px-2.5 py-1 rounded-full border border-blue-200">
+        第一類規章全文
+      </span>
     </div>
   </header>
 
@@ -36,48 +37,55 @@
         <i class="fa-solid fa-users-gear"></i> 法規章節
       </div>
       <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight">一、組織編制、員額基準、授課時數</h1>
-      <p class="text-xs md:text-sm text-slate-300">收錄新北市立高中職及國中小組織規程、員額編制、每週授課節數標準、排配課折算公式與相關令釋</p>
+      <p class="text-xs md:text-sm text-slate-300">新北市115學年度教務行政法規手冊法規全文完整收錄</p>
     </div>
   </div>
 
-  <!-- 主體內容區塊（左側章節目錄錨點導覽 + 右側法規條文全文） -->
+  <!-- 主體內容區塊 -->
   <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
-    <!-- 左側法規快捷跳轉導覽（Sticky 目錄） -->
+    <!-- 左側快速導覽索引 (Sticky) -->
     <aside class="lg:col-span-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto">
       <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
-        <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider">條文快速跳轉</h3>
-        <span class="text-[11px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-medium">9 部重點法規</span>
+        <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider">本章法規全文導覽</h3>
+        <span class="text-[11px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-medium">共 23 項目</span>
       </div>
       <nav class="space-y-1 text-xs">
-        <a href="#sec-01" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">1. 新北市立高級中等學校組織規程準則</a>
-        <a href="#sec-02" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">2. 高級中等學校組織設置及員額編制標準</a>
-        <a href="#sec-03" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">3. 新北市立高級中等學校教師每週教學節數標準</a>
-        <a href="#sec-04" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">4. 國教署補助高中新增鐘點費要點</a>
-        <a href="#sec-05" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">5. 國中小班級編制及教職員員額編制準則</a>
-        <a href="#sec-06" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">6. 國民中小學教師授課節數訂定基準</a>
-        <a href="#sec-07" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">7. 新北市立國民中學及國民中小學組織規程</a>
-        <a href="#sec-08" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">8. 新北市立國中及國中小教職員員額設置基準</a>
-        <a href="#sec-09" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">9. 新北市國中教師每週授課節數補充原則</a>
-        <a href="#sec-cases" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">10. 重要令釋與排配課折算公式說明</a>
+        <a href="#law-01" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">1. 新北市立高級中等學校組織規程準則</a>
+        <a href="#law-02" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">2. 高級中等學校組織設置及員額編制標準</a>
+        <a href="#law-03" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">3. 新北市立高級中等學校教師每週教學節數標準</a>
+        <a href="#law-04" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">4. 國教署補助高中實施新課綱新增鐘點費要點</a>
+        <a href="#law-05" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">5. 國民小學與國民中學班級編制及教職員員額編制準則</a>
+        <a href="#law-06" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">6. 國民中小學教師授課節數訂定基準</a>
+        <a href="#law-07" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">7. 新北市立國民中學及國民中小學組織規程</a>
+        <a href="#law-08" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">8. 新北市立國民中學及國民中小學教職員員額設置基準</a>
+        <a href="#law-09" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">9. 新北市國民中學教師每週授課節數補充原則</a>
+        <a href="#law-10" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">10. 教師授課排配課折算公式函釋及範例</a>
+        <a href="#law-11" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">11. 專任教師協助校務酌減時數折算函釋</a>
+        <a href="#law-12" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">12. 重申各國民中學教師授課排配課確依折算公式計算函釋</a>
+        <a href="#law-13" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">13. 國民中小學兼任輔導教師減課規定函釋</a>
+        <a href="#law-14" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">15. 導師協助行政減課以一種為限函釋</a>
+        <a href="#law-15" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">15. 兼職教師授課時數班級數認定函釋</a>
+        <a href="#law-16" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">16. 兼任員生社職務不得減課函釋</a>
+        <a href="#law-17" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">17. 專任運動教練績效評量基準</a>
+        <a href="#law-18" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">18. 高級中等以下學校藝術才能班設立標準</a>
+        <a href="#law-19" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">19. 高級中等以下學校體育班設立辦法</a>
+        <a href="#law-20" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">20. 配合教育部修正國中每班教師員額編制提高至2.2人案</a>
+        <a href="#law-21" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">21. 國中小教師協助校內外行政減授課額度補充案</a>
+        <a href="#law-22" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">22. 私立學校法</a>
+        <a href="#law-23" class="block p-2 rounded-lg text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition truncate">23. 私立高級中等以上學校退場條例</a>
       </nav>
     </aside>
 
-    <!-- 右側法規全文內容展示區 -->
-    <div class="lg:col-span-8 space-y-8">
+    <!-- 右側法規條文全文區 -->
+    <div class="lg:col-span-8 space-y-12">
 
       <!-- 1. 新北市立高級中等學校組織規程準則 -->
-      <section id="sec-01" class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
-        <div class="border-b border-slate-100 pb-3 flex items-start justify-between">
-          <div>
-            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200">市定法規</span>
-            <h2 class="text-lg md:text-xl font-bold text-slate-900 mt-1">新北市立高級中等學校組織規程準則</h2>
-          </div>
-          <span class="text-xs text-slate-400">113年2月29日修正發布全文16條</span>
-        </div>
-        <div class="text-sm text-slate-700 space-y-3 leading-relaxed whitespace-pre-line">
+      <section id="law-01" class="law-section bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <h2 class="text-xl font-bold text-slate-900">新北市立高級中等學校組織規程準則</h2>
+        <div class="space-y-3 text-sm text-slate-700 whitespace-pre-line leading-relaxed">
 <strong>第 1 條</strong>
-本準則依高級中等學校組織設置及員額編制標準第十一條第一項及新北市政府教育局組織規程第九條規定訂定之。
+本準則依高級中等學校組織設置及員額編制標準(以下簡稱本標準)第十一條第一項及新北市政府教育局組織規程第九條規定訂定之。
 
 <strong>第 2 條</strong>
 本準則所稱高級中等學校(以下簡稱學校)，係指新北市立普通型學校、技術型學校及綜合型學校。
@@ -88,155 +96,873 @@
 
 <strong>第 4 條</strong>
 學校應設一級單位，其掌理事項如下：
-一、教務處：辦理課程編排、教學實施、教學研究、學籍管理、成績評量、招生、教學設備與教具圖書資料供應及配合實施教育輔導等事項。
-二、學生事務處：辦理民主法治教育、道德教育、生活教育、體育衛生保健與團體活動、校園性別事件、防制校園霸凌因應小組及配合實施生活輔導等事項。
-三、總務處：辦理文書、檔案管理、公文管理、事務、出納、工友管理、物品採購、營建修繕及財產管理等事項。
-四、輔導處(室)：辦理學生生活輔導、心理諮商輔導及生涯輔導等事項。
-五、圖書館：辦理圖書購置、分編、典藏、閱覽、利用及推廣教育等事項。
-技術型學校應設實習處，辦理學生實習、技能檢定、學生就業輔導、建教合作及其他有關事項。綜合型學校或設有專業群、科、學程之普通型學校，亦得設置實習處或建教合作處。
+教務處：辦理課程編排、教學實施、教學研究、學籍管理、成績評量、招生、教學設備與教具圖書資料供應及配合實施教育輔導等事項。
+學生事務處：辦理民主法治教育、道德教育、生活教育、體育衛生保健與團體活動、校園性別事件、防制校園霸凌因應小組及配合實施生活輔導等事項。
+總務處：辦理文書、檔案管理、公文管理、事務、出納、工友管理、物品採購、營建修繕及財產管理等事項。
+輔導處(室)：辦理學生生活輔導、心理諮商輔導及生涯輔導等事項。
+圖書館：辦理圖書購置、分編、典藏、閱覽、利用及推廣教育等事項。
+技術型學校應設實習處，辦理學生實習、技能檢定、學生就業輔導、建教合作及其他有關事項。但設有建教合作處者，由該處辦理建教合作事項。
+綜合型學校或設有專業群、科、學程之普通型學校，亦得設置實習處或建教合作處，辦理前項事項。
+學校得視類型、校務發展需要及規模大小，增設下列一級單位；其設置基準及掌理事項如下：
+特殊教育處：特殊教育班十八班以上者，得設置；辦理特殊教育及其他有關事項。
+建教合作處：建教合作班十八班以上者，得設置；辦理建教合作及其他有關事項。
+進修部：辦理進修教育者，得設置；辦理進修教育及其他有關事項。
+資訊室：得視業務需要設置；辦理資訊業務及其他有關事項。
+研究發展處：得視業務需要設置；辦理研究發展及其他有關事項。
+技術交流處：得視業務需要設置；辦理技術交流及其他有關事項。
+學校得依校務發展需要，自行調整各處(室、館、部)之掌理事項。
 
 <strong>第 5 條</strong>
 學校設二級單位(組、科或學程)辦事，並得基於自主管理原則及需要，訂定組別及組數。但不得超過下列基準：
-一、普通型及綜合型學校：二十班以下十二組；二十一班以上十五組。
-二、技術型學校：四十八班以下十三組；四十九班以上十五組。
-附設國中部者班級總數應包括國中部，並得增設四組；普通型附設專業群科得增設二組。
+普通型及綜合型學校：
+二十班以下：十二組。
+二十一班以上：十五組。
+技術型學校：
+四十八班以下：十三組。
+四十九班以上：十五組。
+除前項組數外，有下列情形者，其設置基準如下：
+附設國民中學部(以下簡稱國中部)，學校班級總數，應包括附設國中部，並得增設四組，不受前項規定之限制。
+普通型學校附設專業群、科、學程，得另增設二組，不受前項規定之限制。
+普通型學校設有綜合高中學程十二班以上，得設綜合高中組。
+設有特殊教育班，得於教務處或輔導處(室)設特教組。
+技術型學校辦理實用技能學程六班以上，得視實際需要，於適當單位增設實用技能組。
+設進修部，得視學校規模大小(班級數得併計國民中學附設補習學校班級數)及校務發展需要，增設教務、教學、註冊、學生事務、生活輔導、衛生或實習輔導各組，不受前項規定之限制。但增設組數不得超過下列基準：
+五班以下：一組。
+六班至九班：二組。
+十班至十五班：四組。
+十六班以上：五組。
 
 <strong>第 6 條</strong>
-兼行政職務人員之進用方式：
-一、學校未置副校長者，得置秘書一人，由校長就編制內專任教師聘兼之。
-二、一級單位主任及二級單位科主任、學程主任，除總務處主任得由教師兼任或職員專任外，其餘均由校長就專任教師聘兼之。
-三、輔導處(室)主任由校長就專任輔導教師聘兼之；圖書館主任遴選具有專業知能人員專任或由專任教師聘兼。
-四、二級單位組長除總務處由職員專任、學務處生輔組長得由具輔導知能人員兼任外，其餘由校長就專任教師聘兼或職員專任。
+學校置教師、專任輔導教師、導師、秘書、主任、組長、科主任、學程主任及軍訓教官；其員額編制，依本標準第七條、第八條及第十二條規定。
+學校兼行政職務人員之進用方式如下：
+學校未置副校長者，得置秘書一人，由校長就編制內專任教師聘兼之。
+一級單位主任及二級單位科主任、學程主任，除總務處之主任得由教師兼任或職員專任外，其餘均由校長就專任教師聘兼之。
+輔導處(室)置主任一人，由校長就專任輔導教師聘兼之。如因業務設組，其組長由校長就具輔導知能之專任教師聘兼之。
+圖書館置主任一人，由校長遴選具有專業知能之人員專任，必要時得由校長就具有專業知能之專任教師聘兼之。
+二級單位組長，除總務處之組長由職員專任、學生事務處負責生活輔導業務之組長得由具輔導知能之人員兼任外，其餘由校長就專任教師聘兼之或由職員專任。
+
+<strong>第 7 條</strong>
+學校置幹事、技士、助理員、技佐、電器管理員、管理員、書記等職員；其員額編制，依本標準第八條及第十二條規定。
+前項學校職員數，得依學校分布情形或學生人數多寡，視財政狀況及實際業務需要，依新北市政府(以下簡稱本府)年度預算，以不逾學校教職員員額總數百分之二十五編列。但本準則施行前已進用之職員，不受員額總數比率之限制，得繼續任職至離職為止。
+學校置醫師、營養師、護理師(或護士)等醫事人員，其員額編制，依本標準第八條及第十二條規定。
+學校得依本標準第八條規定，置專任運動教練，並聘(僱)用救生員或運動傷害防護員。
+
+<strong>第 8 條</strong>
+學校設人事室或置人事管理員；其設人事室者，置主任一人，得置組員、助理員或書記若干人，依法辦理人事管理事項；其設置，依人事機構設置有關規定辦理。
+
+<strong>第 9 條</strong>
+學校設會計室或置會計員；其設會計室者，置主任一人，得置組員、佐理員或書記若干人，依法辦理歲計、會計及統計事項；其設置，依主計機構設置有關規定辦理。
+
+<strong>第 10 條</strong>
+學校附設國中部、國民小學部者，其組織及員額編制，依國民教育法相關規定辦理。
+
+<strong>第 11 條</strong>
+學校附設幼兒園者，其組織及員額編制，依幼兒教育及照顧法相關規定辦理。
+
+<strong>第 12 條</strong>
+學校設立分校、分部者，應依高級中等教育法相關規定辦理。
+
+<strong>第 13 條</strong>
+本準則所列各職稱之官等職等或級別及員額，另以編制表定之。
+各職稱之官等職等，依職務列等表之規定。
+
+<strong>第 14 條</strong>
+學校職員員額編制表，由學校擬訂，報本府教育局(以下簡稱本局)轉陳本府核定，並送考試院備查。
+
+<strong>第 15 條</strong>
+學校分層負責明細表，由學校訂定，報本局備查。
+
+<strong>第 16 條</strong>
+本準則自中華民國一百十三年二月一日施行。
+        </div>
+        <div class="law-history">
+          1. 104年12月30日新北市政府新北府法規字第1042465552號令訂定發布全文15條；並自103年8月1日施行。<br>
+          2. 中華民國113年2月29日新北市政府新北府法規字第1130267809號令修正發布全文16條；並113年2月1日施行。
         </div>
       </section>
 
       <!-- 2. 高級中等學校組織設置及員額編制標準 -->
-      <section id="sec-02" class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
-        <div class="border-b border-slate-100 pb-3 flex items-start justify-between">
-          <div>
-            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-200">教育部法規</span>
-            <h2 class="text-lg md:text-xl font-bold text-slate-900 mt-1">高級中等學校組織設置及員額編制標準</h2>
-          </div>
-          <span class="text-xs text-slate-400">107年7月16日修正</span>
+      <section id="law-02" class="law-section bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <h2 class="text-xl font-bold text-slate-900">高級中等學校組織設置及員額編制標準</h2>
+        <div class="space-y-3 text-sm text-slate-700 whitespace-pre-line leading-relaxed">
+<strong>第 1 條</strong>
+本標準依高級中等教育法(以下簡稱本法)第二十四條第一項規定訂定之。
+
+<strong>第 2 條</strong>
+高級中等學校(以下簡稱學校)置校長一人，專任，綜理校務；並得置副校長一人，襄助校長處理校務。
+副校長之設置基準，由各該主管機關定之。
+
+<strong>第 3 條</strong>
+學校設下列一級單位：
+教務處。
+學生事務處。
+總務處。
+輔導處(室)。
+圖書館。
+實習處：技術型學校應設置；綜合型學校或設有專業群、科、學程之普通型學校，得設置。
+特殊教育處：辦理特殊教育十八班以上者，得設置。
+建教合作處：辦理建教合作十八班以上者，得設置。
+進修部：辦理進修教育者，得設置。
+資訊室、研究發展處、技術交流處或其他處(室)：得視業務需要設置。
+
+<strong>第 4 條</strong>
+學校設人事室或置人事管理員；其設人事室者，置主任一人，得置組員、助理員或書記若干人；其設置，依人事機構設置有關規定辦理。
+學校設主(會)計室或置主(會)計員；其設主(會)計室者，置主任一人，得置組員、佐理員或書記若干人；其設置，依主計機構設置有關規定辦理。
+
+<strong>第 5 條</strong>
+學校設下列二級單位：
+教務處：得設教學、註冊、設備、試務、課務、實習及就業輔導、實驗研究各組辦事。但設有實習處者，不得設實習及就業輔導組。普通型學校設有綜合高中學程十二班以上者，得設綜合高中組。
+學生事務處：得設訓育、生活輔導、體育、衛生、社團活動各組。
+總務處：得設文書、庶務、出納各組。
+輔導處(室)：得設輔導、資料各組。
+圖書館：得設技術服務、讀者服務、資訊媒體各組。
+實習處：得設實習、就業輔導、技能檢定各組；辦理建教合作在十七班以下者，得設建教合作組。
+學校辦理實用技能學程六班以上者，得視實際需要於適當單位增設實用技能組。
+學校辦理特殊教育班二班以上十七班以下者，得增設特殊教育組。
+進修部：得設教務、教學、註冊、學生事務、生活輔導、衛生、實習輔導各組。
+資訊室、研究發展處、特殊教育處、建教合作處、技術交流處或其他處(室)：得視業務需要分組。
+
+<strong>第 6 條</strong>
+各該主管機關得視學校規模大小及校務發展需要，並配合學校班級數，訂定第三條及前條單位之設置基準或總量，並納入第十一條所定之組織規程準則。
+
+<strong>第 7 條</strong>
+學校教師員額編制如下：
+普通科：每班置教師二人，每達四班，增置教師一人。
+專業類科：
+農業、海事水產類：每三班置教師八人；未達三班者，二班置五人，一班置二人。但農業類之農業機械科每班置三人。
+工業及藝術類：每班置教師三人。
+商業及家事類：每二班置教師五人；未達二班者，一班置二人。
+前三目類，除工業類外，設有五科以上者，每增二科得增置教師一人。
+綜合高中學程：每班以二點五人為原則。但辦理工業、農業及海事水產綜合高中課程者，每班置三人。
+實用技能學程：日間授課每班置教師一人，每滿四班增一人；夜間授課每班置教師二人。
+特殊教育班：依高級中等以下學校特殊教育班班級及專責單位設置與人員進用辦法規定辦理。
+體育班：依高級中等以下學校體育班設立辦法規定辦理。
+進修部：每班置教師二人，並得由學校現有教師兼任。
+專任輔導教師：學校班級數十二班以下者，置一人；十三班至二十四班者，置二人；二十五班以上者以此類推。
+導師：每班置一人，由編制內專任教師兼任，但建教合作班得依需要增置導師員額；特殊教育班導師，依高級中等以下學校特殊教育班班級及專責單位設置與人員進用辦法規定設置。
+兼行政職務人員：
+學校得置副校長一人，由校長就曾任一級單位主管以上人員聘兼之；未置副校長者，得置秘書一人，由校長就編制內專任教師聘兼之。
+教務處、學生事務處、總務處及實習處各置主任一人，除總務處主任得由教師兼任或職員專任外，其餘均由校長就專任教師聘兼之；其所屬各組，除總務處之組長由職員專任、學生事務處負責生活輔導業務之組長得由具輔導知能之人員兼任外，其餘由校長就專任教師聘兼之或由職員專任。
+輔導處(室)置主任一人，由校長就專任輔導教師聘兼之。如因業務設組，其組長由校長就具輔導知能之專任教師聘兼之。
+圖書館置主任一人，由校長遴選具有專業知能之人員專任，必要時得由校長就具有專業知能之專任教師聘兼之。
+普通型學校、技術型學校及綜合型學校，設有專業類科二科以上者，每一專業科置科主任一人；設有專門學程總班級數四班以上者，置學程主任一人，由校長就各該專業科、學程之專任教師聘兼之。同類專業科及綜合高中專門學程，科主任、學程主任擇一配置。
+資訊室、研究發展處、特殊教育處、建教合作處、技術交流處、進修部或其他一級單位，置主任一人，由校長就專任教師聘兼之。
+進修部組長，得由校長就專任教師聘兼之；進修部軍訓教官得由學校現有軍訓教官兼任。
+軍訓主任教官、軍訓教官之員額編制依軍訓教官員額設置之相關規定辦理。本法施行前已依規定進用之護理教師，於本法施行後繼續任職者，其員額編制依護理教師員額設置之相關規定辦理。
+第一項第七款有關專任輔導教師之配置規定，自中華民國一百零六年八月一日起逐年完成。
+
+<strong>第 8 條</strong>
+學校職員員額編制如下：
+總務處所屬各組，各置組長一人。
+幹事、助理員、管理員、書記，依下列基準設置：
+幹事：六班以下者，置二人，超過六班部分，每六班增置一人，超過六班之班級數除以六之餘數三班以上者，增置一人。設有學生宿舍者，寄宿學生數八十人以上置幹事一人；三百人以上，增置一人；三百人以上，每增寄宿學生二百人，再增置一人。
+助理員、管理員：得置二人或三人。
+書記：置一人，四十一班以上者，得增置一人。
+技士、技佐：
+工業及海事水產專業科，每科置技士及技佐各一人；農業專業科置技士一人，及設有農機具工廠之專業科，每科置技佐一人，商業及家事每類置技士一人。裝有高壓電力六百伏特以上學校，增置技士一人，專責電力管理。
+辦理綜合高中專門學程，每校置技士、技佐二人，四十一班以上者，得增置一人。設有工業、農業、海事類學程，每學程在四班以下者，得置技士一人，逾四班者，每增四班得增置技佐一人。辦理商業、家事類學程者，每類得就技士、技佐擇一配置一人。
+設置同類專業科及綜合高中專門學程，其技士、技佐員額於前二目擇一配置。
+電器管理員：學校有電器設備之維護管理需要，得置電器管理員一人。
+醫師：得置兼任醫師一人，四十一班以上得增置一人，並得在預算額度內分科遴請合格醫師應診之。
+營養師、護理師(或護士)：依學校衛生法規定辦理。進修部應於學校衛生法所定員額外，單獨置護理人員一人。
+進修部兼任幹事：九班以下至多三人；十班至十五班至多五人；十六班以上至多八人。由校長指派現有人員兼任。
+進修部兼辦人員：就業實習、總務、人事及主計等業務，由校長指派相關人員兼辦之。
+公立學校依第四條、第七條第二項第二款及前項第一款至第四款職員之員額配置，應符合各機關職稱及官等職等員額配置準則規定；學校之總量及配置基準，應納入第十一條所定之組織規程準則或組織規程。
+學校依高級中等以下學校體育班設立辦法得置專任運動教練。
+學校設有游泳池或因學生運動與訓練需要，經報主管機關核准後得聘(僱)用救生員或運動傷害防護員若干人。
+
+<strong>第 9 條</strong>
+私立學校除依本標準規定設單位外，得視實際需要，設其他單位。
+私立學校人事及會計員額設置，依私立學校法及相關規定辦理；學校財團法人董事會得置辦事人員若干人，並得納入所設私立學校員額編制。
+
+<strong>第 10 條</strong>
+本法第六十條第一項第二款所稱合格教師，指於公立或已立案之私立學校編制內，按月支給待遇，並依法取得與其任教類別、學科相符教師證書之專任或代理教師，並包括經中央主管機關審核通過，取得專業及技術教師證書之專任專業及技術教師。
+學校前項合格教師比率(學校合格教師總人數╱學校聘任之專任及代理教師總人數)，應達下列基準：
+公立學校：偏鄉學校百分之八十以上，其餘學校百分之八十五以上。
+私立學校：偏鄉學校或師資培育供需現況不足之群科百分之七十以上，其餘學校或群科百分之八十以上。
+前項所定偏鄉學校，應符合下列條件之一，並由各該主管機關認定：
+學校所在地區，無公共交通工具到達者。
+學校距公共交通站牌，達五公里以上者。
+社區距學校五公里以上，且無公共交通工具可到達學校者。
+公共交通工具到學校所在地區，每日少於四班，或公共交通工具每日八班以內仍無法配合上下學者。
+第二項第二款所定師資培育供需現況不足之群科，由各該主管機關認定。
+
+<strong>第 11 條</strong>
+各該主管機關應就所屬公立學校依本標準規定，訂定組織規程準則；各學校應擬訂員額編制表，報各該主管機關核定。各該主管機關應將組織規程準則及各學校職員員額編制表，分別轉請考試院核備或備查。
+私立學校應依本標準規定，擬訂組織規程及員額編制表，報各該主管機關核定。
+
+<strong>第 12 條</strong>
+學校附設國民中學、國民小學部者，其組織及員額編制，依國民教育法相關規定辦理。
+
+<strong>第 13 條</strong>
+本標準自中華民國一百零三年八月一日施行。
+本標準中華民國一百零七年七月十六日修正發布之條文，自發布日施行。
         </div>
-        <div class="text-sm text-slate-700 space-y-3 leading-relaxed whitespace-pre-line">
-<strong>第 7 條（教師員額編制重點）</strong>
-一、普通科：每班置教師二人，每達四班，增置教師一人。
-二、工業及藝術類：每班置教師三人；商業及家事類每二班置教師五人。
-三、綜合高中學程：每班以二點五人為原則。
-四、專任輔導教師：十二班以下置一人；十三班至二十四班置二人；二十五班以上以此類推。
-五、導師：每班置一人，由編制內專任教師兼任。
-六、合格教師比率：公立學校偏鄉應達80%以上，其餘學校應達85%以上。
+        <div class="law-history">
+          1. 103年1月10日教育部臺教授國部字第 1020136307A號令訂定發布全文13條；並自103年8月1日施行。<br>
+          2. 104年8月26日教育部臺教授國部字第 1040082294B號令修正發布第4、8條條文。<br>
+          3. 107年7月16日教育部臺教授國部字第 1070064663B號令修正發布第7、13條條文。
         </div>
       </section>
 
       <!-- 3. 新北市立高級中等學校教師每週教學節數標準 -->
-      <section id="sec-03" class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
-        <div class="border-b border-slate-100 pb-3 flex items-start justify-between">
-          <div>
-            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200">市定標準</span>
-            <h2 class="text-lg md:text-xl font-bold text-slate-900 mt-1">新北市立高級中等學校教師每週教學節數標準</h2>
-          </div>
-          <span class="text-xs text-slate-400">115年8月1日施行</span>
+      <section id="law-03" class="law-section bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <h2 class="text-xl font-bold text-slate-900">新北市立高級中等學校教師每週教學節數標準</h2>
+        <div class="space-y-3 text-sm text-slate-700 whitespace-pre-line leading-relaxed">
+<strong>第 1 條</strong>
+本標準依高級中等教育法第三十二條規定訂定之。
+
+<strong>第 2 條</strong>
+本標準適用於新北市立高級中等學校(以下簡稱學校)。
+本標準之主管機關為新北市政府教育局(以下簡稱本局)。
+
+<strong>第 3 條</strong>
+學校專任教師及兼任導師之專任教師(以下簡稱兼任導師)，每週基本教學節數(以下簡稱基本節數)如附表一規定，其核計方式如下：
+一、擔任基本節數相同之二種以上課程(領域、科目)者，按各該課程(領域、科目)教學節數合併計算。
+二、擔任基本節數不同之二種以上課程(領域、科目)者，按各該課程(領域、科目)教學節數之比例折算。
+三、兼任導師擔任團體活動課程之班級活動教學節數，應併入其基本節數計算。但擔任其餘團體活動時間，不計入基本節數。
+
+<strong>第 4 條</strong>
+學校應依十二年國民基本教育課程綱要總綱規定，訂定課程計畫，並報本局備查。
+前項課程計畫所定跨領域或跨科目之課程採協同教學方式者，其教師教學節數之核計方式如下：
+一、全學期全部節數均採協同教學：教學節數一節，採計為每週教學節數一節。
+二、全學期部分節數採協同教學：不計入每週教學節數。但依實際教學節數，支給鐘點費。
+
+<strong>第 5 條</strong>
+學校教師依課程計畫所定彈性學習時間，擔任充實、增廣或補強性教學課程授課者，其教學節數比照前條第二項規定計算之。
+學校教師依課程計畫所定彈性學習時間，擔任學生自主學習教學(指導)，或選手培訓、學校特色活動指導者，依實際教學(指導)節數，支給鐘點費。
+
+<strong>第 6 條</strong>
+學校兼任行政職務之專任教師(以下簡稱兼任行政教師)，基本節數如附表二規定，其核計方式如下：
+一、班數以日間部學校(含分散式資源班、巡迴輔導班)、國中編制班級數合計為計算標準。但輪調式建教合作班，每二班折算為一班。
+二、學校輔導處(室)主任及專任輔導教師，專職學生輔導工作。但其因學校課務需要擔任教學者，其基本節數比照處(室)主任及教學組長之規定。
+三、進修部主任、組長及分部主任，其基本節數比照附表二所列節數各減少二節；其班數依進修部或分部編制班級數計算之。
+四、進修部專任輔導教師擔任課程教學者，其基本節數比照進修部教學組長之規定。
+五、學校辦理綜合高中所增兼任行政教師(含學程主任及輔導、課務、課外活動、招生等組長)，經報本局同意後，其基本節數比照同級兼任行政教師之規定。
+六、特殊教育班教師因兼任行政職務所減少之教學節數，學校應以代理教師或兼任方式補足之，不得減少該特殊教育班每週教學節數。
+
+<strong>第 7 條</strong>
+學校教師協助校務，其減授教學節數(以下簡稱減授節數)之核計方式如下：
+一、課程領域(包含語文、數學、社會、自然科學及藝能五大領域)之召集人，其基本節數減授二節；藝能領域包含藝術、綜合活動、科技、健康與體育、全民國防教育等領域。
+二、學校各年級級導師，其基本節數減授一節。
+三、學校辦理綜合高中未設學程主任者，得設學程召集人，其減授節數比照第一款規定。
+四、教師協助校務每週減授節數如附表三規定，其分配比例與優先順序，由校務會議決定；並以擔任童軍團長、協辦學習扶助或實際參與其他重大教育政策推動者，列為減授節數優先對象。
+五、教師兼任課程諮詢教師或其召集人，或承辦政府機關(構)委任、委託、補助或指示學校辦理之事項者，得依有關法令規定，減授其基本節數；其減授節數，不計入附表三協助校務每週減授節數。
+
+<strong>第 8 條</strong>
+學校教師超時教學鐘點費(以下簡稱超時鐘點費)之核發方式如下：
+一、教師實際教學節數超過應教學節數者(以下簡稱超時教學節數)，核實支給超時鐘點費；超時教學節數應於開學前註記於課表，並平均分散於每日為原則。
+二、全學期兼(代)課者，按學校行事曆排定之每週(代)課節數，核實支給超時鐘點費；其節數包括適逢國定假日為實際兼(代)課及學期始(末)未滿一週之教學節數。但擔任畢業班之教師，於學校停課後之節數，不予計入。
+三、教師超時教學節數與全學期代課節數合計以九節為限，以上節數日間部及進修部合併以十二節為限；學期中之短期代課節數，則不予計入。但課程有不可分割或特殊情形，報本局核准者，不在此限。
+四、設有體育班之學校，其寒(暑)假應開設競技專項運動綜合訓練者，寒假以三學分、暑假以六學分為限，得依實際教學節數核實支給超時鐘點費。
+五、學校依規定排課核算後，如確有超時教學節數，得於學校人事費項下核實支給超時鐘點費。
+前項第一款應教學節數，以基本節數扣減協助校務每週減授節數核計之。
+
+<strong>第 9 條</strong>
+全民國防教育課程由軍訓教官(包括軍訓主任教官、軍訓教官兼任生活輔導組長及一般軍訓教官)擔任教學者，該課程每週教學節數，由一般軍訓教官平均分配。
+全民國防教育課程依前項規定分配後，一般軍訓教官每人基本節數達十節，仍有賸餘節數時，由軍訓教官兼任生活輔導組長或軍訓主任教官優先擔任；再有賸餘節數時，由全部軍訓教官分別擔任。
+軍訓主任教官基本節數，比照附表二處主任之規定。
+
+<strong>第 10 條</strong>
+學校應按教師登記、檢定科目並參酌其專長，排定教學課程。但就實習課程、選修課程及稀有科目如不易延聘合格師資，得聘請具有專長者兼課，除法令另有規定外，節數以每週不超過九節為限。
+
+<strong>第 11 條</strong>
+依高級中等學校合聘教師辦法聘任之合聘教師，其基本節數，按該教師於各合聘學校教學之課程種類及擔任之職稱類別，依本標準相關規定辦理。
+依高級中等學校專業及技術教師遴聘辦法聘任之編制內專任教師，其基本節數，按該教師於學校教學之課程種類及擔任之職稱類別，依本標準相關規定辦理。
+
+<strong>第 12 條</strong>
+學校教師每週教學節數未依本標準辦理者，除追繳其溢領鐘點費外，並議處失職人員。
+
+<strong>第 13 條</strong>
+學校附設國中部之專任教師及兼任導師，其教學節數應依新北市國民中學教師基本節數相關規定辦理。但兼任行政教師，其基本節數及協助校務減授節數，得準用本標準規定辦理。
+
+<strong>第 14 條</strong>
+學校代理教師每週教學節數，準用本標準之規定。
+
+<strong>第 15 條</strong>
+本標準自發布日施行。
+本標準中華民國一百零八年十月三十日修正條文，自中華民國一百零八年八月一日施行。
+本標準中華民國一百十二年二月十五日修正條文，自中華民國一百十一年八月一日施行。
+本標準中華民國一百十二年七月十九日修正條文，自中華民國一百十二年八月一日施行。
+本標準自中華民國一百十五年八月十一日修正條文，自中華民國一百十五年八月一日施行。
         </div>
-        <div class="text-sm text-slate-700 space-y-3 leading-relaxed whitespace-pre-line">
-<strong>第 3 條（基本節數及兼任導師）</strong>
-專任教師及兼任導師之每週基本教學節數依附表一辦理。兼任導師擔任班級活動之節數應併入其基本節數計算。
 
-<strong>第 7 條（協助校務減授節數）</strong>
-一、語文、數學、社會、自然科學及藝能五大領域召集人，基本節數減授二節。
-二、各年級級導師，基本節數減授一節。
-三、協助校務每週減授節數分配比例與優先順序由校務會議決定，優先對象：童軍團長、協辦學習扶助、重大政策推動者。
-
-<strong>第 8 條（超時教學鐘點費）</strong>
-一、教師實際教學節數超過應教學節數者，核實支給超時鐘點費，並應於開學前註記於課表，平均分散於每日為原則。
-二、超時教學節數與全學期代課節數合計以九節為限；日間部及進修部合併以十二節為限。
-        </div>
-
-        <!-- 附表一：高中基本授課節數表 -->
+        <!-- 附表一 -->
         <div class="mt-4 overflow-x-auto">
-          <h4 class="font-bold text-xs text-slate-600 mb-2">【附表一：課程領域與基本授課節數】</h4>
-          <table class="w-full text-xs text-left border border-slate-200 rounded-lg overflow-hidden">
+          <h4 class="font-bold text-xs text-slate-700 mb-2">【附表一：高中課程領域與基本授課節數表】</h4>
+          <table class="w-full text-xs text-left border border-slate-200">
             <thead class="bg-slate-100 text-slate-700">
               <tr>
-                <th class="p-2 border">領域 / 科目</th>
+                <th class="p-2 border">課程(領域、科目)</th>
+                <th class="p-2 border">專任教師</th>
+                <th class="p-2 border">導師</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+              <tr><td class="p-2 border">語文領域：國文(國語文)</td><td class="p-2 border font-semibold">十四節</td><td class="p-2 border font-semibold">九節</td></tr>
+              <tr><td class="p-2 border">語文領域：英文(英語文)</td><td class="p-2 border font-semibold">十六節</td><td class="p-2 border font-semibold">十一節</td></tr>
+              <tr><td class="p-2 border">數學</td><td class="p-2 border font-semibold">十六節</td><td class="p-2 border font-semibold">十一節</td></tr>
+              <tr><td class="p-2 border">社會領域</td><td class="p-2 border font-semibold">十六節</td><td class="p-2 border font-semibold">十一節</td></tr>
+              <tr><td class="p-2 border">自然(自然科學)領域</td><td class="p-2 border font-semibold">十六節</td><td class="p-2 border font-semibold">十一節</td></tr>
+              <tr><td class="p-2 border">藝術領域</td><td class="p-2 border font-semibold">十六節</td><td class="p-2 border font-semibold">十一節</td></tr>
+              <tr><td class="p-2 border">生活(綜合活動)領域</td><td class="p-2 border font-semibold">十六節</td><td class="p-2 border font-semibold">十一節</td></tr>
+              <tr><td class="p-2 border">生活領域之計算機概論或資訊科技概論(科技領域)</td><td class="p-2 border font-semibold">十六節</td><td class="p-2 border font-semibold">十一節</td></tr>
+              <tr><td class="p-2 border">健康與體育領域</td><td class="p-2 border font-semibold">十六節</td><td class="p-2 border font-semibold">十一節</td></tr>
+              <tr><td class="p-2 border">全民國防教育</td><td class="p-2 border font-semibold">十六節</td><td class="p-2 border font-semibold">十一節</td></tr>
+              <tr><td class="p-2 border">各群、科、學程之專業科目及實習科目，包括專題製作(專題實作)</td><td class="p-2 border font-semibold">十六節</td><td class="p-2 border font-semibold">十一節</td></tr>
+              <tr><td class="p-2 border">選修課程，包括生命教育類、生涯規劃類、其他類</td><td class="p-2 border font-semibold">十六節</td><td class="p-2 border font-semibold">十一節</td></tr>
+            </tbody>
+          </table>
+          <p class="text-[11px] text-slate-500 mt-1">備註：教師擔任二種以上課程教學時，基本節數相同者按教學節數合併計算；基本節數不同者依比例折算後併計。括弧內文字為108課綱適用名稱。各課程包括部定必修、校訂必修及選修。</p>
+        </div>
+
+        <!-- 附表二 -->
+        <div class="mt-4 overflow-x-auto">
+          <h4 class="font-bold text-xs text-slate-700 mb-2">【附表二：高中兼任行政職務專任教師每週基本教學節數表】</h4>
+          <table class="w-full text-xs text-center border border-slate-200">
+            <thead class="bg-slate-100 text-slate-700">
+              <tr>
+                <th class="p-2 border text-left">職別＼班數</th>
+                <th class="p-1 border">9班以下</th>
+                <th class="p-1 border">10-18班</th>
+                <th class="p-1 border">19-24班</th>
+                <th class="p-1 border">25-30班</th>
+                <th class="p-1 border">31-40班</th>
+                <th class="p-1 border">41-50班</th>
+                <th class="p-1 border">51-60班</th>
+                <th class="p-1 border">61班以上</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+              <tr>
+                <td class="p-2 border text-left font-medium">副校長、秘書、處(室)主任、圖書館主任</td>
+                <td class="p-1 border">7</td><td class="p-1 border">5</td><td class="p-1 border">3</td><td class="p-1 border">1</td><td class="p-1 border">1</td><td class="p-1 border">0</td><td class="p-1 border">0</td><td class="p-1 border">0</td>
+              </tr>
+              <tr>
+                <td class="p-2 border text-left font-medium">教學、註冊、訓育、生活輔導、衛生組長</td>
+                <td class="p-1 border">8</td><td class="p-1 border">8</td><td class="p-1 border">6</td><td class="p-1 border">5</td><td class="p-1 border">3</td><td class="p-1 border">1</td><td class="p-1 border">0</td><td class="p-1 border">0</td>
+              </tr>
+              <tr>
+                <td class="p-2 border text-left font-medium">上列各組以外之編制內各處(室)組長</td>
+                <td class="p-1 border">9</td><td class="p-1 border">9</td><td class="p-1 border">7</td><td class="p-1 border">7</td><td class="p-1 border">5</td><td class="p-1 border">3</td><td class="p-1 border">1</td><td class="p-1 border">0</td>
+              </tr>
+              <tr>
+                <td class="p-2 border text-left font-medium">各群、科、學程主任</td>
+                <td colspan="8" class="p-2 border text-left">全科總班數3班(含)以下者8節；4班至6班者7節；7班以上者6節。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 附表三 -->
+        <div class="mt-4 overflow-x-auto">
+          <h4 class="font-bold text-xs text-slate-700 mb-2">【附表三：高中協助校務每週減授節數表】</h4>
+          <table class="w-full text-xs text-center border border-slate-200">
+            <thead class="bg-slate-100 text-slate-700">
+              <tr>
+                <th class="p-2 border">總班級數</th>
+                <th class="p-2 border">26班以下</th>
+                <th class="p-2 border">27班至44班</th>
+                <th class="p-2 border">45班至62班</th>
+                <th class="p-2 border">63班以上</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="p-2 border font-medium">協助校務酌減節數</td>
+                <td class="p-2 border">8節至12節</td>
+                <td class="p-2 border">12節至18節</td>
+                <td class="p-2 border">18節至30節</td>
+                <td class="p-2 border">30節至60節</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="law-history">
+          1. 中華民國104年2月4日新北市政府新北府法規字第 1040147804號令訂定發布全文11條；並自發布日施行。<br>
+          2. 中華民國108年10月30日新北市政府新北府法規字第 1082001386號令修正發布全文15條；並自108年8月1日施行。<br>
+          3. 中華民國112年2月15日新北市政府新北府法規字第 1120190442號令修正發第3、7、15條條文；並自111年8月1日施行。<br>
+          4. 中華民國112年7月19日新北市政府新北府法規字第 1121295381號令修正發布第7、8、15條條文；並自112年8月1日施行。<br>
+          5. 中華民國115年8月11日新北市政府教育局新北府教中字第 1151487041號函預告修正第15條及第3條附表一；並自115年8月1日施行。
+        </div>
+      </section>
+
+      <!-- 4. 國教署補助高中新增鐘點費要點 -->
+      <section id="law-04" class="law-section bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <h2 class="text-xl font-bold text-slate-900">教育部國民及學前教育署補助高級中等學校實施十二年國民基本教育課程及國立高級中等學校教師每週教學節數標準新增鐘點費要點</h2>
+        <div class="space-y-3 text-sm text-slate-700 whitespace-pre-line leading-relaxed">
+教育部國民及學前教育署(以下簡稱本署)為補助高級中等學校(以下簡稱學校)，執行十二年國民基本教育課程綱要(以下簡稱課綱)高級中等教育階段相關規定、高級中等學校課程規劃及實施要點、高級中等學校實習課程實施辦法、高級中等學校課程諮詢教師設置相關規定及國立高級中等學校教師每週教學節數標準(以下簡稱節數標準)，所新增之鐘點費，特訂定本要點。
+
+本要點所稱新增鐘點費，指學校適用課綱之班級實施課程教學增加教師授課、指導，及減授課程諮詢教師、課程諮詢教師召集人(以下簡稱召集人)每週基本教學節數(以下簡稱基本節數)或依節數標準所定教師基本節數調降、協辦行政教師減授基本節數，所增加之鐘點費。前項新增鐘點費，依公立中小學兼任及代課教師鐘點費支給基準表規定支給。但授課或指導教師為大專校院教師者，依公立大專校院兼任教師鐘點費支給基準表規定，支給其鐘點費。
+
+本要點補助項目及基準如下：
+一、部定必修課程新增鐘點費：
+(一) 各類型學校國語文、英語文及數學三科目：採班群實施適性分組教學增加教師授課之鐘點費；其補助之金額，以該科目原應支出鐘點費之零點五倍為限。
+(二) 普通型學校自然科學探究與實作課程：實施跨科目協同教學增加不同科目教師授課之鐘點費；其補助之金額，以該課程原應支出鐘點費之一倍為限。
+(三) 技術型學校之社會、自然科學與藝術領域：實施各該領域跨科之統整型、探究型或實作型課程，增加不同科目教師授課之鐘點費；其補助之金額，以該課程原應支出鐘點費之一倍為限。
+(四) 學校設有專業群、科之實習科目：實施分組教學增加教師授課之鐘點費；其補助之金額，以該課程原應支出鐘點費之一倍為限。
+二、校訂必修課程及選修課程新增鐘點費：
+下列各目補助之總金額，以學校適用課綱之班級所開設校訂必修課程及選修課程之總節數原應支出鐘點費之一倍為限：
+(一) 普通型學校、綜合型學校及單科型學校採班群開課增加教師授課之鐘點費；其補助之金額，以該班群原應支出鐘點費之零點五倍為限。
+(二) 技術型學校及綜合型學校開設學生應修習學分數一點二倍至一點五倍之選修課程增加教師授課之鐘點費；其補助之金額，以學生應修習學分數之課程原應支出鐘點費之零點五倍為限。
+(三) 技術型學校、綜合型學校開設專題實作課程及綜合型學校專門學程之實習科目實施分組教學增加教師授課之鐘點費；其補助之金額，以該課程原應支出鐘點費之一倍為限。
+(四) 學校於一般科目開設跨領域或跨科目專題類與統整課程增加不同領域或科目教師授課之鐘點費；其補助之金額，以該課程原應支出鐘點費之一倍為限。
+三、彈性學習時間新增鐘點費：規劃學生自主學習、選手培訓、充實(增廣)教學、補強性教學及學校特色活動增加教師授課或指導之鐘點費；其補助之金額，以學校適用課綱之班級所規劃之彈性學習時間節數原應支出鐘點費之零點五倍為限。
+四、設置課程諮詢教師、召集人新增鐘點費：依高級中等學校課程諮詢教師設置要點所定課程諮詢教師、召集人減授基本節數而增加之鐘點費。
+五、教師基本節數調降新增鐘點費：國立學校依節數標準第二條及第五條所定教師及兼任行政職務之專任教師基本節數調降而增加之鐘點費。
+六、協辦行政教師減授基本節數新增鐘點費：國立學校依節數標準第八條所定協辦行政教師減授基本節數而增加之鐘點費。
+私立學校以補助前項第二款選修課程及第四款之新增鐘點費為限。學校因特殊情形，經報各該主管機關核准者，得不受第一項第一款至第四款所定補助基準之限制。
+
+依本要點之申請、審查、請款及補助比率如下：
+一、申請：學校申請前點第一項第一款至第四款者，檢具需求表報地方政府彙整向本署申請，國立學校逕向本署申請。
+二、審查：本署得邀集學者專家審查，審查通過者由本署視年度預算核定補助金額。
+三、請款：地方政府主管之學校由地方政府檢附領據請款；國立學校撥入校務基金，私立學校逕向本署請款。
+四、補助比率：國立學校最高全額補助；地方政府主管學校依財力級次補助（第一級80%、第二級82%、第三級84%、第四級86%、第五級90%）。
+        </div>
+        <div class="law-history">
+          1. 中華民國107年7月10日教育部臺教國署高字第 1070078239B號令訂定發布全文6條，並自108年8月1日生效。<br>
+          2. 中華民國108年05月30日教育部修正發布第4點。<br>
+          3. 中華民國109年4月15日修正第4、6點。<br>
+          4. 中華民國110年3月30日修正第2、3點。<br>
+          5. 中華民國114年10月15日教育部國教署臺教國署高字第1145405518A號令修正第4點，並自115年1月1日生效。
+        </div>
+      </section>
+
+      <!-- 5. 國民小學與國民中學班級編制及教職員員額編制準則 -->
+      <section id="law-05" class="law-section bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <h2 class="text-xl font-bold text-slate-900">國民小學與國民中學班級編制及教職員員額編制準則</h2>
+        <div class="space-y-3 text-sm text-slate-700 whitespace-pre-line leading-relaxed">
+<strong>第 1 條</strong>
+本準則依國民教育法第二十三條第一項規定訂定之。
+
+<strong>第 2 條</strong>
+國民小學及國民中學普通班班級編制規定如下：
+一、國民小學每班學生人數以二十九人為原則。
+二、國民中學每班學生人數以三十人為原則。
+三、山地、偏遠及離島等地區之學校每班學生人數，得視實際情形予以降低，並以維持年級教學為原則。
+其他班級類型之班級編制，依各該法規規定辦理。
+
+<strong>第 3 條（國民小學教職員員額編制）</strong>
+一、校長：每校置校長一人，專任。
+二、主任：各處、室、分校及其他一級單位置主任一人，除輔導專責單位主任得由教師專任外，其餘由教師兼任。
+三、組長、副組長：各組及其他二級單位，置組長一人，優先由職員專任或兼任，或由教師兼任。學校三十七班以上者，置副組長若干人，由教師兼任。
+四、教師：每班至少置教師一．六五人；全校未達九班者，另增置教師一人。
+五、專任輔導教師：班級數二十班以下者，置一人；二十一班至四十班者，置二人；四十一班以上者，以此類推。
+六、幹事、助理員、管理員及書記：七十二班以下者，置一人至三人；七十三班以上者，置三人至五人。
+七、圖書館專業人員：至少應置一人，且專業人員占圖書館工作人員之比率應達三分之一。
+八、營養師及護理師或護士：依學校衛生法規定辦理。
+九、住宿生輔導員：山地及偏遠地區宿舍十二人以上置一人；五十人以上置二人。
+十、運動教練：得依國民體育法規定置專任運動教練若干人。
+國民小學得在不超過全校教師員額編制數百分之八範圍內，將專任員額控留改聘代理教師或教學支援工作人員。控留員額為二人以上者，至少半數應改聘代理教師。
+
+<strong>第 4 條（國民中學教職員員額編制）</strong>
+一、校長：每校置校長一人，專任。
+二、主任：各處、室、分校及其他一級單位置主任一人，除輔導專責單位主任得由教師專任外，其餘由教師兼任。
+三、組長、副組長：各組置組長一人，優先由職員專任或兼任，或由教師兼任。學校二十五班以上者，置副組長若干人，由教師兼任。
+四、教師：每班至少置教師二．二人，每九班得增置教師一人；全校未達九班者，得另增置教師一人。
+五、專任輔導教師：班級數十二班以下者，置一人；十三班至二十四班者，置二人；二十五班以上者，以此類推。
+六、幹事、助理員、管理員及書記：三十六班以下者，置二人至九人；三十七班至七十二班者，置三人至十三人；七十三班以上者，置五人至二十人。
+七、圖書館專業人員：至少應置一人，專業人員占圖書館工作人員比率應達三分之一。
+八、營養師、護理師、住宿生輔導員、運動教練、人事及主計人員均依相關法令辦理。
+
+<strong>第 5 條</strong>
+國民小學及國民中學之全校教師員額編制，得經主管機關核定按「滿足學生學習節數」計算：
+學校全校教師員額 ＝ (全校學生每週學習總節數 ＋ 全校教師每週兼任各項職務總減授節數) ÷ 規定專任教師每人每週授課節數。
+
+<strong>第 6 條</strong>
+偏遠地區國中小學生人數達三十一人以上者，應依偏遠地區學校教育發展條例規定，按上述節數公式滿足學生學習節數計算員額。
+
+<strong>第 7 條之 1</strong>
+學校依規定配置職員後，基於人力資源需求，報經主管機關同意後得依勞基法契約進用人員。統籌辦理全區業務者得增置教師員額或契約進用人員。
+
+<strong>第 8 條</strong>
+本準則自發布日施行。
+        </div>
+        <div class="law-history">
+          中華民國115年7月15日教育部臺教授國部字第1155501981A號令修正第3條、第4條、第7條之1；並自發布日施行。
+        </div>
+      </section>
+
+      <!-- 6. 國民中小學教師授課節數訂定基準 -->
+      <section id="law-06" class="law-section bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <h2 class="text-xl font-bold text-slate-900">國民中小學教師授課節數訂定基準</h2>
+        <div class="space-y-3 text-sm text-slate-700 whitespace-pre-line leading-relaxed">
+一、教育部(以下簡稱本部)為使各領域專任教師之授課節數一致，並達總量管制之要求，特訂定本基準。
+二、國民中小學專任教師之授課節數，依授課領域、科目及學校需求，每週安排十六節至二十節為原則，且不得超過二十節之上限。專任教師授課節數應以固定節數為原則，不宜因學校規模大小而不同。
+三、專任教師兼任導師者，其授課節數與專任教師之差距以四節至六節為原則。
+四、專任教師兼任行政職務，其減授節數之基準由各該主管教育行政機關訂定之。國立師資培育大學附設實驗國民小學專任教師兼任主任行政職務者，每週之授課節數以一節至四節為原則；兼任組長行政職務者，每週之授課節數以七節至十三節為原則。
+五、專任教師每週兼課、超時授課及代課節數，除法令另有規定外，依下列原則辦理：
+(一) 兼課（超時授課）復代課節數不包括進修部者，併計以不超過九節為原則。
+(二) 兼課（超時授課）復代課節數包括進修部者，併計以不超過十二節為原則。
+前項規定，如課程不可分割或特殊情形報經各該主管教育行政機關核准者，不在此限。
+六、輔導教師負責執行發展性及介入性輔導措施，並協助處遇性輔導措施，以學生輔導工作為主要職責；其授課時數規定如下：
+(一) 專任輔導教師不得排課。但因課務需要教授輔導相關課程者，以不超過教師兼主任之授課節數排課。
+(二) 兼任輔導教師之減授節數，國民中學教師以十節為原則，國民小學教師以二節至四節為原則。
+七、國民中小學之人事、會計人員，不論規模大小，不得由教師兼任。
+八、各該主管教育行政機關應訂定不同規模學校之行政組織層級、單位及人員配置，發揮總量管制效益。
+九、中央政府專案補助增置之員額，應優先運用於教師人力缺乏之學校。
+十、各該主管教育行政機關，應依本基準規定及人力、經費等實際狀況，訂定補充規定。
+        </div>
+        <div class="law-history">
+          114年7月28日教育部臺教授國部字第1145502829A號令修正第四點，並自中華民國114年8月1日生效。
+        </div>
+      </section>
+
+      <!-- 7. 新北市立國民中學及國民中小學組織規程 -->
+      <section id="law-07" class="law-section bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <h2 class="text-xl font-bold text-slate-900">新北市立國民中學及國民中小學組織規程</h2>
+        <div class="space-y-3 text-sm text-slate-700 whitespace-pre-line leading-relaxed">
+<strong>第 1 條</strong>
+本規程依新北市政府教育局組織規程第九條規定訂定之。各校之組織依本規程之規定。
+
+<strong>第 2 條</strong>
+各校之校名，應冠以新北市立之名稱。
+
+<strong>第 3 條</strong>
+各校置校長一人，承新北市政府教育局(以下簡稱本局)局長之命，綜理校務。
+
+<strong>第 4 條</strong>
+各校設教務處、學生事務處、總務處及輔導室，分別掌理業務。六班以下者設教導處掌理教務及學務。國小部十三班以上者增設教導處。各校得設進修部。
+
+<strong>第 5 條</strong>
+各校得視學校規模於處、室及部分設教學組、設備組、註冊組、資訊組、訓育組、生教組、體育組、衛生組、事務組、出納組、文書組、輔導組、特教組等。
+
+<strong>第 6 條</strong>
+組數設置基準：
+一、六班以下：設教導處、總務處、輔導室，下設五組。
+二、七班至十二班：設教務處、學務處、總務處、輔導室。國中下設九組，國中小下設十組。
+三、十三班以上：設四處室，下設十三組。
+技藝教育班得設技藝教育組；特教班得增設特教組；進修部3至5班設教導組，6班以上設教務組及訓育組。
+
+<strong>第 8 條～第 16 條</strong>
+置各類職稱、會計室(員)、人事室(員)、附設幼兒園、分校分班、員額編制表、校務會議、分層負責明細表之規範。
+
+<strong>第 17 條</strong>
+本規程自中華民國一百十四年八月一日施行。
+        </div>
+        <div class="law-history">
+          114年10月29日新北市政府新北府法規字第1142086346 號令修正發布全文 17 條；並自114年8月1日施行。
+        </div>
+      </section>
+
+      <!-- 8. 新北市立國民中學及國民中小學教職員員額設置基準 -->
+      <section id="law-08" class="law-section bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <h2 class="text-xl font-bold text-slate-900">新北市立國民中學及國民中小學教職員員額設置基準</h2>
+        <div class="space-y-3 text-sm text-slate-700 whitespace-pre-line leading-relaxed">
+本基準依新北市立國民中學及國民中小學組織規程第十三條規定訂定之。
+新北市立國民中學及國民中小學教職員員額設置如下：
+一、校長：學校置校長一人，專任。
+二、主任：各處、室及分校，置主任一人，除輔導室主任得由教師專任外，其餘由教師兼任。
+三、校務主任：附設國民補習學校，置校務主任一人，由教師兼任。
+四、組長、副組長：各組各置組長一人，除文書、出納及事務三組組長由職員專任外，其餘由教師兼任。六十一班以上者，學務處及輔導室得共置副組長一人至三人，均由教師兼任。
+五、教師：
+(一) 普通班每班設置二．二人，每九班得增置教師一人，最多增置七人；全校未達九班者，得另增置教師一人。
+(二) 特殊教育班(含身心障礙及資賦優異)及藝術才能班每班置三人。
+(三) 分校得專案增置教師一人或二人。
+(四) 國小部教師員額依國小編制基準辦理。
+六、專任輔導教師、專任運動教練、職員（36班以下2-9人、37-72班3-13人、73班以上5-20人）、圖書館專業人員、護理師、住宿生輔導員、人計人員均依法設置。
+偏遠地區全校達三十一人以上者，全校教師員額按學習節數滿足公式計算核定。
+        </div>
+        <div class="law-history">
+          中華民國112年8月14日新北市政府新北府教中字第1121567951號令修正發布第2點條文；並自112年8月1日生效。
+        </div>
+      </section>
+
+      <!-- 9. 新北市國民中學教師每週授課節數補充原則 -->
+      <section id="law-09" class="law-section bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <h2 class="text-xl font-bold text-slate-900">新北市國民中學教師每週授課節數補充原則</h2>
+        <div class="space-y-3 text-sm text-slate-700 whitespace-pre-line leading-relaxed">
+一、新北市政府為使新北市國民中學、高級中學附設國中部及國民中小學國中部之專任教師及兼任導師或行政職務專任教師之授課節數有所依循，訂定本原則。
+二、專任教師及兼任導師每週基本授課節數核計方式如下：
+(一) 教師擔任二種領域科目以上而每週授課節數相同者，依附表一各領域科目基本授課節數辦理。
+(二) 教師擔任二種領域科目以上而每週基本授課節數不同者，應依二者之比例折算每星期基本授課節數。
+(三) 級導師授課節數，依學校規模得酌減：該年級15至30班者酌減0至1節；30班以上者酌減0至2節。
+(四) 導師授課節數不含導師時間。未依規定排課者追繳溢領鐘點費並議處失職人員。
+三、兼任行政職務教師每週基本授課節數依附表二辦理。
+四、學校教師協助校務酌減節數依附表三辦理：優先對象為童軍團長、協辦學習扶助及重大教育政策推動者。協助校務酌減後於不增預算下視為基本節數。
+五、教師超時授課鐘點費核發方式：
+(一) 超出每週基本授課節數者核實支給，開學前註記於課表，平均分散於每日。
+(二) 公差假未實際授課由代課教師領取外，按行事曆排定上課週數發給（含國定假日未授課節數）。
+(三) 兼課或超時授課每週不超過六節，代課每週不超過五節，兼課或超時復代課併計每週不超過九節（含進修部以不超過十二節為原則）。
+六、學校主任不得兼任導師；組長以專任教師兼任為原則。
+七、學校代理教師每星期授課節數準用本原則。
+        </div>
+
+        <!-- 國中附表一 -->
+        <div class="mt-4 overflow-x-auto">
+          <h4 class="font-bold text-xs text-slate-700 mb-2">【附表一：國中各領域科目基本授課節數表】</h4>
+          <table class="w-full text-xs text-left border border-slate-200">
+            <thead class="bg-slate-100 text-slate-700">
+              <tr>
+                <th class="p-2 border">學習領域</th>
                 <th class="p-2 border">專任教師</th>
                 <th class="p-2 border">兼任導師</th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-slate-200">
-              <tr><td class="p-2 border">國語文</td><td class="p-2 border font-semibold text-blue-600">14 節</td><td class="p-2 border font-semibold text-emerald-600">9 節</td></tr>
-              <tr><td class="p-2 border">英語文、數學、社會、自然科學、藝術、科技、健體、全民國防、專業科目等</td><td class="p-2 border font-semibold text-blue-600">16 節</td><td class="p-2 border font-semibold text-emerald-600">11 節</td></tr>
+            <tbody>
+              <tr><td class="p-2 border">語文領域國語文科</td><td class="p-2 border font-semibold">十六節</td><td class="p-2 border font-semibold">十一節</td></tr>
+              <tr><td class="p-2 border">除國語文科外，其餘領域科目</td><td class="p-2 border font-semibold">十八節</td><td class="p-2 border font-semibold">十三節</td></tr>
+            </tbody>
+          </table>
+          <p class="text-[11px] text-slate-500 mt-1">折算公式：配授課基本授課節數 ＝ 配授科目標準節數 × (主授科目標準時數 － 主授科目實際編排時數) ÷ 主授科目標準節數。</p>
+        </div>
+
+        <!-- 國中附表二 -->
+        <div class="mt-4 overflow-x-auto">
+          <h4 class="font-bold text-xs text-slate-700 mb-2">【附表二：國中兼任行政職務教師每週基本授課節數表】</h4>
+          <table class="w-full text-xs text-center border border-slate-200">
+            <thead class="bg-slate-100 text-slate-700">
+              <tr>
+                <th class="p-2 border text-left">職別＼班數</th>
+                <th class="p-1 border">17班以下</th>
+                <th class="p-1 border">18-26班</th>
+                <th class="p-1 border">27-35班</th>
+                <th class="p-1 border">36-44班</th>
+                <th class="p-1 border">45-53班</th>
+                <th class="p-1 border">54-60班</th>
+                <th class="p-1 border">61-62班</th>
+                <th class="p-1 border">63班以上</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="p-2 border text-left font-medium">兼任主任</td><td class="p-1 border">2</td><td class="p-1 border">2</td><td class="p-1 border">2</td><td class="p-1 border">1</td><td class="p-1 border">1</td><td class="p-1 border">0</td><td class="p-1 border">0</td><td class="p-1 border">0</td></tr>
+              <tr><td class="p-2 border text-left font-medium">兼任組長</td><td class="p-1 border">6</td><td class="p-1 border">6</td><td class="p-1 border">6</td><td class="p-1 border">4</td><td class="p-1 border">4</td><td class="p-1 border">2</td><td class="p-1 border">2</td><td class="p-1 border">0</td></tr>
+              <tr><td class="p-2 border text-left font-medium">兼任副組長</td><td class="p-1 border">-</td><td class="p-1 border">-</td><td class="p-1 border">-</td><td class="p-1 border">-</td><td class="p-1 border">-</td><td class="p-1 border">-</td><td class="p-1 border">4</td><td class="p-1 border">2</td></tr>
             </tbody>
           </table>
         </div>
-      </section>
 
-      <!-- 4. 國中小班級編制及教職員員額編制準則 -->
-      <section id="sec-05" class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
-        <div class="border-b border-slate-100 pb-3 flex items-start justify-between">
-          <div>
-            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-200">教育部準則</span>
-            <h2 class="text-lg md:text-xl font-bold text-slate-900 mt-1">國民小學與國民中學班級編制及教職員員額編制準則</h2>
-          </div>
-          <span class="text-xs text-slate-400">115年7月15日修正</span>
+        <!-- 國中附表三 -->
+        <div class="mt-4 overflow-x-auto">
+          <h4 class="font-bold text-xs text-slate-700 mb-2">【附表三：國中協助校務酌減總節數表】</h4>
+          <table class="w-full text-xs text-center border border-slate-200">
+            <thead class="bg-slate-100 text-slate-700">
+              <tr>
+                <th class="p-1 border">班數</th>
+                <th class="p-1 border">≦17</th>
+                <th class="p-1 border">18-26</th>
+                <th class="p-1 border">27-35</th>
+                <th class="p-1 border">36-44</th>
+                <th class="p-1 border">45-49</th>
+                <th class="p-1 border">50-53</th>
+                <th class="p-1 border">54-62</th>
+                <th class="p-1 border">63-71</th>
+                <th class="p-1 border">72-80</th>
+                <th class="p-1 border">81-89</th>
+                <th class="p-1 border">90-99</th>
+                <th class="p-1 border">≧100</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="p-1 border font-medium">減授節數</td>
+                <td class="p-1 border">12</td><td class="p-1 border">15</td><td class="p-1 border">18</td><td class="p-1 border">24</td><td class="p-1 border">30</td><td class="p-1 border">42</td><td class="p-1 border">54</td><td class="p-1 border">60</td><td class="p-1 border">66</td><td class="p-1 border">72</td><td class="p-1 border">78</td><td class="p-1 border">84</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div class="text-sm text-slate-700 space-y-3 leading-relaxed whitespace-pre-line">
-<strong>第 2 條</strong>
-國小每班學生人數以29人為原則；國中每班學生人數以30人為原則。
 
-<strong>第 4 條（國中教師員額編制）</strong>
-一、教師員額：每班至少置教師2.2人，每9班得增置教師1人；全校未達9班者得另增置1人。
-二、專任輔導教師：12班以下置1人；13班至24班置2人；25班以上以此類推。
-三、幹事、助理員等職員：36班以下置2至9人；37至72班置3至13人；73班以上置5至20人。
-        </div>
-      </section>
-
-      <!-- 5. 新北市國民中學教師每週授課節數補充原則 -->
-      <section id="sec-09" class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
-        <div class="border-b border-slate-100 pb-3 flex items-start justify-between">
-          <div>
-            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200">市定補充原則</span>
-            <h2 class="text-lg md:text-xl font-bold text-slate-900 mt-1">新北市國民中學教師每週授課節數補充原則</h2>
-          </div>
-          <span class="text-xs text-slate-400">115年7月20日最新修正</span>
-        </div>
-        <div class="text-sm text-slate-700 space-y-3 leading-relaxed whitespace-pre-line">
-<strong>第 2 點（授課節數基準）</strong>
-一、語文領域國語文科：專任教師 16 節、兼任導師 11 節。
-二、除國文外其餘領域科目：專任教師 18 節、兼任導師 13 節。
-三、級導師酌減節數：該年級15至30班酌減0~1節；30班以上酌減0~2節。
-
-<strong>第 4 點（超時兼代課限制）</strong>
-兼課或超時授課每週不超過6節，代課每週不超過5節；兼課超時復代課併計每週不超過9節（含進修部以不超過12節為原則）。
+        <div class="law-history">
+          中華民國115年7月20日新北市政府新北府教中字第 1151365961號令修正發布第2點條文之附表一；並自即日生效。
         </div>
       </section>
 
-      <!-- 6. 排配課折算公式與重要函釋彙整 -->
-      <section id="sec-cases" class="bg-slate-900 text-white rounded-2xl p-6 shadow-sm space-y-4">
-        <div class="border-b border-slate-700 pb-3 flex items-start justify-between">
-          <div>
-            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-amber-400/20 text-amber-300 border border-amber-400/30">實務核心規範</span>
-            <h2 class="text-lg md:text-xl font-bold mt-1 text-white">排配課折算公式與兼職兼課實務釋例</h2>
-          </div>
-        </div>
-        <div class="text-xs md:text-sm text-slate-300 space-y-4 leading-relaxed">
-          <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700">
-            <h4 class="font-bold text-amber-300 mb-1">【法定排配課折算公式】</h4>
-            <p class="font-mono text-xs text-slate-200">配授課節數 ＝ 配授科目標準節數 × (主授科目標準節數 － 主授科目實際編排節數) ÷ 主授科目標準節數</p>
-            <p class="text-xs text-slate-400 mt-2">※ 專任教師若協助校務酌減時數，必須先依各科標準節數折算配課時數後，再行扣除減授節數。</p>
-          </div>
+      <!-- 10. 教師授課排配課折算公式函釋及範例 -->
+      <section id="law-10" class="law-section bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <h2 class="text-xl font-bold text-slate-900">各校於94學年度起教師授課排配課折算請確依折算公式計算函釋</h2>
+        <div class="space-y-3 text-sm text-slate-700 whitespace-pre-line leading-relaxed">
+各校於94學年度起教師授課排配課折算請確依折算公式計算，其主授科目係指教師獲聘任之科目，至第二、三科之配授科目則應依其授課節數多寡為其排序，另為兼顧學生學習權益及教師教學準備，請儘量減少排配授至第三科任教。
 
-          <div class="space-y-2">
-            <h4 class="font-bold text-white">行政減課與兼職限制重要原則：</h4>
-            <ul class="list-disc pl-5 space-y-1.5 text-xs text-slate-300">
-              <li><strong>兼任職務減課單一原則：</strong>國中教師以兼任一種職務為原則，如因特殊需要協助2種以上工作時，減授基本授課節數以1種為限。</li>
-              <li><strong>校內行政減課上限：</strong>教師協助校內校務工作減授課者，每人每週得減課之額度至多不超過 6 節。</li>
-              <li><strong>員生社職務不得減課：</strong>兼任員生社理事主席、經理、會計之教師，依法不得減少授課時數。</li>
-              <li><strong>兼任輔導教師減授課：</strong>國中兼任輔導教師每週減授節數以 10 節為原則；週四下午不得安排授課與專責輔導工作。</li>
-            </ul>
-          </div>
+依審計部臺灣省臺北縣審計室94年7月5日審北縣貳字第0940006029號函辦理。
+折算公式：「配授課程節數等於配授科目標準時數乘(主授科目標準時數減主授科目實際編排時數)除以主授科目標準時數」，其中主授科目係指教師於校內獲聘任之科目，如需配授至三科以上，仍請依該師授課節數多寡為其認定第二、三科配授科目。
+
+<strong>【配課時數折算範例說明】</strong>
+以國文專任教師為例：依規定應排18節國文課（舊制標準）。
+若僅配授國文10節，再搭配健體領域及藝術與人文領域：
+• 搭配健體：21 × (18 - 10) / 18 ＝ 9.3 (配授健體 9 節)
+• 搭配藝文：22 × (18 - 10) / 18 ＝ 9.7 (配授藝文 10 節)
+• 搭配健體6節再搭配藝文：22 × (9 - 6) / 21 ＝ 3.1 (配授藝文 3 節)
+• 搭配藝文6節再搭配健體：21 × (10 - 6) / 22 ＝ 3.8 (配授健體 4 節)
         </div>
+        <div class="law-history">94年8月30日北府教學字第0940603197號。</div>
+      </section>
+
+      <!-- 11. 專任教師協助校務酌減時數折算函釋 -->
+      <section id="law-11" class="law-section bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <h2 class="text-xl font-bold text-slate-900">專任教師如協助校務酌減時數折算函釋</h2>
+        <div class="space-y-3 text-sm text-slate-700 whitespace-pre-line leading-relaxed">
+專任教師如協助校務酌減時數，請先以專任教師之各科授課標準時數折算後，再行扣除減授時數。
+(依審計部臺灣省臺北縣審計室95年12月5日審北縣(二)字第950010273號函辦理)
+        </div>
+        <div class="law-history">95年12月26日北府教學字第0950871476號。</div>
+      </section>
+
+      <!-- 12. 重申各國民中學教師授課排配課確依折算公式計算函釋 -->
+      <section id="law-12" class="law-section bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <h2 class="text-xl font-bold text-slate-900">重申各國民中學教師授課之排配課請確依折算公式計算</h2>
+        <div class="space-y-3 text-sm text-slate-700 whitespace-pre-line leading-relaxed">
+依審計部臺灣省臺北縣審計室97年7月25日審北縣二字第0970001990號函辦理。
+教師授課之排配課折算，請各校確依本府94年8月30日北府教學字第0940603197號函規定辦理。折算公式為「配授課程節數等於配授科目標準時數乘(主授科目標準時數減主授科目實際編排時數)除以主授科目標準時數」，以符公平原則。
+        </div>
+        <div class="law-history">97年8月1日北教國字第0970569602號。</div>
+      </section>
+
+      <!-- 13. 國民中小學兼任輔導教師減課規定函釋 -->
+      <section id="law-13" class="law-section bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <h2 class="text-xl font-bold text-slate-900">有關國民中小學兼任輔導教師減課一案</h2>
+        <div class="space-y-3 text-sm text-slate-700 whitespace-pre-line leading-relaxed">
+兼任輔導教師專責執行局訂學生輔導工作之節數規劃及課表安排：
+一、兼任輔導教師之授課及專責執行局訂學生輔導工作之節數皆須納入課表。
+二、兼任輔導教師每人每週依其減授節數執行學生輔導工作。
+三、兼任輔導教師週四下午不得安排授課及專責執行局訂學生輔導工作。
+
+國小兼任輔導教師減授課規定：
+國小兼任輔導教師24班以下學校法定編制1人執行6節之規定，一律調整為設置2人共執行6節學生輔導工作；兼任輔導教師專責執行學生輔導工作時數最低限為2節、最高限為6節，需介於此區間。
+
+國中兼任輔導教師減授課規定：
+國中兼任輔導教師之減授節數，國民中學教師以十節為原則。
+例如：兼任輔導教師教綜合領域輔導活動課，其授課節數為20-10=10節；教國文課為16-10=6節；教歷史課為18-10=8節。
+        </div>
+        <div class="law-history">104年6月4日新北教特字第1041032888號函及10410328881號函。</div>
+      </section>
+
+      <!-- 14. 導師協助行政減課以一種為限函釋 -->
+      <section id="law-14" class="law-section bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <h2 class="text-xl font-bold text-slate-900">導師協助行政之減課以一種為限函釋</h2>
+        <div class="space-y-3 text-sm text-slate-700 whitespace-pre-line leading-relaxed">
+為避免日後導師協助行政之減課疑義，國中教師以兼任一種職務為原則，學校如因特殊需要致教師須協助2種以上工作時，減授基本授課節數以1種為限。
+        </div>
+        <div class="law-history">95年3月8日北府教學字第0950091451號、97年8月20日北教國字第0970530821號、109年4月14日新北教研資字第10906033681號。</div>
+      </section>
+
+      <!-- 15. 兼職教師授課時數之班級數認定函釋 -->
+      <section id="law-15" class="law-section bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <h2 class="text-xl font-bold text-slate-900">有關兼職教師授課時數之班級數認定一案</h2>
+        <div class="space-y-3 text-sm text-slate-700 whitespace-pre-line leading-relaxed">
+「臺北縣國民中學兼職教師授課時數」中有關主任、組長及副組長之授課時數，參照本府87年8月10日八七北府教一字第239336號函，及「臺北縣立國民中學教師員額編制作業要點」第4點規定，所謂「班級數」之計算包含特教班。
+級導師部份，依規定該年級班級數在15~30班者，酌減0~1節。惟特殊教育班不同於普通班級型態，且參照「臺北縣政府所屬國民中小學導師制實施要點」第5點略以：「國中同一年級在3班以上，每一年級應設級導師…」之精神，故該年級班級數之計算不含特教班。
+        </div>
+        <div class="law-history">94年11月17日北府教學字第0940774865號。</div>
+      </section>
+
+      <!-- 16. 兼任員生社職務不得減課函釋 -->
+      <section id="law-16" class="law-section bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <h2 class="text-xl font-bold text-slate-900">兼任員生社理事主席、經理、會計之老師不得減少授課時數</h2>
+        <div class="space-y-3 text-sm text-slate-700 whitespace-pre-line leading-relaxed">
+兼任員生社理事主席、經理、會計之老師不得減少授課時數。
+        </div>
+        <div class="law-history">82年5月8日82北府社2字第158047號。</div>
+      </section>
+
+      <!-- 17. 專任運動教練績效評量基準 -->
+      <section id="law-17" class="law-section bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <h2 class="text-xl font-bold text-slate-900">新北市政府體育局辦理新北市所屬各級學校專任運動教練績效評量基準</h2>
+        <div class="space-y-3 text-sm text-slate-700 whitespace-pre-line leading-relaxed">
+一、新北市政府體育局為規範新北市所屬各級學校專任運動教練績效評量，特訂定本基準。
+二、本局設新北市專任運動教練績效評量委員會。
+三、學校專任運動教練每任用滿三個成績考核學年度，應接受績效評量。指導參賽成績以每年8月1日起至隔年7月31日止計算。
+四、評量類別：訓練指導績效、專項運動推廣績效及年度成績考核。
+• 國民小學：訓練指導績效占35%、專項運動推廣績效占50%、年度成績考核占15%。
+• 國民中學：訓練指導績效占50%、專項運動推廣績效占35%、年度成績考核占15%。
+• 高級中等以上學校：訓練指導績效占65%、專項運動推廣績效占20%、年度成績考核占15%。
+五、專任運動教練考核結果：未達60分者逕予不續聘；60至70分者接受輔導，第四學年度考核合計須達70分以上，未達70分者為不通過逕予不續聘。
+        </div>
+        <div class="law-history">113年7月22日新北市政府體育局新北體學字第1131440565號令訂定發布全文9點；並自即日生效。</div>
+      </section>
+
+      <!-- 18. 高級中等以下學校藝術才能班設立標準 -->
+      <section id="law-01-art" class="law-section bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <h2 class="text-xl font-bold text-slate-900">高級中等以下學校藝術才能班設立標準</h2>
+        <div class="space-y-3 text-sm text-slate-700 whitespace-pre-line leading-relaxed">
+<strong>第 1 條～第 6 條</strong>
+本標準依藝術教育法第八條第二項規定訂定之。適用於音樂、美術、舞蹈等類別。國小自三年級、國中及高中自一年級起得申請設立。每班人數高中不得超過25人，國中小不得超過26人。每班以10人以上為原則。
+
+<strong>第 9 條</strong>
+藝術才能班每班教師員額編制，在高級中等學校及國民中學，每班應置教師至少三人；國民小學每班應置教師至少二人。每班至少一人應具備所任教班別之藝術專長合格教師資格。
+        </div>
+        <div class="law-history">112年2月13日教育部臺教師（一）字第1122600346A號令修正第六條、第十二條、第十三條。</div>
+      </section>
+
+      <!-- 19. 高級中等以下學校體育班設立辦法 -->
+      <section id="law-19" class="law-section bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <h2 class="text-xl font-bold text-slate-900">高級中等以下學校體育班設立辦法</h2>
+        <div class="space-y-3 text-sm text-slate-700 whitespace-pre-line leading-relaxed">
+<strong>第 1 條～第 8 條</strong>
+依國民體育法第十五條第一項規定訂定。國小自五年級、國中及高中自一年級起設立。國小國中每年級一班，發展運動種類以三類為限。學校應設體育班發展委員會（委員9至15人）。
+
+<strong>第 10 條</strong>
+學校設體育班者，每校至少置專任運動教練一人；每年級均設體育班二班以上者，至少置二人。每班專任師資：國小至少二人；國中及高中至少三人。
+
+<strong>第 18 條</strong>
+每日訓練時數國中小至多三小時，高中以至多三小時為原則。代表學校出賽每學年以三十日為限。
+        </div>
+        <div class="law-history">110年3月2日教育部臺教授體部字第 1100006595B號令修正發布第4～8、11、12、18、19、22、23條條文。</div>
+      </section>
+
+      <!-- 20. 配合教育部修正國中每班教師員額編制提高至2.2人案 -->
+      <section id="law-20" class="law-section bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <h2 class="text-xl font-bold text-slate-900">有關本市配合教育部修正國中每班教師員額編制提高至2.2人案</h2>
+        <div class="space-y-3 text-sm text-slate-700 whitespace-pre-line leading-relaxed">
+依據本府112年8月14日新北府教中字第1121567951號令暨教育部107年7月6日修正發布「國民小學與國民中學班級編制及教職員員額編制準則」辦理。
+本案修正說明如下：
+一、自8月1日起，本市採國中普通班每班教師員額編制2.2人(採四捨五入計算)，每9班得增置教師1人，最多增置7人；全校未達9班者，得另增置教師1人。偏遠地區學校另依節數公式滿足學習節數辦理。
+二、本府教育局同意學校視校內實際需求採「得不聘足教師員額」之彈性原則以為因應。
+三、超額學校如開學前出缺，需徵求非自願超額教師返校服務之意願，並依原超額列冊順序之反順位接受回原校服務。
+四、增加之教師員額聘用，建請各校以落實專長授課為前提，盤整師資結構逐年調整。
+        </div>
+        <div class="law-history">112年8月14日新北府教中字第1121567951號函。</div>
+      </section>
+
+      <!-- 21. 國中小教師協助校內外行政減授課額度補充案 -->
+      <section id="law-21" class="law-section bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <h2 class="text-xl font-bold text-slate-900">有關國中小教師協助校內外行政減授課額度補充案</h2>
+        <div class="space-y-3 text-sm text-slate-700 whitespace-pre-line leading-relaxed">
+為避免教師協助過多業務，影響教學品質，本局針對教師協助校內外行政業務減授課額度補充說明，自109學年度起適用：
+一、教師兼任導師、主任、組長或副組長：以「兼任1種職務」為原則。學校如因特殊需要致教師須兼任前述2種以上職務時，其基本授課節數依規定以擇1種為限。
+二、教師協助其餘校內校務工作依規定減授課者，每人每週得減課之額度「至多不超過6節」：
+(一) 教師兼任導師或行政職務同時協助校務：倘數學教師兼任導師（基本14節），同時擔任童軍團長減課2節，該師每週授課節數至少12節。
+(二) 專任教師協助校務：倘英文教師基本18節，同時協辦校務減課至多6節，該師每週授課節數至少12節。
+三、教師協助承辦「得予減課」之政府機關委任委託補助案以1項為原則。如需協助2項以上，請學校簽署服務學校同意書報局核定後始得併計。
+        </div>
+        <div class="law-history">109年4月14日新北教研資字第1090603368號函。</div>
+      </section>
+
+      <!-- 22. 私立學校法 -->
+      <section id="law-22" class="law-section bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <h2 class="text-xl font-bold text-slate-900">私立學校法（節錄重點全文）</h2>
+        <div class="space-y-3 text-sm text-slate-700 whitespace-pre-line leading-relaxed">
+<strong>第一章 總則（第1條～第8條）</strong>
+為促進私立學校多元健全發展，提高其公共性及自主性，以鼓勵私人興學。私立學校之設立應由學校法人申請之。私立學校不得強制學生參加任何宗教儀式或修習宗教課程。
+
+<strong>第二章 學校法人（第9條～第33條）</strong>
+自然人、法人捐資成立學校法人。董事會置董事7至21人，董事長一人。董事任期四年，連選得連任。監察人1至3人。董事長、董事、監察人不得兼任所設私立學校校長及校內其他行政職務。
+
+<strong>第三章 私立學校之籌設、立案與招生（第34條～第44條）</strong>
+學校法人應於辦理法人登記後三年內完成私立學校籌設及立案。私立學校置校長一人，董事長、董事、監察人之配偶及其直系血親不得擔任校長。校長應專任。董監事及校長三親等內血親姻親不得擔任承辦總務、會計、人事之職務。
+
+<strong>第四章 監督及處分（第45條～第55條）</strong>
+校產及基金之管理使用受主管機關監督，不得寄託或借貸與董事或個人。私立學校辦理不善經糾正屆期未改善得停止部分或全部獎補助或停止部分或全部班級招生。
+
+<strong>第六章 教職員工退休撫卹及資遣（第63條～第66條）</strong>
+校長、教師之遴聘資格及年齡限制依公立學校規定。轉任公立學校年資得合併採計退休撫卹。每學期提撥學費3%（國中小雜費70%）繳納成立全國性私校退撫基金。
+        </div>
+        <div class="law-history">103年6月18日總統華總一義字第 10300093301號令修正公布。</div>
+      </section>
+
+      <!-- 23. 私立高級中等以上學校退場條例 -->
+      <section id="law-23" class="law-section bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <h2 class="text-xl font-bold text-slate-900">私立高級中等以上學校退場條例</h2>
+        <div class="space-y-3 text-sm text-slate-700 whitespace-pre-line leading-relaxed">
+<strong>第 1 條～第 6 條</strong>
+因應少子女化衝擊，維護學生受教及教職員工權益，建立私立高級中等以上學校退場機制。主管機關設置私立高級中等以上學校退場基金。主管機關應設退場審議會。
+學校財務惡化、合格教師比率未達50%、積欠教師薪資等情形，列為預警學校或專案輔導學校。
+
+<strong>第 13 條～第 21 條</strong>
+專案輔導學校應於公告日起二年內改善；屆期未改善者，令其於下一學年度停止全部招生，並於該學年度結束時停辦。
+停止全部招生時應解除全體董事職務重新組織董事會，加派專任教職員及學者專家。停辦後應積極協助學生分發至其他學校，並依法發給教職員工資遣慰助金。
+        </div>
+        <div class="law-history">中華民國111年5月11日總統華總一義字第11100039261號令制定公布全文25條；並自公布日施行。</div>
       </section>
 
     </div>
