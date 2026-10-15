@@ -4435,48 +4435,57 @@
 (function(){
  const titles=["高級中等學校教科用書審定辦法","高級中等學校教科用書採購應行注意事項","高級中等學校群科學程設立變更停辦辦法","高級中等學校學生校外學習成就或教育訓練之學分及成績採計要點","新北市114學年度高級中等學校各學習領域教師共同不排課時段與教學研究會時間表","教師有依學校所安排課程實施教學之義務","新北市各國民中小學評選採購教科書應行注意事項","新北市國民小學及國民中學藝能及活動科目教科圖書免費借用實施要點","自九十一學年度起，有關本縣國中小……「學校舉辦畢業典禮補假事宜」，請依下列規定辦理。","辦理學校暨社區聯合運動會補假事宜","為訂定本市各級學校因應重大活動調整補假原則","高級中等學校辦理戶外教育實施原則","教育部國民及學前教育署補助高級中等學校辦理戶外教育要點","新北市各級學校辦理校外教學活動注意事項","本市各國民中小學辦理校外教學活動，每學年最低教學時數之相關規範","新北市政府教育局國民教育地方輔導團設置運作要點","公告本市115學年度國民教育輔導團與各校共同不排課時段公告","原住民族教育法","高級中等以下學校規劃及實施臺灣手語課程應注意事項","新北市公立國民中小學教育實驗辦法","高級中等學校課程規劃及實施要點","高級中等學校課程諮詢教師設置要點","新北市政府教育局高級中等學校課程諮詢教師設置要點","高級中等學校課程評鑑實施要點","因應十二年國民基本教育課程綱要新設科技領域相關函示","校外人士協助高級中等以下學校教學或活動注意事項","十二年國民基本教育課程綱要","十二年國民基本教育課程綱要前導學校暨機構作業要點","家庭教育法","藝術教育法","藝術教育法施行細則","教育部國民及學前教育署補助高級中等以下學校辦理藝術教育作業要點","教育部國民及學前教育署專案補助中小學科學教育計畫申請作業要點","教育部補助國際數理學科奧林匹亞競賽及國際科學展覽相關作業要點","國際數理競賽優良學生出國留學獎學金申請要點","教育部國民及學前教育署補助高級中等以下學校推動國際教育經費作業要點"];
  const source=document.getElementById('rawSource').textContent;
- const historyBox=document.getElementById('lawHistory');
- const compressedHistory='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';
- async function loadHistories(){
-   const bytes=Uint8Array.from(atob(compressedHistory),c=>c.charCodeAt(0));
-   const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
-   return JSON.parse(await new Response(stream).text());
- }
- let historyRows=[];
- loadHistories().then(rows=>{historyRows=rows;renderHistory(0);}).catch(()=>{historyBox.textContent='法規沿革載入失敗，請稍後重新整理。';});
- function renderHistory(i){
-   if(!historyRows[i]) return;
-   const h=historyRows[i].history||'原始文件未列法規沿革。';
-   historyBox.innerHTML='<span class="font-bold text-slate-700 block mb-1">【法規沿革】</span>'+esc(h).replace(/\\n/g,'<br>');
- }
  const buttons=Array.from(document.querySelectorAll('[data-law]'));
  const titleEl=document.getElementById('activeTitle');
  const bodyEl=document.getElementById('activeBody');
+ const historyBox=document.getElementById('lawHistory');
+ function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
  function norm(s){return s.replace(/\s+/g,' ').trim();}
+ const lines=source.split('\n');
  function findStart(i){
+   const prefix=(i+1)+'.';
    const key=norm(titles[i]).slice(0,Math.min(18,norm(titles[i]).length));
-   const lines=source.split('\n');
    for(let j=0;j<lines.length;j++){
      const line=lines[j].trim();
-     if(line.startsWith((i+1)+'.') && norm(line).includes(key)) return j;
+     if(line.startsWith(prefix) && norm(line).includes(key)) return j;
    }
    return -1;
  }
  function activate(i){
    buttons.forEach((b,j)=>{
      b.className='law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between '+(i===j?'bg-blue-600 text-white font-bold shadow-sm':'text-slate-700 hover:bg-slate-100');
-     const icon=b.querySelector('i'); icon.className='fa-solid fa-angle-right text-[10px] '+(i===j?'text-white':'text-slate-400');
+     const icon=b.querySelector('i'); if(icon) icon.className='fa-solid fa-angle-right text-[10px] '+(i===j?'text-white':'text-slate-400');
    });
    titleEl.textContent=titles[i];
-   renderHistory(i);
-   const lines=source.split('\n'); const start=findStart(i);
+   const start=findStart(i);
    let end=lines.length;
-   if(start>=0){for(let j=start+1;j<lines.length;j++){if(lines[j].trim().startsWith((i+2)+'.')){end=j;break;}}}
-   let text=start>=0?lines.slice(start,end).filter(line=>!line.includes('二、課程與教學')&&!line.includes('法 規 摘 要')&&!line.includes('日期及文號')&&!line.includes('法源簡述/備註')&&!/^\s*\d{1,3}\s*$/.test(line)).join('\n').trim():'原始文件中未能自動定位此項文字，請核對原始手冊。';
-   bodyEl.textContent=text||'原始文件中未能自動定位此項文字，請核對原始手冊。';
+   if(start>=0){
+     for(let j=start+1;j<lines.length;j++){
+       const trimmed=lines[j].trim();
+       const nextPrefix=(i+2)+'.';
+       const nextKey=norm(titles[i+1]||'').slice(0,Math.min(18,norm(titles[i+1]||'').length));
+       if(i<titles.length-1 && trimmed.startsWith(nextPrefix) && norm(trimmed).includes(nextKey)){end=j;break;}
+     }
+   }
+   const body=[], history=[];
+   if(start>=0){
+     for(let j=start;j<end;j++){
+       const line=lines[j];
+       if(line.includes('二、課程與教學')||line.includes('法 規 摘 要')||line.includes('日期及文號')||line.includes('法源簡述/備註')||/^\s*\d{1,3}\s*$/.test(line)||line.includes('<PARSED TEXT FOR PAGE')) continue;
+       const parts=line.split(/\s{5,}/);
+       const left=(parts.shift()||'').trimEnd();
+       const right=parts.join(' ').trim();
+       if(left) body.push(left);
+       if(right && /中華民國|教育部|新北|北府|字第|號函|號令|修正|發布|訂定|施行|生效|備查|公告/.test(right)) history.push(right);
+     }
+   }
+   bodyEl.textContent=body.join('\n').trim()||'原始文件中未能自動定位此項文字，請核對原始手冊。';
+   const unique=[...new Set(history)];
+   historyBox.innerHTML='<span class="font-bold text-slate-700 block mb-1">【法規沿革】</span>'+(unique.length?unique.map(esc).join('<br>'):'原始文件未列出可辨識的法規沿革，請核對原始手冊。');
    if(window.innerWidth<1024) document.getElementById('lawPanels').scrollIntoView({behavior:'smooth',block:'start'});
  }
  buttons.forEach((b,i)=>b.addEventListener('click',()=>activate(i)));
+})();
 })();
   </script>
 </body>
