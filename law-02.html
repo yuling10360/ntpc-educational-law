@@ -4314,8 +4314,32 @@
        }
      }
    }
-   bodyEl.textContent=body.join('\n').trim()||'原始文件中未能自動定位此項文字，請核對原始手冊。';
-   const historyText=history.join('\n').replace(/\n{2,}/g,'\n').trim();
+   // 將原始文件因欄寬產生的硬換行合併，讓文字使用整個右側面板寬度；
+   // 條號及列舉項目仍保留分段。
+   const rawBody=body.join('\n').trim();
+   const bodyLines=rawBody.split('\n');
+   const flowed=[];
+   for(const item of bodyLines){
+     const line=item.trim();
+     if(!line){ if(flowed.length && flowed[flowed.length-1] !== '') flowed.push(''); continue; }
+     const isArticle=/^第\s*\d+\s*條/.test(line);
+     const isList=/^(?:[一二三四五六七八九十]+、|\d+[、.．]|[（(][一二三四五六七八九十\d]+[）)])/.test(line);
+     if(isArticle){
+       while(flowed.length && flowed[flowed.length-1]==='') flowed.pop();
+       if(flowed.length) flowed.push('');
+       flowed.push(line);
+     }else if(isList){
+       flowed.push(line);
+     }else if(flowed.length && flowed[flowed.length-1]!=='' && !/^第\s*\d+\s*條/.test(flowed[flowed.length-1]) && !/^(?:[一二三四五六七八九十]+、|\d+[、.．]|[（(][一二三四五六七八九十\d]+[）)])/.test(flowed[flowed.length-1])){
+       flowed[flowed.length-1]+=' '+line;
+     }else{
+       flowed.push(line);
+     }
+   }
+   bodyEl.textContent=flowed.join('\n').trim()||'原始文件中未能自動定位此項文字，請核對原始手冊。';
+   // 沿革欄在來源中也會被窄欄換行，先合併成完整句，再按每次修正分項。
+   let historyText=history.join(' ').replace(/\s+/g,' ').trim();
+   historyText=historyText.replace(/\s+(?=\d+\.)/g,'\n\n');
    historyBox.innerHTML='<span class="font-bold text-slate-700 block mb-1">【法規沿革】</span><div class="whitespace-pre-line">'+(historyText?historyText.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'):'原始文件未列出可辨識的法規沿革，請核對原始手冊。')+'</div>';
  }
  buttons.forEach((b,i)=>b.addEventListener('click',()=>activate(i)));
