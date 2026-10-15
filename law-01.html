@@ -3210,8 +3210,10 @@
       const esc = value => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
       body.classList.remove('whitespace-pre-line');
       body.classList.add('space-y-1');
+      let unitItemIndex = 0;
       body.innerHTML = lines.map(line => {
         const t = line.trim();
+        if (/^學校得視規模/.test(t) || /^學校得依校務發展需要/.test(t)) unitItemIndex = 0;
         if (!t) return '<div class="h-3"></div>';
         if (/^第\s*\d+\s*條/.test(t)) {
           return '<div class="mt-5 mb-1 font-semibold text-slate-900">' + esc(t) + '</div>';
@@ -3250,7 +3252,7 @@
         const major = t.match(/^([一二三四五六七八九十百]+、)\s*(.*)$/);
         if (major) return '<div class="flex items-start pl-3 gap-2"><span class="shrink-0">' + esc(major[1]) + '</span><span class="min-w-0 flex-1">' + esc(major[2]) + '</span></div>';
         const unit = t.match(/^(教務處|學生事務處|總務處|輔導處(?:\(室\)|（室）)?|圖書館|實習處|建教合作處|進修部|資訊室|研究發展處|技術交流處|其他處\(室\))：?\s*(.*)$/);
-        if (unit) return '<div class="flex items-start pl-6 gap-2 my-1"><span class="shrink-0 font-semibold text-slate-800">' + esc(unit[1] + '：') + '</span><span class="min-w-0 flex-1">' + esc(unit[2]) + '</span></div>';
+        if (unit) { unitItemIndex++; const marker = ['（一）','（二）','（三）','（四）','（五）','（六）','（七）','（八）','（九）','（十）'][unitItemIndex-1] || ''; return '<div class="flex items-start pl-6 gap-2 my-1"><span class="shrink-0 w-10 text-slate-700">' + marker + '</span><span class="shrink-0 font-semibold text-slate-800">' + esc(unit[1] + '：') + '</span><span class="min-w-0 flex-1">' + esc(unit[2]) + '</span></div>'; }
         return '<div class="pl-3">' + esc(t) + '</div>';
       }).join('');
       body.dataset.formattedFirstLaw = 'true';
