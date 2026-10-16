@@ -150,6 +150,15 @@ body{font-family:'Noto Sans TC',sans-serif}
 #detail .official-doc .doc-row.doc-level-2 .doc-copy,
 #detail .official-doc .doc-row.doc-level-3 .doc-copy,
 #detail .official-doc .doc-row.doc-level-4 .doc-copy{display:inline!important;flex:1 1 auto!important;width:auto!important;min-width:0!important;margin:0!important;padding:0!important;overflow-wrap:anywhere!important}
+
+/* 壹、為較高層級；一、及其後層級依序縮排 */
+#detail .official-doc .doc-row.doc-level-0{display:flex!important;flex-direction:row!important;align-items:flex-start!important;gap:0!important;padding-left:0!important}
+#detail .official-doc .doc-row.doc-level-0 .doc-marker{display:inline!important;flex:0 0 auto!important;width:auto!important;margin:0!important;padding:0!important;white-space:nowrap!important}
+#detail .official-doc .doc-row.doc-level-0 .doc-copy{display:inline!important;flex:1 1 auto!important;width:auto!important;min-width:0!important;margin:0!important;padding:0!important;overflow-wrap:anywhere!important}
+#detail .official-doc .doc-row.doc-level-1:not(.doc-article){padding-left:2em!important}
+#detail .official-doc .doc-row.doc-level-2{padding-left:4em!important}
+#detail .official-doc .doc-row.doc-level-3{padding-left:6em!important}
+#detail .official-doc .doc-row.doc-level-4{padding-left:8em!important}
 </style></head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
 <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm"><div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-3"><a href="index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-blue-600"><i class="fa-solid fa-arrow-left"></i> 返回手冊目錄</a><span class="text-xs bg-blue-50 text-blue-700 font-semibold px-2.5 py-1 rounded-full border border-blue-200">第三類法規全文查閱</span></div></header>
@@ -201,11 +210,13 @@ function formatLawText(content, lawIndex){
   const t=line.trim();
   const safeText=esc(t);
   const article=t.match(/^(第\s*\d+\s*條)(.*)$/);
+  const level0=t.match(/^(壹、)(.*)$/);
   const level1=t.match(/^([一二三四五六七八九十百]+、)(.*)$/);
   const level2=t.match(/^([（(][一二三四五六七八九十百壹貳參肆伍陸柒捌玖拾0-9０-９]+[）)])(.*)$/);
   const level3=t.match(/^([0-9０-９]+[、.．、])(.*)$/);
   const level4=t.match(/^([（(][0-9０-９]+[）)])(.*)$/);
   if(article) return '<div class="doc-row doc-level-1 doc-article"><span class="doc-marker">'+esc(article[1].replace(/\s+/g,''))+'</span><span class="doc-copy">'+esc(article[2].trimStart())+'</span></div>';
+  if(level0) return '<div class="doc-row doc-level-0"><span class="doc-marker">'+esc(level0[1])+'</span><span class="doc-copy">'+esc(level0[2].trimStart())+'</span></div>';
   if(level1) return '<div class="doc-row doc-level-1"><span class="doc-marker">'+esc(level1[1])+'</span><span class="doc-copy">'+esc(level1[2].trimStart())+'</span></div>';
   if(level2) return '<div class="doc-row doc-level-2"><span class="doc-marker">'+esc(level2[1])+'</span><span class="doc-copy">'+esc(level2[2].trimStart())+'</span></div>';
   if(level3) return '<div class="doc-row doc-level-3"><span class="doc-marker">'+esc(level3[1])+'</span><span class="doc-copy">'+esc(level3[2].trimStart())+'</span></div>';
