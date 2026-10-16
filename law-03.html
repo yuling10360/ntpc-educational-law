@@ -134,23 +134,6 @@ function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&l
 function formatLawText(content, lawIndex){
  const normalized=String(content||'').replace(/\\n/g,'\n');
  const lines=normalized.split('\n');
- // 第24項：明確輸出項次欄，避免既有通用格式樣式隱藏項次。
- if(lawIndex===23 || lawIndex===24 || lawIndex===25){
-  return lines.map(raw=>{
-   const t=raw.trim();
-   if(!t) return '';
-   const m1=t.match(/^([一二三四五六七八九十百]+、)\s*(.*)$/);
-   const m2=t.match(/^([（(][一二三四五六七八九十百]+[）)])\s*(.*)$/);
-   const m3=t.match(/^([0-9０-９]+、)\s*(.*)$/);
-   const m4=t.match(/^([（(][0-9０-９]+[）)])\s*(.*)$/);
-   const m=m1||m2||m3||m4;
-   if(!m) return '<div style="margin:0 0 .35em 0;">'+esc(t)+'</div>';
-   const level=m1?0:(m2?1:(m3?2:3));
-   const indent=['0','1.8em','3.6em','5.4em'][level];
-   const markerWidth=['2.8em','3.2em','2.8em','3.2em'][level];
-   return '<div style="display:flex;align-items:flex-start;margin:0 0 .35em '+indent+';line-height:1.7;"><span style="display:inline-block;flex:0 0 '+markerWidth+';width:'+markerWidth+';font-weight:700;white-space:nowrap;">'+esc(m[1])+'</span><span style="display:block;flex:1;min-width:0;">'+esc(m[2])+'</span></div>';
-  }).join('');
- }
  // 第2至第6項：逐行保留原始段落，不把未編號的下一段併入上一段。
  if(lawIndex>=1 && lawIndex<=5){
   return lines.map(raw=>{
@@ -175,7 +158,7 @@ function formatLawText(content, lawIndex){
   const safeText=esc(t);
   const article=t.match(/^(第\s*\d+\s*條)(.*)$/);
   const level1=t.match(/^([一二三四五六七八九十百]+、)(.*)$/);
-  const level2=t.match(/^([（(][一二三四五六七八九十百]+[）)])(.*)$/);
+  const level2=t.match(/^([（(][一二三四五六七八九十百壹貳參肆伍陸柒捌玖拾0-9０-９]+[）)])(.*)$/);
   const level3=t.match(/^([0-9０-９]+[、.．、])(.*)$/);
   const level4=t.match(/^([（(][0-9０-９]+[）)])(.*)$/);
   if(article) return '<div class="doc-row doc-level-1 doc-article"><span class="doc-marker">'+esc(article[1].replace(/\s+/g,''))+'</span><span class="doc-copy">'+esc(article[2].trimStart())+'</span></div>';
@@ -191,7 +174,7 @@ function renderDetail(){
  document.getElementById('detail').innerHTML=`
  <div class="flex flex-wrap items-center gap-2 mb-4"><span class="text-xs font-bold text-blue-700 bg-blue-50 border border-blue-100 rounded-full px-3 py-1">第 ${currentIndex+1} 項／共 ${laws.length} 項</span><span class="text-xs text-slate-400">常態編班、教學正常化</span></div>
  <h2 class="text-xl md:text-2xl font-extrabold leading-relaxed text-slate-900 mb-6">${esc(law.title)}</h2>
- <div class="border-t border-slate-200 pt-6"><div class="official-doc text-sm md:text-[15px] text-slate-700 ${(currentIndex===0||currentIndex===6||currentIndex===15||currentIndex===16||currentIndex===17||currentIndex===22||currentIndex===23)?'first-law-format':(currentIndex>=1&&currentIndex<=5?'law02-match':'')}">${formatLawText(law.content,currentIndex)}</div></div>
+ <div class="border-t border-slate-200 pt-6"><div class="official-doc text-sm md:text-[15px] text-slate-700 ${(currentIndex===0||currentIndex===6||currentIndex===15||currentIndex===16||currentIndex===17||currentIndex===22)?'first-law-format':(currentIndex>=1&&currentIndex<=5?'law02-match':'')}">${formatLawText(law.content,currentIndex)}</div></div>
  <div class="mt-8 border-t border-slate-200 pt-6"><h3 class="flex items-center gap-2 text-sm font-bold text-slate-700 mb-3"><i class="fa-solid fa-clock-rotate-left text-blue-600"></i> 日期及文號／法源簡述／備註</h3><div class="history-text text-sm text-slate-600 bg-slate-50 border border-slate-200 rounded-xl p-4">${law.history.trim()?esc(law.history):'原始文件未提供此項資料。'}</div></div>
  <div class="flex justify-between gap-3 mt-8 pt-5 border-t border-slate-100"><button onclick="go(-1)" ${currentIndex===0?'disabled':''} class="px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed"><i class="fa-solid fa-arrow-left mr-2"></i>上一項</button><button onclick="go(1)" ${currentIndex===laws.length-1?'disabled':''} class="px-4 py-2.5 rounded-xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 disabled:opacity-30 disabled:cursor-not-allowed">下一項<i class="fa-solid fa-arrow-right ml-2"></i></button></div>`;
 }
