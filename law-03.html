@@ -46,6 +46,10 @@ body{font-family:'Noto Sans TC',sans-serif}
 .doc-paragraph-gap{height:.65em}
 #detail .official-doc.law02-match .doc-row{display:grid;grid-template-columns:2.8em minmax(0,1fr);column-gap:.2em;margin:0;padding:0}
 #detail .official-doc.law02-match .doc-level-1{font-weight:600;margin:0}
+#detail .official-doc.law02-match .doc-article{font-weight:700;grid-template-columns:4.2em minmax(0,1fr);margin:1.2em 0 .25em;padding:0}
+#detail .official-doc.law02-match .doc-article:first-child{margin-top:0}
+#detail .official-doc.law02-match .doc-paragraph{grid-template-columns:0 minmax(0,1fr);margin:0 0 .65em;padding:0;font-weight:400}
+#detail .official-doc.law02-match .doc-paragraph .doc-marker{display:none}
 #detail .official-doc.law02-match .doc-level-2{padding-left:2em;grid-template-columns:2.2em minmax(0,1fr);font-weight:400}
 #detail .official-doc.law02-match .doc-level-3{padding-left:4em;grid-template-columns:1.8em minmax(0,1fr);font-weight:400;color:#334155}
 #detail .official-doc.law02-match .doc-row-continuation{grid-template-columns:0 minmax(0,1fr)}
@@ -77,39 +81,23 @@ function renderList(){
 function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function formatLawText(content, lawIndex){
  const normalized=String(content||'').replace(/\\n/g,'\n');
- const lines=normalized.split('\n').map(line=>line.trim()).filter(Boolean);
- // 法規第2至第6項比照 law-02.html 第2項：合併原始文件硬換行，保留項次層級及段落間距。
+ const lines=normalized.split('\n');
+ // 第2至第6項：逐行保留原始段落，不把未編號的下一段併入上一段。
  if(lawIndex>=1 && lawIndex<=5){
-  const flowed=[];
-  const major=/^(?:[一二三四五六七八九十百]+、|[壹貳參肆伍陸柒捌玖拾]+、|\d+[、.．])/;
-  const sub=/^(?:[（(][一二三四五六七八九十百\d０-９]+[）)]|[0-9０-９]+[、.．])/;
-  let previousMajor=false;
-  for(const line of lines){
-   if(major.test(line)){
-    if(flowed.length) flowed.push('');
-    flowed.push(line);
-    previousMajor=true;
-   }else if(sub.test(line)){
-    flowed.push(line);
-    previousMajor=false;
-   }else if(flowed.length && flowed[flowed.length-1] !== ''){
-    flowed[flowed.length-1]+=' '+line;
-    previousMajor=false;
-   }else{
-    flowed.push(line);
-    previousMajor=false;
-   }
-  }
-  return flowed.map(line=>{
-   if(!line) return '<div class="doc-paragraph-gap"></div>';
-   const safe=esc(line);
-   const level1=line.match(/^([一二三四五六七八九十百壹貳參肆伍陸柒捌玖拾]+、)(.*)$/);
-   const level2=line.match(/^([（(][一二三四五六七八九十百\d０-９]+[）)])(.*)$/);
-   const level3=line.match(/^([0-9０-９]+[、.．])(.*)$/);
+  return lines.map(raw=>{
+   const t=raw.trim();
+   if(!t) return '<div class="doc-paragraph-gap"></div>';
+   const article=t.match(/^(第\s*\d+\s*條)(.*)$/);
+   const level1=t.match(/^([一二三四五六七八九十百壹貳參肆伍陸柒捌玖拾]+、)(.*)$/);
+   const level2=t.match(/^([（(][一二三四五六七八九十百壹貳參肆伍陸柒捌玖拾\\d０-９]+[）)])(.*)$/);
+   const level3=t.match(/^([0-9０-９]+[、.．])(.*)$/);
+   const level4=t.match(/^([（(][0-9０-９]+[）)])(.*)$/);
+   if(article) return '<div class="doc-row doc-article"><span class="doc-marker">'+esc(article[1].replace(/\s+/g,''))+'</span><span class="doc-copy">'+esc(article[2].trim())+'</span></div>';
    if(level1) return '<div class="doc-row doc-level-1"><span class="doc-marker">'+esc(level1[1])+'</span><span class="doc-copy">'+esc(level1[2].trim())+'</span></div>';
    if(level2) return '<div class="doc-row doc-level-2"><span class="doc-marker">'+esc(level2[1])+'</span><span class="doc-copy">'+esc(level2[2].trim())+'</span></div>';
    if(level3) return '<div class="doc-row doc-level-3"><span class="doc-marker">'+esc(level3[1])+'</span><span class="doc-copy">'+esc(level3[2].trim())+'</span></div>';
-   return '<div class="doc-row doc-level-1 doc-row-continuation"><span class="doc-marker"></span><span class="doc-copy">'+safe+'</span></div>';
+   if(level4) return '<div class="doc-row doc-level-4"><span class="doc-marker">'+esc(level4[1])+'</span><span class="doc-copy">'+esc(level4[2].trim())+'</span></div>';
+   return '<div class="doc-row doc-paragraph"><span class="doc-marker"></span><span class="doc-copy">'+esc(t)+'</span></div>';
   }).join('');
  }
  return normalized.split('\n').map(line=>{
@@ -121,7 +109,7 @@ function formatLawText(content, lawIndex){
   const level2=t.match(/^([（(][一二三四五六七八九十百]+[）)])(.*)$/);
   const level3=t.match(/^([0-9０-９]+[、.．、])(.*)$/);
   const level4=t.match(/^([（(][0-9０-９]+[）)])(.*)$/);
-  if(article) return '<div class="doc-row doc-level-1 doc-article"><span class="doc-marker">'+esc(article[1].replace(/\\s+/g,''))+'</span><span class="doc-copy">'+esc(article[2].trimStart())+'</span></div>';
+  if(article) return '<div class="doc-row doc-level-1 doc-article"><span class="doc-marker">'+esc(article[1].replace(/\s+/g,''))+'</span><span class="doc-copy">'+esc(article[2].trimStart())+'</span></div>';
   if(level1) return '<div class="doc-row doc-level-1"><span class="doc-marker">'+esc(level1[1])+'</span><span class="doc-copy">'+esc(level1[2].trimStart())+'</span></div>';
   if(level2) return '<div class="doc-row doc-level-2"><span class="doc-marker">'+esc(level2[1])+'</span><span class="doc-copy">'+esc(level2[2].trimStart())+'</span></div>';
   if(level3) return '<div class="doc-row doc-level-3"><span class="doc-marker">'+esc(level3[1])+'</span><span class="doc-copy">'+esc(level3[2].trimStart())+'</span></div>';
