@@ -45,14 +45,14 @@ function renderList(){
 }
 function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function formatLawText(content){
- return String(content||'').split('\\n').map(line=>{
+ return String(content||'').split('\n').map(line=>{
   if(!line.trim()) return '';
   const t=line.trim();
   const safeText=esc(t);
   const major=t.match(/^([一二三四五六七八九十百]+、)(.*)$/);
-  const sub=t.match(/^([（(][一二三四五六七八九十百\\d]+[）)])(.*)$/);
-  const num=t.match(/^(\\d+[、.．])(.*)$/);
-  const article=t.match(/^第\\s*\\d+\\s*條/);
+  const sub=t.match(/^([（(][一二三四五六七八九十百\d]+[）)])(.*)$/);
+  const num=t.match(/^(\d+[、.．])(.*)$/);
+  const article=t.match(/^第\s*\d+\s*條/);
   if(article) return '<div class="doc-row doc-level-1"><span class="doc-marker"></span><span class="doc-copy">'+safeText+'</span></div>';
   if(major) return '<div class="doc-row doc-level-1"><span class="doc-marker">'+esc(major[1])+'</span><span class="doc-copy">'+esc(major[2].trimStart())+'</span></div>';
   if(sub) return '<div class="doc-row doc-level-2"><span class="doc-marker">'+esc(sub[1])+'</span><span class="doc-copy">'+esc(sub[2].trimStart())+'</span></div>';
