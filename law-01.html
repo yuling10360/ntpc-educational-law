@@ -19,12 +19,12 @@
         color: #1e293b;
         text-align: justify;
       }
-      /* 條次法規：條次與正文分欄，續行固定對齊正文欄。 */
+      /* 條次法規比照 law-02：條次獨立一行，正文另起一行並自然換行。 */
+      .doc-article { display: block; margin-top: 1.25rem; margin-bottom: 0; font-weight: 700; }
+      .doc-article-body { display: block; margin-bottom: 0.5rem; }
       .doc-row { display: grid; grid-template-columns: 2.8em minmax(0, 1fr); align-items: start; column-gap: 0.2em; }
       .doc-marker { display: block; white-space: nowrap; }
       .doc-copy { display: block; min-width: 0; }
-      .doc-article { margin-top: 1.25rem; margin-bottom: 0.25rem; font-weight: 700; }
-      .doc-article .doc-copy { border-bottom: 1px solid #e2e8f0; padding-bottom: 0.15rem; }
       .doc-paragraph { grid-template-columns: 2.8em minmax(0, 1fr); margin-bottom: 0.15em; }
       .doc-level-1 {
         margin-top: 0;
@@ -3231,10 +3231,12 @@
             }
             if (articlePattern.test(t)) {
               inArticle = true;
+              output.push('<div class="doc-article">' + esc(t.replace(/\\s+/g, '')) + '</div>');
               const next = (lines[index + 1] || '').trim();
-              const articleText = next && !articlePattern.test(next) ? next : '';
-              if (articleText) index++;
-              output.push('<div class="doc-row doc-article"><span class="doc-marker">' + esc(t.replace(/\s+/g, '')) + '</span><span class="doc-copy">' + esc(articleText) + '</span></div>');
+              if (next && !articlePattern.test(next)) {
+                index++;
+                output.push('<div class="doc-article-body">' + esc(next) + '</div>');
+              }
               continue;
             }
             if (hasArticleNumbers && inArticle) {
@@ -3249,7 +3251,7 @@
                 output.push('<div class="doc-row doc-level-1"><span class="doc-marker">' + esc(numbered[1]) + '</span><span class="doc-copy">' + esc(numbered[2]) + '</span></div>');
                 continue;
               }
-              output.push('<div class="doc-row doc-paragraph"><span class="doc-marker"></span><span class="doc-copy">' + esc(t) + '</span></div>');
+              output.push('<div class="doc-article-body">' + esc(t) + '</div>');
               continue;
             }
             const sub = t.match(parenthesisPattern);
