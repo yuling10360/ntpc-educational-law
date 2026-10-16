@@ -13,7 +13,7 @@ body{font-family:'Noto Sans TC',sans-serif}
 .doc-level-1{margin-top:0;margin-bottom:0;font-weight:600}
 .doc-level-1+.doc-level-1{margin-top:0}
 .doc-level-2{margin-top:0;padding-left:2em;grid-template-columns:2.2em minmax(0,1fr);font-weight:500}
-.doc-level-3{margin-top:0;padding-left:4em;grid-template-columns:1.8em minmax(0,1fr);color:#334155}
+.doc-level-3{margin-top:0;padding-left:4em;grid-template-columns:1.8em minmax(0,1fr);color:#334155}.doc-level-4{margin-top:0;padding-left:5.5em;grid-template-columns:2.6em minmax(0,1fr);font-weight:400}.doc-article{font-weight:700}.doc-article+.doc-level-1{margin-top:0}
 .doc-row-continuation{grid-template-columns:2.8em minmax(0,1fr)}
 .doc-level-4{padding-left:5.5em;grid-template-columns:2.6em minmax(0,1fr);font-weight:400}
 .doc-paragraph{grid-template-columns:2.8em minmax(0,1fr);margin-bottom:.15em}
@@ -45,18 +45,21 @@ function renderList(){
 }
 function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function formatLawText(content){
- return String(content||'').replace(/\\n/g,'\n').split('\n').map(line=>{
+ const normalized=String(content||'').replace(/\\n/g,'\n');
+ return normalized.split('\n').map(line=>{
   if(!line.trim()) return '';
   const t=line.trim();
   const safeText=esc(t);
-  const major=t.match(/^([一二三四五六七八九十百]+、)(.*)$/);
-  const sub=t.match(/^([（(][一二三四五六七八九十百\d]+[）)])(.*)$/);
-  const num=t.match(/^(\d+[、.．])(.*)$/);
-  const article=t.match(/^第\s*\d+\s*條/);
-  if(article) return '<div class="doc-row doc-level-1"><span class="doc-marker"></span><span class="doc-copy">'+safeText+'</span></div>';
-  if(major) return '<div class="doc-row doc-level-1"><span class="doc-marker">'+esc(major[1])+'</span><span class="doc-copy">'+esc(major[2].trimStart())+'</span></div>';
-  if(sub) return '<div class="doc-row doc-level-2"><span class="doc-marker">'+esc(sub[1])+'</span><span class="doc-copy">'+esc(sub[2].trimStart())+'</span></div>';
-  if(num) return '<div class="doc-row doc-level-3"><span class="doc-marker">'+esc(num[1])+'</span><span class="doc-copy">'+esc(num[2].trimStart())+'</span></div>';
+  const article=t.match(/^(第\s*\d+\s*條)(.*)$/);
+  const level1=t.match(/^([一二三四五六七八九十百]+、)(.*)$/);
+  const level2=t.match(/^([（(][一二三四五六七八九十百]+[）)])(.*)$/);
+  const level3=t.match(/^([0-9０-９]+[、.．、])(.*)$/);
+  const level4=t.match(/^([（(][0-9０-９]+[）)])(.*)$/);
+  if(article) return '<div class="doc-row doc-level-1 doc-article"><span class="doc-marker">'+esc(article[1])+'</span><span class="doc-copy">'+esc(article[2].trimStart())+'</span></div>';
+  if(level1) return '<div class="doc-row doc-level-1"><span class="doc-marker">'+esc(level1[1])+'</span><span class="doc-copy">'+esc(level1[2].trimStart())+'</span></div>';
+  if(level2) return '<div class="doc-row doc-level-2"><span class="doc-marker">'+esc(level2[1])+'</span><span class="doc-copy">'+esc(level2[2].trimStart())+'</span></div>';
+  if(level3) return '<div class="doc-row doc-level-3"><span class="doc-marker">'+esc(level3[1])+'</span><span class="doc-copy">'+esc(level3[2].trimStart())+'</span></div>';
+  if(level4) return '<div class="doc-row doc-level-4"><span class="doc-marker">'+esc(level4[1])+'</span><span class="doc-copy">'+esc(level4[2].trimStart())+'</span></div>';
   return '<div class="doc-row doc-level-1 doc-row-continuation"><span class="doc-marker"></span><span class="doc-copy">'+safeText+'</span></div>';
  }).join('');
 }
