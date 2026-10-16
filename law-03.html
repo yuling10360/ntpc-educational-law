@@ -223,6 +223,29 @@ function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&l
 function formatLawText(content, lawIndex){
  const normalized=String(content||'').replace(/\\n/g,'\n').replace(/^(第\s*\d+\s*條)\s*\n(?!第\s*\d+\s*條)([^\n]+)$/gm, '$1 $2');
  const lines=normalized.split('\n');
+ // 僅法規第10項（index 9）：以內嵌縮排直接設定各層級，避免共用 CSS 覆寫造成畫面不變。
+ if(lawIndex===9){
+  return lines.map(raw=>{
+   const t=raw.trim();
+   if(!t) return '';
+   const safe=esc(t);
+   const levels=[
+    {re:/^(壹、)(.*)$/,n:0},
+    {re:/^([一二三四五六七八九十百]+、)(.*)$/,n:1},
+    {re:/^([（(][一二三四五六七八九十百壹貳參肆伍陸柒捌玖拾]+[）)])\\s*(.*)$/,n:2},
+    {re:/^([0-9０-９]+[、.．])(.*)$/,n:3},
+    {re:/^([（(][0-9０-９]+[）)])\\s*(.*)$/,n:4}
+   ];
+   for(const level of levels){
+    const m=t.match(level.re);
+    if(m){
+     const indent=level.n*2;
+     return '<div class="doc-row doc-level-'+level.n+'" style="padding-left:'+indent+'em!important;display:grid!important;grid-template-columns:max-content minmax(0,1fr)!important;column-gap:.35em!important;align-items:start!important;width:100%!important;min-width:0!important;box-sizing:border-box!important;"><span class="doc-marker">'+esc(m[1])+'</span><span class="doc-copy">'+esc(m[2].trimStart())+'</span></div>';
+    }
+   }
+   return '<div class="doc-row doc-paragraph" style="padding-left:0!important;display:block!important;width:100%!important;"><span class="doc-copy">'+safe+'</span></div>';
+  }).join('');
+ }
  // 第2至第6項：逐行保留原始段落，不把未編號的下一段併入上一段。
  if(lawIndex>=1 && lawIndex<=5){
   return lines.map(raw=>{
