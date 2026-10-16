@@ -234,7 +234,7 @@ function formatLawText(content, lawIndex){
   return lines.map(raw=>{
    const t=raw.trim();
    if(!t) return '';
-   const article=t.match(/^(第\\s*[0-9０-９]+\\s*條(?:之\\s*[0-9０-９]+)?)(.*)$/);
+   const article=t.match(/^(第\s*[0-9０-９]+\s*條(?:之\s*[0-9０-９]+)?)(.*)$/);
    if(article){
     const heading='<div class="doc-article-heading">'+esc(article[1].replace(/\s+/g,''))+'</div>';
     const inlineText=article[2].trim();
