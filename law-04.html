@@ -20,7 +20,7 @@ body{font-family:'Noto Sans TC',sans-serif}
 .doc-level-3{padding-left:4em;color:#334155}
 .doc-level-4{padding-left:6em;font-weight:400}
 .doc-row-continuation{grid-template-columns:2.8em minmax(0,1fr)}
-.doc-paragraph{grid-template-columns:0 minmax(0,1fr);margin-bottom:.15em}
+.doc-paragraph{display:grid;grid-template-columns:0 minmax(0,1fr);width:100%;min-width:0;writing-mode:horizontal-tb;text-orientation:mixed;margin-bottom:.15em}.doc-paragraph .doc-copy{grid-column:2;min-width:0;white-space:pre-wrap;overflow-wrap:anywhere}.doc-paragraph-gap{display:block;width:100%;height:.65em;grid-column:1 / -1}
 .active-law{background:#2563eb!important;color:white!important}
 .history-text{display:block;width:100%;max-width:none;min-width:0;box-sizing:border-box;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.8}
 /* 法規第1項及第7項：明確指定所有內文為一般字重，條次標籤維持粗體 */
@@ -209,7 +209,7 @@ function renderList(){const q=document.getElementById('searchInput').value.trim(
 function formatLawText(content){
  const normalized=String(content||'').replace(/\\n/g,'\n').replace(/^(第\s*[0-9０-９一二三四五六七八九十百]+\s*條)\s*\n(?!第\s*[0-9０-９一二三四五六七八九十百]+\s*條)([^\n]+)$/gm,'$1 $2');
  return normalized.split('\n').map(raw=>{
-  const t=raw.trim(); if(!t) return '';
+  const t=raw.trim(); if(!t) return '<div class="doc-paragraph-gap" aria-hidden="true"></div>';
   const chapter=t.match(/^(第\s*[一二三四五六七八九十百0-9０-９]+\s*章\s*.*)$/);
   if(chapter) return '<div class="doc-chapter">'+esc(t.replace(/\s{2,}/g,' '))+'</div>';
   const article=t.match(/^(第\s*[0-9０-９一二三四五六七八九十百]+\s*條)(.*)$/);
