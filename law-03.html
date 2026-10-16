@@ -8,7 +8,13 @@
 body{font-family:'Noto Sans TC',sans-serif}
 .law-panel{display:none}.law-panel.active{display:block}
 .official-doc{display:block;width:100%;max-width:none;min-width:0;box-sizing:border-box;line-height:2;color:#1e293b;text-align:justify;overflow-wrap:anywhere}
-.doc-row{display:grid;grid-template-columns:2.8em minmax(0,1fr);align-items:start;column-gap:.2em}
+.doc-row{display:grid;grid-template-columns:3.2em minmax(0,1fr);align-items:start;column-gap:.2em;box-sizing:border-box;width:100%}
+.doc-level-1{padding-left:0!important;grid-template-columns:3.2em minmax(0,1fr)!important}
+.doc-level-2{padding-left:2em!important;grid-template-columns:3.2em minmax(0,1fr)!important}
+.doc-level-3{padding-left:4em!important;grid-template-columns:3.2em minmax(0,1fr)!important}
+.doc-level-4{padding-left:6em!important;grid-template-columns:3.2em minmax(0,1fr)!important}
+.doc-marker{display:block;white-space:nowrap;text-align:left;font-weight:700}
+.doc-copy{min-width:0;overflow-wrap:anywhere;word-break:normal}
 .doc-marker{display:block;white-space:nowrap}
 .doc-copy{display:block;min-width:0;overflow-wrap:anywhere}
 .doc-level-1{margin-top:0;margin-bottom:0;font-weight:600}
