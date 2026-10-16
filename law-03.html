@@ -124,9 +124,9 @@ body{font-family:'Noto Sans TC',sans-serif}
 
 /* 條次排版唯一規則：條次固定左欄、條文從右欄同列開始 */
 /* 有條次法規：條次加粗獨立一行，內文從下一行開始；只套用於含條次法規 */
-#detail .official-doc .doc-article-heading{font-weight:700!important;margin:1.25em 0 .15em!important;color:#1e293b}
+#detail .official-doc .doc-article-heading{display:block!important;font-weight:700!important;margin:1.25em 0 0!important;padding:0!important;color:#1e293b!important;line-height:2!important}
 #detail .official-doc .doc-article-heading:first-child{margin-top:0!important}
-#detail .official-doc .doc-article-body{display:block!important;width:100%!important;min-width:0!important;margin:0 0 .35em!important;padding:0!important;font-weight:400!important;overflow-wrap:anywhere!important;word-break:normal!important}
+#detail .official-doc .doc-article-body{display:block!important;width:100%!important;min-width:0!important;margin:0 0 .35em!important;padding:0!important;font-weight:400!important;line-height:2!important;overflow-wrap:anywhere!important;word-break:normal!important}
 #detail .official-doc .doc-row.doc-article{
  display:grid!important;
  grid-template-columns:4.2em minmax(0,1fr)!important;
@@ -226,15 +226,15 @@ function renderList(){
 function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function formatLawText(content, lawIndex){
  const rawContent=String(content||'').replace(/\\n/g,'\n');
- // 有條次的法規比照 law-02：條次獨立一行加粗，內文另起一行；不改動無條次法規的原有格式。
- const hasArticle=/第\s*\d+\s*條/.test(rawContent);
- const normalized=hasArticle?rawContent:rawContent.replace(/^(第\s*\d+\s*條)\s*\n(?!第\s*\d+\s*條)([^\n]+)$/gm, '$1 $2');
+ // 只在內容本身有獨立條次行時套用條次版型，避免僅提到法條的公文被誤判。
+ const hasArticle=/^\s*第\s*[0-9０-９]+\s*條(?:之\s*[0-9０-９]+)?\s*$/m.test(rawContent);
+ const normalized=rawContent;
  const lines=normalized.split('\n');
  if(hasArticle){
   return lines.map(raw=>{
    const t=raw.trim();
    if(!t) return '';
-   const article=t.match(/^(第\s*\d+\s*條(?:之\s*\d+)?)(.*)$/);
+   const article=t.match(/^(第\\s*[0-9０-９]+\\s*條(?:之\\s*[0-9０-９]+)?)(.*)$/);
    if(article){
     const heading='<div class="doc-article-heading">'+esc(article[1].replace(/\s+/g,''))+'</div>';
     const inlineText=article[2].trim();
