@@ -209,7 +209,7 @@ function renderList(){
 }
 function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function formatLawText(content, lawIndex){
- const normalized=String(content||'').replace(/\\n/g,'\n').replace(/^(第\\s*\\d+\\s*條)\\s*\\n(?!第\\s*\\d+\\s*條)([^\\n]+)$/gm, '$1 $2');
+ const normalized=String(content||'').replace(/\\n/g,'\n').replace(/^(第\s*\d+\s*條)\s*\n(?!第\s*\d+\s*條)([^\n]+)$/gm, '$1 $2');
  const lines=normalized.split('\n');
  // 第2至第6項：逐行保留原始段落，不把未編號的下一段併入上一段。
  if(lawIndex>=1 && lawIndex<=5){
