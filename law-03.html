@@ -32,6 +32,15 @@ body{font-family:'Noto Sans TC',sans-serif}
 .doc-row-continuation{grid-template-columns:2.8em minmax(0,1fr)}
 .doc-level-4{padding-left:5.5em;grid-template-columns:2.6em minmax(0,1fr);font-weight:400}
 .doc-paragraph{grid-template-columns:2.8em minmax(0,1fr);margin-bottom:.15em}
+/* 有條次的法規比照 law-02：條次獨立一行，內文另起一行，條與條之間保留間距。 */
+#detail .official-doc.article-law-format .doc-article{display:block;margin-top:1.5em;padding-top:.25em;font-weight:700;line-height:2}
+#detail .official-doc.article-law-format .doc-article:first-child{margin-top:0;padding-top:0}
+#detail .official-doc.article-law-format .doc-article .doc-marker{display:block;width:auto;white-space:nowrap;text-align:left}
+#detail .official-doc.article-law-format .doc-row-continuation{display:block;grid-template-columns:minmax(0,1fr);margin-top:0;padding:0}
+#detail .official-doc.article-law-format .doc-row-continuation .doc-marker{display:none}
+#detail .official-doc.article-law-format .doc-row-continuation .doc-copy{display:block;width:100%;min-width:0;overflow-wrap:anywhere}
+#detail .official-doc.article-law-format .doc-article + .doc-row-continuation{margin-top:0}
+#detail .official-doc.article-law-format .doc-article + .doc-article{margin-top:1.5em}
 .active-law{background:#2563eb!important;color:white!important}
 .history-text{display:block;width:100%;max-width:none;min-width:0;box-sizing:border-box;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.8}
 /* 僅第1項法規：第1條、第2條、第3條及後續每一條均依參考截圖排版 */
@@ -116,12 +125,16 @@ function formatLawText(content, lawIndex){
   if(!line.trim()) return '';
   const t=line.trim();
   const safeText=esc(t);
-  const article=t.match(/^(第\s*\d+\s*條)(.*)$/);
+  const article=t.match(/^(第\s*\d+\s*條(?:之\s*\d+)?)(.*)$/);
   const level1=t.match(/^([一二三四五六七八九十百]+、)(.*)$/);
   const level2=t.match(/^([（(][一二三四五六七八九十百]+[）)])(.*)$/);
   const level3=t.match(/^([0-9０-９]+[、.．、])(.*)$/);
   const level4=t.match(/^([（(][0-9０-９]+[）)])(.*)$/);
-  if(article) return '<div class="doc-row doc-level-1 doc-article"><span class="doc-marker">'+esc(article[1].replace(/\\s+/g,''))+'</span><span class="doc-copy">'+esc(article[2].trimStart())+'</span></div>';
+  if(article) {
+    const articleTitle='<div class="doc-article"><span class="doc-marker">'+esc(article[1].replace(/\\s+/g,''))+'</span></div>';
+    const articleBody=article[2].trim();
+    return articleTitle+(articleBody?'<div class="doc-row doc-level-1 doc-row-continuation"><span class="doc-marker"></span><span class="doc-copy">'+esc(articleBody)+'</span></div>':'');
+  }
   if(level1) return '<div class="doc-row doc-level-1"><span class="doc-marker">'+esc(level1[1])+'</span><span class="doc-copy">'+esc(level1[2].trimStart())+'</span></div>';
   if(level2) return '<div class="doc-row doc-level-2"><span class="doc-marker">'+esc(level2[1])+'</span><span class="doc-copy">'+esc(level2[2].trimStart())+'</span></div>';
   if(level3) return '<div class="doc-row doc-level-3"><span class="doc-marker">'+esc(level3[1])+'</span><span class="doc-copy">'+esc(level3[2].trimStart())+'</span></div>';
@@ -134,7 +147,7 @@ function renderDetail(){
  document.getElementById('detail').innerHTML=`
  <div class="flex flex-wrap items-center gap-2 mb-4"><span class="text-xs font-bold text-blue-700 bg-blue-50 border border-blue-100 rounded-full px-3 py-1">第 ${currentIndex+1} 項／共 ${laws.length} 項</span><span class="text-xs text-slate-400">常態編班、教學正常化</span></div>
  <h2 class="text-xl md:text-2xl font-extrabold leading-relaxed text-slate-900 mb-6">${esc(law.title)}</h2>
- <div class="border-t border-slate-200 pt-6"><div class="official-doc text-sm md:text-[15px] text-slate-700 ${currentIndex===0?'first-law-format':(currentIndex>=1&&currentIndex<=5?'law02-match':'')}">${formatLawText(law.content,currentIndex)}</div></div>
+ <div class="border-t border-slate-200 pt-6"><div class="official-doc text-sm md:text-[15px] text-slate-700 ${/第\\s*\\d+\\s*條/.test(law.content)?'article-law-format':(currentIndex>=1&&currentIndex<=5?'law02-match':'')}">${formatLawText(law.content,currentIndex)}</div></div>
  <div class="mt-8 border-t border-slate-200 pt-6"><h3 class="flex items-center gap-2 text-sm font-bold text-slate-700 mb-3"><i class="fa-solid fa-clock-rotate-left text-blue-600"></i> 日期及文號／法源簡述／備註</h3><div class="history-text text-sm text-slate-600 bg-slate-50 border border-slate-200 rounded-xl p-4">${law.history.trim()?esc(law.history):'原始文件未提供此項資料。'}</div></div>
  <div class="flex justify-between gap-3 mt-8 pt-5 border-t border-slate-100"><button onclick="go(-1)" ${currentIndex===0?'disabled':''} class="px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed"><i class="fa-solid fa-arrow-left mr-2"></i>上一項</button><button onclick="go(1)" ${currentIndex===laws.length-1?'disabled':''} class="px-4 py-2.5 rounded-xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 disabled:opacity-30 disabled:cursor-not-allowed">下一項<i class="fa-solid fa-arrow-right ml-2"></i></button></div>`;
 }
