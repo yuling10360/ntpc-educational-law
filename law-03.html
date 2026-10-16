@@ -155,6 +155,39 @@ body{font-family:'Noto Sans TC',sans-serif}
 }
 #detail .official-doc .doc-row.doc-article+.doc-row-continuation .doc-marker{visibility:hidden!important}
 #detail .official-doc .doc-row.doc-article+.doc-row-continuation .doc-copy{grid-column:2!important;min-width:0!important;width:100%!important;overflow-wrap:anywhere!important}
+
+/* 法規清單第7項專用：確保所有續行內文均從條文文字欄開始。
+   本規則放在條次規則之後，避免被一般條次續行樣式覆蓋。 */
+#detail .official-doc.law-seven-format .doc-row.doc-row-continuation{
+  display:grid!important;
+  grid-template-columns:4.4em minmax(0,1fr)!important;
+  column-gap:0!important;
+  align-items:start!important;
+  width:100%!important;
+  min-width:0!important;
+  box-sizing:border-box!important;
+  padding:0!important;
+  margin-top:0!important;
+}
+#detail .official-doc.law-seven-format .doc-row.doc-row-continuation>.doc-marker{
+  display:block!important;
+  visibility:hidden!important;
+  grid-column:1!important;
+  width:4.4em!important;
+  min-width:4.4em!important;
+  margin:0!important;
+  padding:0!important;
+}
+#detail .official-doc.law-seven-format .doc-row.doc-row-continuation>.doc-copy{
+  display:block!important;
+  grid-column:2!important;
+  width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:0!important;
+  overflow-wrap:anywhere!important;
+  word-break:normal!important;
+}
 </style></head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
 <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm"><div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-3"><a href="index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-blue-600"><i class="fa-solid fa-arrow-left"></i> 返回手冊目錄</a><span class="text-xs bg-blue-50 text-blue-700 font-semibold px-2.5 py-1 rounded-full border border-blue-200">第三類法規全文查閱</span></div></header>
