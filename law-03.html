@@ -226,7 +226,7 @@ function formatLawText(content, lawIndex){
    const level2=t.match(/^([（(][一二三四五六七八九十百壹貳參肆伍陸柒捌玖拾0-9０-９]+[）)])(.*)$/);
    const level3=t.match(/^([0-9０-９]+[、.．])(.*)$/);
    const level4=t.match(/^([（(][0-9０-９]+[）)])(.*)$/);
-   if(article) return '<div class="doc-row doc-article"><span class="doc-marker">'+esc(article[1].replace(/\s+/g,''))+'</span><span class="doc-copy">'+esc(article[2].trim())+'</span></div>';
+   if(article) return '<div class="doc-row doc-article" style="display:grid!important;grid-template-columns:4.2em minmax(0,1fr)!important;column-gap:.2em!important;align-items:start!important;padding:0!important;width:100%!important;box-sizing:border-box!important;"><span class="doc-marker" style="display:block!important;width:4.2em!important;min-width:0!important;white-space:nowrap!important;">'+esc(article[1].replace(/\s+/g,''))+'</span><span class="doc-copy" style="display:block!important;width:100%!important;min-width:0!important;overflow-wrap:anywhere!important;">'+esc(article[2].trim())+'</span></div>';
    if(level1) return '<div class="doc-row doc-level-1"><span class="doc-marker">'+esc(level1[1])+'</span><span class="doc-copy">'+esc(level1[2].trim())+'</span></div>';
    if(level2) return '<div class="doc-row doc-level-2"><span class="doc-marker">'+esc(level2[1])+'</span><span class="doc-copy">'+esc(level2[2].trim())+'</span></div>';
    if(level3) return '<div class="doc-row doc-level-3"><span class="doc-marker">'+esc(level3[1])+'</span><span class="doc-copy">'+esc(level3[2].trim())+'</span></div>';
@@ -244,7 +244,7 @@ function formatLawText(content, lawIndex){
   const level2=t.match(/^([（(][一二三四五六七八九十百壹貳參肆伍陸柒捌玖拾0-9０-９]+[）)])(.*)$/);
   const level3=t.match(/^([0-9０-９]+[、.．、])(.*)$/);
   const level4=t.match(/^([（(][0-9０-９]+[）)])(.*)$/);
-  if(article) return '<div class="doc-row doc-level-1 doc-article"><span class="doc-marker">'+esc(article[1].replace(/\s+/g,''))+'</span><span class="doc-copy">'+esc(article[2].trimStart())+'</span></div>';
+  if(article) return '<div class="doc-row doc-level-1 doc-article" style="display:grid!important;grid-template-columns:4.2em minmax(0,1fr)!important;column-gap:.2em!important;align-items:start!important;padding:0!important;width:100%!important;box-sizing:border-box!important;"><span class="doc-marker" style="display:block!important;width:4.2em!important;min-width:0!important;white-space:nowrap!important;">'+esc(article[1].replace(/\s+/g,''))+'</span><span class="doc-copy" style="display:block!important;width:100%!important;min-width:0!important;overflow-wrap:anywhere!important;">'+esc(article[2].trimStart())+'</span></div>';
   if(level0) return '<div class="doc-row doc-level-0"><span class="doc-marker">'+esc(level0[1])+'</span><span class="doc-copy">'+esc(level0[2].trimStart())+'</span></div>';
   if(level1) return '<div class="doc-row doc-level-1"><span class="doc-marker">'+esc(level1[1])+'</span><span class="doc-copy">'+esc(level1[2].trimStart())+'</span></div>';
   if(level2) return '<div class="doc-row doc-level-2"><span class="doc-marker">'+esc(level2[1])+'</span><span class="doc-copy">'+esc(level2[2].trimStart())+'</span></div>';
