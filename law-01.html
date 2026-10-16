@@ -3222,48 +3222,65 @@
           const lines = text.replace(/\r/g, '').split('\n');
           const hasArticleNumbers = lines.some(line => articlePattern.test(line.trim()));
           let inArticle = false;
-          return lines.map(line => {
-          const t = line.trim();
-          if (!t) return '<div class="h-3"></div>';
-          if (articlePattern.test(t)) {
-            inArticle = true;
-            return '<div class="doc-row doc-article"><span class="doc-marker">' + esc(t.replace(/\s+/g, '')) + '</span><span class="doc-copy"></span></div>';
-          }
-          if (hasArticleNumbers && inArticle) {
+          const output = [];
+          for (let index = 0; index < lines.length; index++) {
+            const t = lines[index].trim();
+            if (!t) {
+              output.push('<div class="h-3"></div>');
+              continue;
+            }
+            if (articlePattern.test(t)) {
+              inArticle = true;
+              const next = (lines[index + 1] || '').trim();
+              const articleText = next && !articlePattern.test(next) ? next : '';
+              if (articleText) index++;
+              output.push('<div class="doc-row doc-article"><span class="doc-marker">' + esc(t.replace(/\s+/g, '')) + '</span><span class="doc-copy">' + esc(articleText) + '</span></div>');
+              continue;
+            }
+            if (hasArticleNumbers && inArticle) {
+              const sub = t.match(parenthesisPattern);
+              if (sub) {
+                const marker = sub[1].replace(/^\(/, '（').replace(/\)$/, '）');
+                output.push('<div class="doc-row doc-level-2"><span class="doc-marker">' + esc(marker) + '</span><span class="doc-copy">' + esc(sub[2]) + '</span></div>');
+                continue;
+              }
+              const numbered = t.match(numberedPattern);
+              if (numbered) {
+                output.push('<div class="doc-row doc-level-1"><span class="doc-marker">' + esc(numbered[1]) + '</span><span class="doc-copy">' + esc(numbered[2]) + '</span></div>');
+                continue;
+              }
+              output.push('<div class="doc-row doc-paragraph"><span class="doc-marker"></span><span class="doc-copy">' + esc(t) + '</span></div>');
+              continue;
+            }
             const sub = t.match(parenthesisPattern);
             if (sub) {
               const marker = sub[1].replace(/^\(/, '（').replace(/\)$/, '）');
-              return '<div class="doc-row doc-level-2"><span class="doc-marker">' + esc(marker) + '</span><span class="doc-copy">' + esc(sub[2]) + '</span></div>';
+              const namedSub = sub[2].match(/^([^：:]{1,36}[：:])\s*(.*)$/);
+              if (namedSub) {
+                output.push('<div class="grid grid-cols-[4.5rem_minmax(6rem,auto)_minmax(0,1fr)] gap-2 pl-10 items-start"><span class="text-slate-600 font-medium">' + esc(marker) + '</span><span class="font-medium text-slate-800">' + esc(namedSub[1]) + '</span><span class="min-w-0">' + esc(namedSub[2]) + '</span></div>');
+              } else {
+                output.push('<div class="grid grid-cols-[4.5rem_minmax(0,1fr)] gap-2 pl-10 items-start"><span class="text-slate-600 font-medium">' + esc(marker) + '</span><span class="min-w-0">' + esc(sub[2]) + '</span></div>');
+              }
+              continue;
             }
             const numbered = t.match(numberedPattern);
             if (numbered) {
-              return '<div class="doc-row doc-level-1"><span class="doc-marker">' + esc(numbered[1]) + '</span><span class="doc-copy">' + esc(numbered[2]) + '</span></div>';
+              const namedItem = numbered[2].match(/^([^：:]{1,36}[：:])\s*(.*)$/);
+              if (namedItem) {
+                output.push('<div class="grid grid-cols-[3rem_minmax(6.5rem,auto)_minmax(0,1fr)] gap-2 pl-3 items-start"><span class="font-medium text-slate-700">' + esc(numbered[1]) + '</span><span class="font-medium text-slate-800">' + esc(namedItem[1]) + '</span><span class="min-w-0">' + esc(namedItem[2]) + '</span></div>');
+              } else {
+                output.push('<div class="grid grid-cols-[3rem_minmax(0,1fr)] gap-2 pl-3 items-start"><span class="font-medium text-slate-700">' + esc(numbered[1]) + '</span><span class="min-w-0">' + esc(numbered[2]) + '</span></div>');
+              }
+              continue;
             }
-            return '<div class="doc-row doc-paragraph"><span class="doc-marker"></span><span class="doc-copy">' + esc(t) + '</span></div>';
-          }
-          const sub = t.match(parenthesisPattern);
-          if (sub) {
-            const marker = sub[1].replace(/^\(/, '（').replace(/\)$/, '）');
-            const namedSub = sub[2].match(/^([^：:]{1,36}[：:])\s*(.*)$/);
-            if (namedSub) {
-              return '<div class="grid grid-cols-[4.5rem_minmax(6rem,auto)_minmax(0,1fr)] gap-2 pl-10 items-start"><span class="text-slate-600 font-medium">' + esc(marker) + '</span><span class="font-medium text-slate-800">' + esc(namedSub[1]) + '</span><span class="min-w-0">' + esc(namedSub[2]) + '</span></div>';
+            const named = t.match(/^([^：:]{1,36}[：:])\s*(.*)$/);
+            if (named && !/^(本法第|本標準第|依下列|應依下列|包括下列|其內容如下)/.test(t)) {
+              output.push('<div class="grid grid-cols-[minmax(6.5rem,auto)_minmax(0,1fr)] gap-2 pl-3 items-start"><span class="font-medium text-slate-800">' + esc(named[1]) + '</span><span class="min-w-0">' + esc(named[2]) + '</span></div>');
+              continue;
             }
-            return '<div class="grid grid-cols-[4.5rem_minmax(0,1fr)] gap-2 pl-10 items-start"><span class="text-slate-600 font-medium">' + esc(marker) + '</span><span class="min-w-0">' + esc(sub[2]) + '</span></div>';
+            output.push('<div class="pl-3">' + esc(t) + '</div>');
           }
-          const numbered = t.match(numberedPattern);
-          if (numbered) {
-            const namedItem = numbered[2].match(/^([^：:]{1,36}[：:])\s*(.*)$/);
-            if (namedItem) {
-              return '<div class="grid grid-cols-[3rem_minmax(6.5rem,auto)_minmax(0,1fr)] gap-2 pl-3 items-start"><span class="font-medium text-slate-700">' + esc(numbered[1]) + '</span><span class="font-medium text-slate-800">' + esc(namedItem[1]) + '</span><span class="min-w-0">' + esc(namedItem[2]) + '</span></div>';
-            }
-            return '<div class="grid grid-cols-[3rem_minmax(0,1fr)] gap-2 pl-3 items-start"><span class="font-medium text-slate-700">' + esc(numbered[1]) + '</span><span class="min-w-0">' + esc(numbered[2]) + '</span></div>';
-          }
-          const named = t.match(/^([^：:]{1,36}[：:])\s*(.*)$/);
-          if (named && !/^(本法第|本標準第|依下列|應依下列|包括下列|其內容如下)/.test(t)) {
-            return '<div class="grid grid-cols-[minmax(6.5rem,auto)_minmax(0,1fr)] gap-2 pl-3 items-start"><span class="font-medium text-slate-800">' + esc(named[1]) + '</span><span class="min-w-0">' + esc(named[2]) + '</span></div>';
-          }
-          return '<div class="pl-3">' + esc(t) + '</div>';
-          }).join('');
+          return output.join('');
         };
 
         // 只格式化文字節點；保留原始 HTML 附表、表格與其他嵌入內容。
