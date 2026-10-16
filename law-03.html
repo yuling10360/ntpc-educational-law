@@ -2,7 +2,24 @@
 <html lang="zh-TW"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>三、常態編班、教學正常化 - 新北市115學年度教務行政法規手冊</title>
 <script src="https://cdn.tailwindcss.com"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-<style>@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');body{font-family:'Noto Sans TC',sans-serif}.law-text,.history-text{display:block;width:100%;max-width:none;min-width:0;box-sizing:border-box;overflow-wrap:anywhere}.law-text{white-space:pre-wrap;line-height:1.9}.active-law{background:#2563eb!important;color:white!important}.history-text{white-space:pre-wrap;line-height:1.8}</style></head>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+body{font-family:'Noto Sans TC',sans-serif}
+.law-panel{display:none}.law-panel.active{display:block}
+.official-doc{display:block;width:100%;max-width:none;min-width:0;box-sizing:border-box;line-height:2;color:#1e293b;text-align:justify;overflow-wrap:anywhere}
+.doc-row{display:grid;grid-template-columns:2.8em minmax(0,1fr);align-items:start;column-gap:.2em}
+.doc-marker{display:block;white-space:nowrap}
+.doc-copy{display:block;min-width:0;overflow-wrap:anywhere}
+.doc-level-1{margin-top:0;margin-bottom:0;font-weight:600}
+.doc-level-1+.doc-level-1{margin-top:0}
+.doc-level-2{margin-top:0;padding-left:2em;grid-template-columns:2.2em minmax(0,1fr);font-weight:500}
+.doc-level-3{margin-top:0;padding-left:4em;grid-template-columns:1.8em minmax(0,1fr);color:#334155}
+.doc-row-continuation{grid-template-columns:2.8em minmax(0,1fr)}
+.doc-level-4{padding-left:5.5em;grid-template-columns:2.6em minmax(0,1fr);font-weight:400}
+.doc-paragraph{grid-template-columns:2.8em minmax(0,1fr);margin-bottom:.15em}
+.active-law{background:#2563eb!important;color:white!important}
+.history-text{display:block;width:100%;max-width:none;min-width:0;box-sizing:border-box;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.8}
+</style></head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
 <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm"><div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-3"><a href="index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-blue-600"><i class="fa-solid fa-arrow-left"></i> 返回手冊目錄</a><span class="text-xs bg-blue-50 text-blue-700 font-semibold px-2.5 py-1 rounded-full border border-blue-200">第三類法規全文查閱</span></div></header>
 <section class="bg-gradient-to-r from-slate-900 via-indigo-950 to-blue-900 text-white py-8 px-4"><div class="max-w-7xl mx-auto space-y-3"><div class="inline-flex items-center gap-2 text-blue-300 text-xs font-semibold"><i class="fa-solid fa-chalkboard-user"></i> 法規章節</div><h1 class="text-2xl md:text-3xl font-extrabold">三、常態編班、教學正常化</h1><p class="text-xs md:text-sm text-slate-300">依據《03.常態編班、教學正常化(1151014).docx》整理。選取左側標題可查看法規內容及日期文號／法源簡述。</p><div class="relative max-w-xl pt-1"><i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i><input id="searchInput" type="search" oninput="renderList()" placeholder="搜尋法規名稱、條文或文號" class="w-full pl-11 pr-4 py-3 bg-white text-slate-800 rounded-2xl shadow-lg outline-none text-sm"></div></div></section>
@@ -27,12 +44,28 @@ function renderList(){
  });
 }
 function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function formatLawText(content){
+ return String(content||'').split('\\n').map(line=>{
+  if(!line.trim()) return '';
+  const t=line.trim();
+  const safeText=esc(t);
+  const major=t.match(/^([一二三四五六七八九十百]+、)(.*)$/);
+  const sub=t.match(/^([（(][一二三四五六七八九十百\\d]+[）)])(.*)$/);
+  const num=t.match(/^(\\d+[、.．])(.*)$/);
+  const article=t.match(/^第\\s*\\d+\\s*條/);
+  if(article) return '<div class="doc-row doc-level-1"><span class="doc-marker"></span><span class="doc-copy">'+safeText+'</span></div>';
+  if(major) return '<div class="doc-row doc-level-1"><span class="doc-marker">'+esc(major[1])+'</span><span class="doc-copy">'+esc(major[2].trimStart())+'</span></div>';
+  if(sub) return '<div class="doc-row doc-level-2"><span class="doc-marker">'+esc(sub[1])+'</span><span class="doc-copy">'+esc(sub[2].trimStart())+'</span></div>';
+  if(num) return '<div class="doc-row doc-level-3"><span class="doc-marker">'+esc(num[1])+'</span><span class="doc-copy">'+esc(num[2].trimStart())+'</span></div>';
+  return '<div class="doc-row doc-level-1 doc-row-continuation"><span class="doc-marker"></span><span class="doc-copy">'+safeText+'</span></div>';
+ }).join('');
+}
 function renderDetail(){
  const law=laws[currentIndex];
  document.getElementById('detail').innerHTML=`
  <div class="flex flex-wrap items-center gap-2 mb-4"><span class="text-xs font-bold text-blue-700 bg-blue-50 border border-blue-100 rounded-full px-3 py-1">第 ${currentIndex+1} 項／共 ${laws.length} 項</span><span class="text-xs text-slate-400">常態編班、教學正常化</span></div>
  <h2 class="text-xl md:text-2xl font-extrabold leading-relaxed text-slate-900 mb-6">${esc(law.title)}</h2>
- <div class="border-t border-slate-200 pt-6"><h3 class="flex items-center gap-2 text-sm font-bold text-slate-700 mb-3"><i class="fa-solid fa-file-lines text-blue-600"></i> 法規內容</h3><div class="law-text text-sm md:text-[15px] text-slate-700">${esc(law.content)}</div></div>
+ <div class="border-t border-slate-200 pt-6"><div class="official-doc text-sm md:text-[15px] text-slate-700">${formatLawText(law.content)}</div></div>
  <div class="mt-8 border-t border-slate-200 pt-6"><h3 class="flex items-center gap-2 text-sm font-bold text-slate-700 mb-3"><i class="fa-solid fa-clock-rotate-left text-blue-600"></i> 日期及文號／法源簡述／備註</h3><div class="history-text text-sm text-slate-600 bg-slate-50 border border-slate-200 rounded-xl p-4">${law.history.trim()?esc(law.history):'原始文件未提供此項資料。'}</div></div>
  <div class="flex justify-between gap-3 mt-8 pt-5 border-t border-slate-100"><button onclick="go(-1)" ${currentIndex===0?'disabled':''} class="px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed"><i class="fa-solid fa-arrow-left mr-2"></i>上一項</button><button onclick="go(1)" ${currentIndex===laws.length-1?'disabled':''} class="px-4 py-2.5 rounded-xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 disabled:opacity-30 disabled:cursor-not-allowed">下一項<i class="fa-solid fa-arrow-right ml-2"></i></button></div>`;
 }
