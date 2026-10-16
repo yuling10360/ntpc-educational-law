@@ -139,9 +139,16 @@ function formatLawText(content, lawIndex){
   return lines.map(raw=>{
    const t=raw.trim();
    if(!t) return '';
-   const m=t.match(/^([一二三四五六七八九十百]+、)\s*(.*)$/);
+   const m1=t.match(/^([一二三四五六七八九十百]+、)\s*(.*)$/);
+   const m2=t.match(/^([（(][一二三四五六七八九十百]+[）)])\s*(.*)$/);
+   const m3=t.match(/^([0-9０-９]+、)\s*(.*)$/);
+   const m4=t.match(/^([（(][0-9０-９]+[）)])\s*(.*)$/);
+   const m=m1||m2||m3||m4;
    if(!m) return '<div style="margin:0 0 .35em 0;">'+esc(t)+'</div>';
-   return '<div style="display:flex;align-items:flex-start;margin:0 0 .35em 0;line-height:1.7;"><span style="display:inline-block;flex:0 0 2.8em;width:2.8em;font-weight:700;white-space:nowrap;">'+esc(m[1])+'</span><span style="display:block;flex:1;min-width:0;">'+esc(m[2])+'</span></div>';
+   const level=m1?0:(m2?1:(m3?2:3));
+   const indent=['0','1.8em','3.6em','5.4em'][level];
+   const markerWidth=['2.8em','3.2em','2.8em','3.2em'][level];
+   return '<div style="display:flex;align-items:flex-start;margin:0 0 .35em '+indent+';line-height:1.7;"><span style="display:inline-block;flex:0 0 '+markerWidth+';width:'+markerWidth+';font-weight:700;white-space:nowrap;">'+esc(m[1])+'</span><span style="display:block;flex:1;min-width:0;">'+esc(m[2])+'</span></div>';
   }).join('');
  }
  // 第2至第6項：逐行保留原始段落，不把未編號的下一段併入上一段。
