@@ -63,6 +63,44 @@ body{font-family:'Noto Sans TC',sans-serif}
 #detail .official-doc.law02-match .doc-level-3{padding-left:4em;grid-template-columns:1.8em minmax(0,1fr);font-weight:400;color:#334155}
 #detail .official-doc.law02-match .doc-row-continuation{grid-template-columns:0 minmax(0,1fr)}
 #detail .official-doc.law02-match .doc-row-continuation .doc-marker{display:none}
+
+/* 2026-10-16：第2至第6項最終排版修正
+   取消這五項條文每一列的 Grid 欄寬計算，避免父層/子層欄寬衝突造成內文窄欄直排。 */
+#detail .official-doc.law02-match,
+#detail .official-doc.law02-match *{
+  writing-mode:horizontal-tb!important;
+  text-orientation:mixed!important;
+}
+#detail .official-doc.law02-match .doc-row{
+  display:block!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  box-sizing:border-box!important;
+  padding-left:0!important;
+  white-space:normal!important;
+}
+#detail .official-doc.law02-match .doc-marker{
+  display:inline!important;
+  width:auto!important;
+  max-width:none!important;
+  white-space:nowrap!important;
+  margin-right:.35em!important;
+}
+#detail .official-doc.law02-match .doc-copy{
+  display:inline!important;
+  width:auto!important;
+  max-width:none!important;
+  min-width:0!important;
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+  word-break:normal!important;
+}
+#detail .official-doc.law02-match .doc-paragraph .doc-copy{
+  display:block!important;
+  width:100%!important;
+}
+
 /* 最終覆寫：未編號法規段落不得使用窄欄 Grid，否則會變成一字一行 */
 #detail .official-doc.law02-match .doc-paragraph{display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important;}
 #detail .official-doc.law02-match .doc-paragraph .doc-copy{display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important;}
