@@ -214,8 +214,8 @@ function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&l
 function renderList(){const q=document.getElementById('searchInput').value.trim().toLowerCase();const list=document.getElementById('lawList');list.innerHTML='';const filtered=laws.map((law,i)=>({...law,i})).filter(x=>(x.title+'\n'+x.content+'\n'+x.history).toLowerCase().includes(q));document.getElementById('count').textContent=`${filtered.length} / ${laws.length} 項`;document.getElementById('none').classList.toggle('hidden',filtered.length>0);filtered.forEach(x=>{const b=document.createElement('button');b.type='button';b.className='w-full text-left px-3 py-3 rounded-xl hover:bg-blue-50 text-slate-700 transition '+(x.i===currentIndex?'active-law':'');b.innerHTML=`<span class="inline-flex w-6 h-6 rounded-lg items-center justify-center mr-2 text-[10px] font-bold ${x.i===currentIndex?'bg-white/20':'bg-slate-100 text-slate-500'}">${x.i+1}</span><span class="align-middle">${esc(x.title.replace(/^\s*\d+[、.．]?\s*/,''))}</span>`;b.onclick=()=>{currentIndex=x.i;renderList();renderDetail();};list.appendChild(b);});}
 function formatLawText(content, lawIndex){
  let normalized=String(content||'').replace(/\\n/g,'\n').replace(/^(第\s*[0-9０-９一二三四五六七八九十百]+\s*條)\s*\n(?!第\s*[0-9０-９一二三四五六七八九十百]+\s*條)([^\n]+)$/gm,'$1 $2');
- // 第25項原始文字含有句中換行；合併續行，保留各款、目之換行。
- if(lawIndex===24){
+ // 第25、26項原始文字含有句中換行；合併續行，保留各款、目之換行。
+ if(lawIndex===24 || lawIndex===25){
   normalized=normalized.split('\n').reduce((acc,line)=>{
    const t=line.trim();
    if(!t) return acc;
