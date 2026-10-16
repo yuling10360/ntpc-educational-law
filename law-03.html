@@ -42,6 +42,12 @@ body{font-family:'Noto Sans TC',sans-serif}
 #detail .official-doc.first-law-format .doc-row-continuation{display:block;grid-template-columns:minmax(0,1fr);margin-top:0;padding-left:0}
 #detail .official-doc.first-law-format .doc-row-continuation .doc-marker{display:none}
 #detail .official-doc.first-law-format .doc-row-continuation .doc-copy{display:block;width:100%;min-width:0;overflow-wrap:anywhere}
+/* 修正第2至第6項內文被擠成直排：確保每列及內文欄位使用可用寬度 */
+#detail .official-doc.law02-match{display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;writing-mode:horizontal-tb!important}
+#detail .official-doc.law02-match .doc-row{width:100%;max-width:100%;min-width:0;box-sizing:border-box;writing-mode:horizontal-tb!important}
+#detail .official-doc.law02-match .doc-copy{display:block;width:auto;max-width:100%;min-width:0;white-space:normal;word-break:normal;overflow-wrap:anywhere;writing-mode:horizontal-tb!important}
+#detail .official-doc.law02-match .doc-paragraph{display:block!important;width:100%;margin:0 0 .65em;padding:0}
+#detail .official-doc.law02-match .doc-paragraph .doc-copy{width:100%}
 /* 法規第2至第6項比照 law-02.html 第2項的段落與層級格式 */
 .doc-paragraph-gap{height:.65em}
 #detail .official-doc.law02-match .doc-row{display:grid;grid-template-columns:2.8em minmax(0,1fr);column-gap:.2em;margin:0;padding:0}
