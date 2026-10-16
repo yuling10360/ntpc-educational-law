@@ -3227,6 +3227,7 @@
           const lines = text.replace(/\r/g, '').split('\n');
           const hasArticleNumbers = lines.some(line => articlePattern.test(line.trim()));
           let inArticle = false;
+          let lastItemLevel = 'doc-level-1';
           const output = [];
           for (let index = 0; index < lines.length; index++) {
             const t = lines[index].trim();
@@ -3237,6 +3238,7 @@
             }
             if (articlePattern.test(t)) {
               inArticle = true;
+              lastItemLevel = 'doc-level-1';
               output.push('<div class="doc-article">' + esc(t.replace(/\\s+/g, '')) + '</div>');
               const next = (lines[index + 1] || '').trim();
               if (next && !articlePattern.test(next)) {
@@ -3249,25 +3251,29 @@
               const sub = t.match(parenthesisPattern);
               if (sub) {
                 const marker = sub[1].replace(/^\(/, '（').replace(/\)$/, '）');
+                lastItemLevel = 'doc-level-2';
                 output.push('<div class="doc-row doc-level-2"><span class="doc-marker">' + esc(marker) + '</span><span class="doc-copy">' + esc(sub[2]) + '</span></div>');
                 continue;
               }
               const numbered = t.match(numberedPattern);
               if (numbered) {
+                lastItemLevel = 'doc-level-1';
                 output.push('<div class="doc-row doc-level-1"><span class="doc-marker">' + esc(numbered[1]) + '</span><span class="doc-copy">' + esc(numbered[2]) + '</span></div>');
                 continue;
               }
               const numeric = t.match(numericPattern);
               if (numeric) {
+                lastItemLevel = 'doc-level-3';
                 output.push('<div class="doc-row doc-level-3"><span class="doc-marker">' + esc(numeric[1]) + '</span><span class="doc-copy">' + esc(numeric[2]) + '</span></div>');
                 continue;
               }
               const small = t.match(smallPattern);
               if (small) {
+                lastItemLevel = 'doc-level-4';
                 output.push('<div class="doc-row doc-level-4"><span class="doc-marker">（' + esc(small[1]) + '）</span><span class="doc-copy">' + esc(small[2]) + '</span></div>');
                 continue;
               }
-              output.push('<div class="doc-row doc-level-1 doc-row-continuation"><span class="doc-marker"></span><span class="doc-copy">' + esc(t) + '</span></div>');
+              output.push('<div class="doc-row ' + lastItemLevel + ' doc-row-continuation"><span class="doc-marker"></span><span class="doc-copy">' + esc(t) + '</span></div>');
               continue;
             }
             const sub = t.match(parenthesisPattern);
