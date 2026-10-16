@@ -3211,20 +3211,9 @@
         const parenthesisPattern = /^([（(][一二三四五六七八九十百千\d]+[）)])\s*(.*)$/;
         const numberedPattern = /^([一二三四五六七八九十百千]+、)\s*(.*)$/;
 
-        const formatText = text => {
-          const lines = text.replace(/\r/g, '').split('\n');
-          const chapterPattern = /^第\s*[一二三四五六七八九十百千\d]+\s*章(?:\s+.*|.*)$/;
-          return lines.map((line, index) => {
+        const formatText = text => text.replace(/\r/g, '').split('\n').map(line => {
           const t = line.trim();
-          if (!t) {
-            const previous = (lines[index - 1] || '').trim();
-            const next = (lines[index + 1] || '').trim();
-            if (chapterPattern.test(previous) || chapterPattern.test(next)) return '';
-            return '<div class="h-3"></div>';
-          }
-          if (chapterPattern.test(t)) {
-            return '<div class="law-chapter-title my-3 pl-3 font-bold text-slate-900 leading-relaxed">' + esc(t.replace(/\s{2,}/g, ' ')) + '</div>';
-          }
+          if (!t) return '<div class="h-3"></div>';
           if (articlePattern.test(t)) {
             return '<div class="mt-5 mb-2 font-bold text-slate-900 border-b border-slate-100 pb-1">' + esc(t) + '</div>';
           }
@@ -3250,8 +3239,7 @@
             return '<div class="grid grid-cols-[minmax(6.5rem,auto)_minmax(0,1fr)] gap-2 pl-3 items-start"><span class="font-medium text-slate-800">' + esc(named[1]) + '</span><span class="min-w-0">' + esc(named[2]) + '</span></div>';
           }
           return '<div class="pl-3">' + esc(t) + '</div>';
-          }).join('');
-        };
+        }).join('');
 
         // 只格式化文字節點；保留原始 HTML 附表、表格與其他嵌入內容。
         body.classList.remove('whitespace-pre-line');
