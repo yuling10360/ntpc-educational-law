@@ -16,7 +16,7 @@ body{font-family:'Noto Sans TC',sans-serif}
 .doc-marker{display:block;white-space:nowrap;text-align:left;font-weight:700}
 .doc-copy{min-width:0;overflow-wrap:anywhere;word-break:normal}
 /* 統一項次對齊與層級縮排；條次（第X條）保持原樣 */
-#detail .official-doc .doc-row:not(.doc-article){display:grid!important;grid-template-columns:3.2em minmax(0,1fr)!important;column-gap:.2em!important;box-sizing:border-box;width:100%;align-items:start}
+#detail .official-doc .doc-row:not(.doc-article){display:grid!important;grid-template-columns:max-content minmax(0,1fr)!important;column-gap:0!important;box-sizing:border-box;width:100%;align-items:start}
 #detail .official-doc .doc-row.doc-level-1:not(.doc-article){padding-left:0!important}
 #detail .official-doc .doc-row.doc-level-2{padding-left:2em!important}
 #detail .official-doc .doc-row.doc-level-3{padding-left:4em!important}
