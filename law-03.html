@@ -238,10 +238,10 @@ function formatLawText(content, lawIndex){
     const m=t.match(level.re);
     if(m){
      const indent=(level.n-1)*1.5;
-     return '<div class="doc-row doc-level-'+level.n+'" style="margin-left:'+indent+'em!important;padding-left:0!important;width:calc(100% - '+indent+'em)!important;display:grid!important;grid-template-columns:2.8em minmax(0,1fr)!important;column-gap:.2em!important;align-items:start!important;min-width:0!important;box-sizing:border-box!important;"><span class="doc-marker">'+esc(m[1])+'</span><span class="doc-copy">'+esc(m[2].trimStart())+'</span></div>';
+     return '<div class="doc-row doc-level-'+level.n+'" style="display:flex!important;align-items:flex-start!important;gap:0!important;margin-left:'+indent+'em!important;padding:0!important;width:calc(100% - '+indent+'em)!important;min-width:0!important;box-sizing:border-box!important;"><span class="doc-marker" style="display:block!important;flex:0 0 2.8em!important;width:2.8em!important;min-width:2.8em!important;white-space:nowrap!important;margin:0!important;padding:0!important;">'+esc(m[1])+'</span><span class="doc-copy" style="display:block!important;flex:1 1 0!important;width:0!important;min-width:0!important;margin:0!important;padding:0!important;overflow-wrap:anywhere!important;word-break:normal!important;">'+esc(m[2].trimStart())+'</span></div>';
     }
    }
-   return '<div class="doc-row doc-row-continuation" style="display:grid!important;grid-template-columns:2.8em minmax(0,1fr)!important;column-gap:.2em!important;align-items:start!important;width:100%!important;min-width:0!important;box-sizing:border-box!important;"><span class="doc-marker"></span><span class="doc-copy">'+esc(t)+'</span></div>';
+   return '<div class="doc-row doc-row-continuation" style="display:flex!important;align-items:flex-start!important;gap:0!important;margin:0!important;padding:0!important;width:100%!important;min-width:0!important;box-sizing:border-box!important;"><span class="doc-marker" style="display:block!important;flex:0 0 2.8em!important;width:2.8em!important;min-width:2.8em!important;visibility:hidden!important;margin:0!important;padding:0!important;">　</span><span class="doc-copy" style="display:block!important;flex:1 1 0!important;width:0!important;min-width:0!important;margin:0!important;padding:0!important;overflow-wrap:anywhere!important;word-break:normal!important;">'+esc(t)+'</span></div>';
   }).join('');
  }
  // 僅法規第10項（index 9）：以內嵌縮排直接設定各層級，避免共用 CSS 覆寫造成畫面不變。
