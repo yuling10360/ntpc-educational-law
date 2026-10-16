@@ -40,13 +40,17 @@
         margin-top: 0;
         padding-left: 2em;
         text-indent: 0;
+        grid-template-columns: 2.2em minmax(0, 1fr);
       }
       .doc-level-3 {
         margin-top: 0;
         padding-left: 4em;
         text-indent: 0;
+        grid-template-columns: 1.8em minmax(0, 1fr);
         color: #334155;
       }
+      .doc-row-continuation { grid-template-columns: 2.8em minmax(0, 1fr); }
+      .doc-level-4 { padding-left: 5.5em; grid-template-columns: 2.6em minmax(0, 1fr); font-weight: 400; }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
