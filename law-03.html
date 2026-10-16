@@ -141,7 +141,7 @@ function formatLawText(content, lawIndex){
    if(!t) return '<div class="doc-paragraph-gap"></div>';
    const article=t.match(/^(第\s*\d+\s*條)(.*)$/);
    const level1=t.match(/^([一二三四五六七八九十百壹貳參肆伍陸柒捌玖拾]+、)(.*)$/);
-   const level2=t.match(/^([（(][一二三四五六七八九十百壹貳參肆伍陸柒捌玖拾\\d０-９]+[）)])(.*)$/);
+   const level2=t.match(/^([（(][一二三四五六七八九十百壹貳參肆伍陸柒捌玖拾0-9０-９]+[）)])(.*)$/);
    const level3=t.match(/^([0-9０-９]+[、.．])(.*)$/);
    const level4=t.match(/^([（(][0-9０-９]+[）)])(.*)$/);
    if(article) return '<div class="doc-row doc-article"><span class="doc-marker">'+esc(article[1].replace(/\s+/g,''))+'</span><span class="doc-copy">'+esc(article[2].trim())+'</span></div>';
