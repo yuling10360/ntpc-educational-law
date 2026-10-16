@@ -51,6 +51,13 @@
       }
       .doc-row-continuation { grid-template-columns: 2.8em minmax(0, 1fr); }
       .doc-level-4 { padding-left: 5.5em; grid-template-columns: 2.6em minmax(0, 1fr); font-weight: 400; }
+      /* 僅修正第17項法規：項次與內文固定同列，其他法規不受影響。 */
+      #law-17 .doc-row { display: grid; grid-template-columns: 2.8em minmax(0, 1fr); align-items: start; column-gap: 0.2em; }
+      #law-17 .doc-row .doc-marker { grid-column: 1; white-space: nowrap; }
+      #law-17 .doc-row .doc-copy { grid-column: 2; min-width: 0; }
+      #law-17 .doc-row.doc-level-2 { padding-left: 2em; grid-template-columns: 2.2em minmax(0, 1fr); }
+      #law-17 .doc-row.doc-level-3 { padding-left: 4em; grid-template-columns: 1.8em minmax(0, 1fr); }
+      #law-17 .doc-row.doc-level-4 { padding-left: 5.5em; grid-template-columns: 2.6em minmax(0, 1fr); }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
