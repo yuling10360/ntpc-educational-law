@@ -45,7 +45,7 @@ function renderList(){
 }
 function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function formatLawText(content){
- return String(content||'').split('\n').map(line=>{
+ return String(content||'').replace(/\\n/g,'\n').split('\n').map(line=>{
   if(!line.trim()) return '';
   const t=line.trim();
   const safeText=esc(t);
