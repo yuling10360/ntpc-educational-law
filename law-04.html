@@ -123,6 +123,12 @@ body{font-family:'Noto Sans TC',sans-serif}
 #detail .official-doc.law-ten-format .doc-level-4{padding-left:8em!important}
 
 /* 條次排版唯一規則：條次固定左欄、條文從右欄同列開始 */
+/* 條次格式比照 law-03：條次獨立粗體一行，條文內容另起一行 */
+#detail .official-doc .doc-article-heading{display:block!important;font-weight:700!important;margin:1.25em 0 0!important;padding:0!important;color:#1e293b!important;line-height:2!important}
+#detail .official-doc .doc-article-heading:first-child{margin-top:0!important}
+#detail .official-doc .doc-article-body{display:block!important;width:100%!important;min-width:0!important;margin:0 0 .35em!important;padding:0!important;font-weight:400!important;line-height:2!important;overflow-wrap:anywhere!important;word-break:normal!important}
+
+/* 原有條次雙欄樣式保留 */
 #detail .official-doc .doc-row.doc-article{
  display:grid!important;
  grid-template-columns:4.2em minmax(0,1fr)!important;
@@ -213,7 +219,11 @@ function formatLawText(content){
   const chapter=t.match(/^(第\s*[一二三四五六七八九十百0-9０-９]+\s*章\s*.*)$/);
   if(chapter) return '<div class="doc-chapter">'+esc(t.replace(/\s{2,}/g,' '))+'</div>';
   const article=t.match(/^(第\s*[0-9０-９一二三四五六七八九十百]+\s*條)(.*)$/);
-  if(article) return '<div class="doc-row doc-article"><span class="doc-marker">'+esc(article[1].replace(/\s+/g,''))+'</span><span class="doc-copy">'+esc(article[2].trimStart())+'</span></div>';
+  if(article){
+   const heading='<div class="doc-article-heading">'+esc(article[1].replace(/\s+/g,''))+'</div>';
+   const inlineText=article[2].trim();
+   return heading+(inlineText?'<div class="doc-article-body">'+esc(inlineText)+'</div>':'');
+  }
   const levels=[
    {re:/^([壹貳參肆伍陸柒捌玖拾]+、)(.*)$/,n:0},
    {re:/^([一二三四五六七八九十百]+、)(.*)$/,n:1},
