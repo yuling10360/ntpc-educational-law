@@ -50,6 +50,9 @@ body{font-family:'Noto Sans TC',sans-serif}
 #detail .official-doc.law02-match .doc-level-3{padding-left:4em;grid-template-columns:1.8em minmax(0,1fr);font-weight:400;color:#334155}
 #detail .official-doc.law02-match .doc-row-continuation{grid-template-columns:0 minmax(0,1fr)}
 #detail .official-doc.law02-match .doc-row-continuation .doc-marker{display:none}
+/* 確保有項次的列顯示項次文字；只套用於 law02-match，不影響有條次法規 */
+#detail .official-doc.law02-match .doc-row:not(.doc-row-continuation) .doc-marker{display:block!important;visibility:visible!important;opacity:1!important}
+#detail .official-doc.law02-match .doc-row:not(.doc-row-continuation) .doc-copy{grid-column:2}
 </style></head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
 <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm"><div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-3"><a href="index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-blue-600"><i class="fa-solid fa-arrow-left"></i> 返回手冊目錄</a><span class="text-xs bg-blue-50 text-blue-700 font-semibold px-2.5 py-1 rounded-full border border-blue-200">第三類法規全文查閱</span></div></header>
