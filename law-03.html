@@ -9,24 +9,23 @@ body{font-family:'Noto Sans TC',sans-serif}
 .law-panel{display:none}.law-panel.active{display:block}
 .official-doc{display:block;width:100%;max-width:none;min-width:0;box-sizing:border-box;line-height:2;color:#1e293b;text-align:justify;overflow-wrap:anywhere}
 .doc-row{display:grid;grid-template-columns:3.2em minmax(0,1fr);align-items:start;column-gap:.2em;box-sizing:border-box;width:100%}
-.doc-level-1:not(.doc-article){padding-left:0!important;grid-template-columns:3.2em minmax(0,1fr)!important}
+
 .doc-level-2{padding-left:2em!important;grid-template-columns:3.2em minmax(0,1fr)!important}
 .doc-level-3{padding-left:4em!important;grid-template-columns:3.2em minmax(0,1fr)!important}
 .doc-level-4{padding-left:6em!important;grid-template-columns:3.2em minmax(0,1fr)!important}
 .doc-marker{display:block;white-space:nowrap;text-align:left;font-weight:700}
 .doc-copy{min-width:0;overflow-wrap:anywhere;word-break:normal}
-/* 統一項次對齊與層級縮排；條次（第X條）保持原樣 */
-#detail .official-doc .doc-row:not(.doc-article){display:flex!important;flex-direction:row!important;align-items:flex-start!important;gap:0!important;box-sizing:border-box;width:100%}
-#detail .official-doc .doc-row:not(.doc-article) .doc-marker{flex:0 0 auto!important;display:inline-block!important;width:auto!important;min-width:0;white-space:nowrap;text-align:left;font-weight:700;margin:0!important;padding:0!important}
-#detail .official-doc .doc-row:not(.doc-article) .doc-copy{display:inline!important;flex:1 1 auto!important;width:auto!important;min-width:0;margin:0!important;padding:0!important;overflow-wrap:anywhere;word-break:normal}
-#detail .official-doc .doc-row.doc-level-1:not(.doc-article){padding-left:0!important}
+
+
+
+
 #detail .official-doc .doc-row.doc-level-2{padding-left:2em!important}
 #detail .official-doc .doc-row.doc-level-3{padding-left:4em!important}
 #detail .official-doc .doc-row.doc-level-4{padding-left:6em!important}
-#detail .official-doc .doc-row:not(.doc-article) .doc-marker{display:block!important;width:auto!important;min-width:0;white-space:nowrap;text-align:left;font-weight:700}
-#detail .official-doc .doc-row:not(.doc-article) .doc-marker{margin-right:0!important;padding-right:0!important}
-#detail .official-doc .doc-row:not(.doc-article) .doc-copy{margin-left:0!important;padding-left:0!important}
-#detail .official-doc .doc-row:not(.doc-article) .doc-copy{display:block!important;min-width:0;overflow-wrap:anywhere;word-break:normal}
+
+
+
+
 .doc-marker{display:block;white-space:nowrap}
 .doc-copy{display:block;min-width:0;overflow-wrap:anywhere}
 .doc-level-1{margin-top:0;margin-bottom:0;font-weight:600}
@@ -34,24 +33,21 @@ body{font-family:'Noto Sans TC',sans-serif}
 .doc-level-2{margin-top:0;padding-left:2em;grid-template-columns:2.2em minmax(0,1fr);font-weight:500}
 .doc-level-3{margin-top:0;padding-left:4em;grid-template-columns:1.8em minmax(0,1fr);color:#334155}
 .doc-level-4{margin-top:0;padding-left:5.5em;grid-template-columns:2.6em minmax(0,1fr);font-weight:400}
-.doc-article{font-weight:700;margin-top:1.5em;padding-top:.25em;grid-template-columns:4.2em minmax(0,1fr)}
-.doc-article .doc-marker{width:4.2em;white-space:nowrap;text-align:left}
-/* 第1項第1部法規：條次與條文固定雙欄對齊，續行內文對齊條文起點 */
-#detail .official-doc .doc-article{display:grid;grid-template-columns:4.2em minmax(0,1fr);column-gap:.2em;align-items:start;margin-top:1.5em;padding-top:.25em}
-#detail .official-doc .doc-article .doc-marker{display:block;width:4.2em;min-width:0;white-space:nowrap;text-align:left}
-#detail .official-doc .doc-article .doc-copy{display:block;width:100%;min-width:0;overflow-wrap:anywhere;word-break:normal}
-/* 條次格式維持原有橫向排列；項次縮排規則不得套用到條次 */
-#detail .official-doc.first-law-format .doc-article{display:grid!important;grid-template-columns:4.2em minmax(0,1fr)!important;column-gap:.2em!important;margin-top:1.5em;padding-top:.25em}
-#detail .official-doc.first-law-format .doc-article:first-child{margin-top:0;padding-top:0}
-#detail .official-doc.first-law-format .doc-article .doc-marker{display:block!important;width:4.2em!important;white-space:nowrap}
-#detail .official-doc.first-law-format .doc-article .doc-copy{display:block!important;width:100%;min-width:0;overflow-wrap:anywhere}
 
-#detail .official-doc .doc-article + .doc-article{margin-top:1.5em}
-#detail .official-doc .doc-article + .doc-row-continuation{display:grid;grid-template-columns:4.2em minmax(0,1fr);column-gap:.2em;margin-top:0;padding-left:0}
-#detail .official-doc .doc-article + .doc-row-continuation .doc-marker{display:block;visibility:hidden}
-#detail .official-doc .doc-article + .doc-row-continuation .doc-copy{display:block;width:100%;min-width:0;overflow-wrap:anywhere;word-break:normal}
-.doc-article:first-child{margin-top:0;padding-top:0}
-.doc-article+.doc-level-1{margin-top:0}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .doc-level-1 .doc-copy,.doc-level-2 .doc-copy,.doc-level-3 .doc-copy,.doc-level-4 .doc-copy{min-width:0;overflow-wrap:anywhere}
 .doc-row-continuation{grid-template-columns:2.8em minmax(0,1fr)}
 .doc-level-4{padding-left:5.5em;grid-template-columns:2.6em minmax(0,1fr);font-weight:400}
@@ -61,11 +57,10 @@ body{font-family:'Noto Sans TC',sans-serif}
 /* 法規第1項及第7項：明確指定所有內文為一般字重，條次標籤維持粗體 */
 #detail .official-doc.first-law-format .doc-copy{font-weight:400!important}
 #detail .official-doc.first-law-format .doc-marker{font-weight:700!important}
-/* 僅第1項法規：第1條、第2條、第3條及後續每一條均依參考截圖排版 */
-#detail .official-doc.first-law-format .doc-article{display:grid!important;grid-template-columns:4.2em minmax(0,1fr)!important;column-gap:.2em!important;align-items:start!important;margin:1.5em 0 .25em!important;padding:0!important;width:100%!important;box-sizing:border-box!important}
-#detail .official-doc.first-law-format .doc-article:first-child{margin-top:0!important}
-#detail .official-doc.first-law-format .doc-article .doc-marker{display:block!important;width:4.2em!important;min-width:0!important;white-space:nowrap!important}
-#detail .official-doc.first-law-format .doc-article .doc-copy{display:block!important;width:100%!important;min-width:0!important;overflow-wrap:anywhere!important}
+
+
+
+
 #detail .official-doc.first-law-format .doc-row-continuation{display:block;grid-template-columns:minmax(0,1fr);margin-top:0;padding-left:0}
 #detail .official-doc.first-law-format .doc-row-continuation .doc-marker{display:none}
 #detail .official-doc.first-law-format .doc-row-continuation .doc-copy{display:block;width:100%;min-width:0;overflow-wrap:anywhere}
@@ -79,8 +74,8 @@ body{font-family:'Noto Sans TC',sans-serif}
 .doc-paragraph-gap{height:.65em}
 #detail .official-doc.law02-match .doc-row{display:grid;grid-template-columns:2.8em minmax(0,1fr);column-gap:.2em;margin:0;padding:0}
 #detail .official-doc.law02-match .doc-level-1{font-weight:600;margin:0}
-#detail .official-doc.law02-match .doc-article{font-weight:700;grid-template-columns:4.2em minmax(0,1fr);margin:1.2em 0 .25em;padding:0}
-#detail .official-doc.law02-match .doc-article:first-child{margin-top:0}
+
+
 #detail .official-doc.law02-match .doc-paragraph{grid-template-columns:0 minmax(0,1fr);margin:0 0 .65em;padding:0;font-weight:400}
 #detail .official-doc.law02-match .doc-paragraph .doc-marker{display:none}
 #detail .official-doc.law02-match .doc-level-2{padding-left:2em;grid-template-columns:2.2em minmax(0,1fr);font-weight:400}
@@ -131,68 +126,25 @@ body{font-family:'Noto Sans TC',sans-serif}
 #detail .official-doc.law02-match .doc-paragraph .doc-marker{display:none!important;}
 #detail .official-doc.law02-match .doc-row{box-sizing:border-box;max-width:100%;}
 
-/* 最終覆寫：項次與內文同列、緊接；各層次只調整整列縮排，條次不套用 */
-#detail .official-doc .doc-row.doc-level-1:not(.doc-article),
-#detail .official-doc .doc-row.doc-level-2,
-#detail .official-doc .doc-row.doc-level-3,
-#detail .official-doc .doc-row.doc-level-4{
- display:flex!important;flex-direction:row!important;align-items:flex-start!important;gap:0!important;
-}
-#detail .official-doc .doc-row.doc-level-1:not(.doc-article){padding-left:0!important}
+
 #detail .official-doc .doc-row.doc-level-2{padding-left:2em!important}
 #detail .official-doc .doc-row.doc-level-3{padding-left:4em!important}
 #detail .official-doc .doc-row.doc-level-4{padding-left:6em!important}
-#detail .official-doc .doc-row.doc-level-1:not(.doc-article) .doc-marker,
-#detail .official-doc .doc-row.doc-level-2 .doc-marker,
-#detail .official-doc .doc-row.doc-level-3 .doc-marker,
-#detail .official-doc .doc-row.doc-level-4 .doc-marker{display:inline!important;flex:0 0 auto!important;width:auto!important;margin:0!important;padding:0!important;white-space:nowrap!important}
-#detail .official-doc .doc-row.doc-level-1:not(.doc-article) .doc-copy,
-#detail .official-doc .doc-row.doc-level-2 .doc-copy,
-#detail .official-doc .doc-row.doc-level-3 .doc-copy,
-#detail .official-doc .doc-row.doc-level-4 .doc-copy{display:inline!important;flex:1 1 auto!important;width:auto!important;min-width:0!important;margin:0!important;padding:0!important;overflow-wrap:anywhere!important}
+
+
 
 /* 壹、為較高層級；一、及其後層級依序縮排 */
 #detail .official-doc .doc-row.doc-level-0{display:flex!important;flex-direction:row!important;align-items:flex-start!important;gap:0!important;padding-left:0!important}
 #detail .official-doc .doc-row.doc-level-0 .doc-marker{display:inline!important;flex:0 0 auto!important;width:auto!important;margin:0!important;padding:0!important;white-space:nowrap!important}
 #detail .official-doc .doc-row.doc-level-0 .doc-copy{display:inline!important;flex:1 1 auto!important;width:auto!important;min-width:0!important;margin:0!important;padding:0!important;overflow-wrap:anywhere!important}
-#detail .official-doc .doc-row.doc-level-1:not(.doc-article){padding-left:2em!important}
+
 #detail .official-doc .doc-row.doc-level-2{padding-left:4em!important}
 #detail .official-doc .doc-row.doc-level-3{padding-left:6em!important}
 #detail .official-doc .doc-row.doc-level-4{padding-left:8em!important}
 
-/* 條次完全維持原有格式：不套用項次的縮排與同列規則 */
-#detail .official-doc .doc-row.doc-article{display:grid!important;grid-template-columns:4.2em minmax(0,1fr)!important;column-gap:.2em!important;align-items:start!important;padding-left:0!important}
-#detail .official-doc .doc-row.doc-article .doc-marker{display:block!important;width:4.2em!important;min-width:0!important;white-space:nowrap!important}
-#detail .official-doc .doc-row.doc-article .doc-copy{display:block!important;width:100%!important;min-width:0!important;overflow-wrap:anywhere!important}
-#detail .official-doc .doc-row.doc-article+.doc-row-continuation{display:grid!important;grid-template-columns:4.2em minmax(0,1fr)!important;padding-left:0!important}
 
-/* 最後校正：條次恢復為條次在左、條文同列於右；不套用項次縮排 */
-#detail .official-doc .doc-row.doc-article,
-#detail .official-doc.first-law-format .doc-row.doc-article,
-#detail .official-doc.law02-match .doc-row.doc-article{
- display:grid!important;
- grid-template-columns:4.2em minmax(0,1fr)!important;
- column-gap:.2em!important;
- align-items:start!important;
- padding:0!important;
- margin:1.5em 0 .25em!important;
- box-sizing:border-box!important;
- width:100%!important;
-}
-#detail .official-doc .doc-row.doc-article:first-child,
-#detail .official-doc.first-law-format .doc-row.doc-article:first-child,
-#detail .official-doc.law02-match .doc-row.doc-article:first-child{margin-top:0!important}
-#detail .official-doc .doc-row.doc-article .doc-marker,
-#detail .official-doc.first-law-format .doc-row.doc-article .doc-marker,
-#detail .official-doc.law02-match .doc-row.doc-article .doc-marker{display:block!important;width:4.2em!important;min-width:0!important;margin:0!important;padding:0!important;white-space:nowrap!important}
-#detail .official-doc .doc-row.doc-article .doc-copy,
-#detail .official-doc.first-law-format .doc-row.doc-article .doc-copy,
-#detail .official-doc.law02-match .doc-row.doc-article .doc-copy{display:block!important;width:100%!important;min-width:0!important;margin:0!important;padding:0!important;overflow-wrap:anywhere!important}
-
-/* 恢復條次排版：條次在左、條文由右側同列開始；只作用於條次 */
-#detail .official-doc .doc-row.doc-article,
-#detail .official-doc.first-law-format .doc-row.doc-article,
-#detail .official-doc.law02-match .doc-row.doc-article{
+/* 條次排版唯一規則：條次固定左欄、條文從右欄同列開始 */
+#detail .official-doc .doc-row.doc-article{
  display:grid!important;
  grid-template-columns:4.2em minmax(0,1fr)!important;
  column-gap:.2em!important;
@@ -202,15 +154,35 @@ body{font-family:'Noto Sans TC',sans-serif}
  width:100%!important;
  box-sizing:border-box!important;
 }
-#detail .official-doc .doc-row.doc-article:first-child,
-#detail .official-doc.first-law-format .doc-row.doc-article:first-child,
-#detail .official-doc.law02-match .doc-row.doc-article:first-child{margin-top:0!important}
-#detail .official-doc .doc-row.doc-article>.doc-marker,
-#detail .official-doc.first-law-format .doc-row.doc-article>.doc-marker,
-#detail .official-doc.law02-match .doc-row.doc-article>.doc-marker{display:block!important;grid-column:1!important;width:4.2em!important;min-width:0!important;margin:0!important;padding:0!important;white-space:nowrap!important}
-#detail .official-doc .doc-row.doc-article>.doc-copy,
-#detail .official-doc.first-law-format .doc-row.doc-article>.doc-copy,
-#detail .official-doc.law02-match .doc-row.doc-article>.doc-copy{display:block!important;grid-column:2!important;width:100%!important;min-width:0!important;margin:0!important;padding:0!important;overflow-wrap:anywhere!important}
+#detail .official-doc .doc-row.doc-article:first-child{margin-top:0!important}
+#detail .official-doc .doc-row.doc-article>.doc-marker{
+ display:block!important;
+ grid-column:1!important;
+ width:4.2em!important;
+ min-width:0!important;
+ margin:0!important;
+ padding:0!important;
+ white-space:nowrap!important;
+}
+#detail .official-doc .doc-row.doc-article>.doc-copy{
+ display:block!important;
+ grid-column:2!important;
+ width:100%!important;
+ min-width:0!important;
+ margin:0!important;
+ padding:0!important;
+ overflow-wrap:anywhere!important;
+ word-break:normal!important;
+}
+#detail .official-doc .doc-row.doc-article+.doc-row-continuation{
+ display:grid!important;
+ grid-template-columns:4.2em minmax(0,1fr)!important;
+ column-gap:.2em!important;
+ margin-top:0!important;
+ padding:0!important;
+}
+#detail .official-doc .doc-row.doc-article+.doc-row-continuation .doc-marker{visibility:hidden!important}
+#detail .official-doc .doc-row.doc-article+.doc-row-continuation .doc-copy{grid-column:2!important;min-width:0!important;width:100%!important;overflow-wrap:anywhere!important}
 </style></head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
 <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm"><div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-3"><a href="index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-blue-600"><i class="fa-solid fa-arrow-left"></i> 返回手冊目錄</a><span class="text-xs bg-blue-50 text-blue-700 font-semibold px-2.5 py-1 rounded-full border border-blue-200">第三類法規全文查閱</span></div></header>
