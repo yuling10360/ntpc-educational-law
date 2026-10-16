@@ -123,6 +123,10 @@ body{font-family:'Noto Sans TC',sans-serif}
 #detail .official-doc.law-ten-format .doc-level-4{padding-left:8em!important}
 
 /* 條次排版唯一規則：條次固定左欄、條文從右欄同列開始 */
+/* 有條次法規：條次加粗獨立一行，內文從下一行開始；只套用於含條次法規 */
+#detail .official-doc .doc-article-heading{font-weight:700!important;margin:1.25em 0 .15em!important;color:#1e293b}
+#detail .official-doc .doc-article-heading:first-child{margin-top:0!important}
+#detail .official-doc .doc-article-body{display:block!important;width:100%!important;min-width:0!important;margin:0 0 .35em!important;padding:0!important;font-weight:400!important;overflow-wrap:anywhere!important;word-break:normal!important}
 #detail .official-doc .doc-row.doc-article{
  display:grid!important;
  grid-template-columns:4.2em minmax(0,1fr)!important;
@@ -221,8 +225,32 @@ function renderList(){
 }
 function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function formatLawText(content, lawIndex){
- const normalized=String(content||'').replace(/\\n/g,'\n').replace(/^(第\s*\d+\s*條)\s*\n(?!第\s*\d+\s*條)([^\n]+)$/gm, '$1 $2');
+ const rawContent=String(content||'').replace(/\\n/g,'\n');
+ // 有條次的法規比照 law-02：條次獨立一行加粗，內文另起一行；不改動無條次法規的原有格式。
+ const hasArticle=/第\s*\d+\s*條/.test(rawContent);
+ const normalized=hasArticle?rawContent:rawContent.replace(/^(第\s*\d+\s*條)\s*\n(?!第\s*\d+\s*條)([^\n]+)$/gm, '$1 $2');
  const lines=normalized.split('\n');
+ if(hasArticle){
+  return lines.map(raw=>{
+   const t=raw.trim();
+   if(!t) return '';
+   const article=t.match(/^(第\s*\d+\s*條(?:之\s*\d+)?)(.*)$/);
+   if(article){
+    const heading='<div class="doc-article-heading">'+esc(article[1].replace(/\s+/g,''))+'</div>';
+    const inlineText=article[2].trim();
+    return heading+(inlineText?'<div class="doc-article-body">'+esc(inlineText)+'</div>':'');
+   }
+   const level1=t.match(/^([一二三四五六七八九十百壹貳參肆伍陸柒捌玖拾]+、)(.*)$/);
+   const level2=t.match(/^([（(][一二三四五六七八九十百壹貳參肆伍陸柒捌玖拾0-9０-９]+[）)])\s*(.*)$/);
+   const level3=t.match(/^([0-9０-９]+[、.．])(.*)$/);
+   const level4=t.match(/^([（(][0-9０-９]+[）)])\s*(.*)$/);
+   if(level1) return '<div class="doc-row doc-level-1"><span class="doc-marker">'+esc(level1[1])+'</span><span class="doc-copy">'+esc(level1[2].trimStart())+'</span></div>';
+   if(level2) return '<div class="doc-row doc-level-2"><span class="doc-marker">'+esc(level2[1])+'</span><span class="doc-copy">'+esc(level2[2].trimStart())+'</span></div>';
+   if(level3) return '<div class="doc-row doc-level-3"><span class="doc-marker">'+esc(level3[1])+'</span><span class="doc-copy">'+esc(level3[2].trimStart())+'</span></div>';
+   if(level4) return '<div class="doc-row doc-level-4"><span class="doc-marker">'+esc(level4[1])+'</span><span class="doc-copy">'+esc(level4[2].trimStart())+'</span></div>';
+   return '<div class="doc-article-body">'+esc(t)+'</div>';
+  }).join('');
+ }
  // 僅法規第11項（index 10）：項次固定欄寬，內文及續行統一對齊紅線位置。
  if(lawIndex===10){
   return lines.map(raw=>{
