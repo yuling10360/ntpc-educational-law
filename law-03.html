@@ -17,14 +17,14 @@ body{font-family:'Noto Sans TC',sans-serif}
 .doc-level-4{margin-top:0;padding-left:5.5em;grid-template-columns:2.6em minmax(0,1fr);font-weight:400}
 .doc-article{font-weight:700;margin-top:1.5em;padding-top:.25em;grid-template-columns:4.2em minmax(0,1fr)}
 .doc-article .doc-marker{width:4.2em;white-space:nowrap;text-align:left}
-/* 第1項第1部法規：條次獨立一行、內文緊接其後；各條之間保留空白 */
-#detail .official-doc .doc-article{display:block;margin-top:1.5em;padding-top:.25em}
-#detail .official-doc .doc-article .doc-marker{display:block;width:auto;white-space:nowrap;text-align:left}
-#detail .official-doc .doc-article .doc-copy{display:block;width:100%;min-width:0;overflow-wrap:anywhere}
+/* 第1項第1部法規：條次與條文固定雙欄對齊，續行內文對齊條文起點 */
+#detail .official-doc .doc-article{display:grid;grid-template-columns:4.2em minmax(0,1fr);column-gap:.2em;align-items:start;margin-top:1.5em;padding-top:.25em}
+#detail .official-doc .doc-article .doc-marker{display:block;width:4.2em;min-width:0;white-space:nowrap;text-align:left}
+#detail .official-doc .doc-article .doc-copy{display:block;width:100%;min-width:0;overflow-wrap:anywhere;word-break:normal}
 #detail .official-doc .doc-article + .doc-article{margin-top:1.5em}
-#detail .official-doc .doc-article + .doc-row-continuation{display:block;grid-template-columns:minmax(0,1fr);margin-top:0;padding-left:0}
-#detail .official-doc .doc-article + .doc-row-continuation .doc-marker{display:none}
-#detail .official-doc .doc-article + .doc-row-continuation .doc-copy{display:block;width:100%;min-width:0;overflow-wrap:anywhere}
+#detail .official-doc .doc-article + .doc-row-continuation{display:grid;grid-template-columns:4.2em minmax(0,1fr);column-gap:.2em;margin-top:0;padding-left:0}
+#detail .official-doc .doc-article + .doc-row-continuation .doc-marker{display:block;visibility:hidden}
+#detail .official-doc .doc-article + .doc-row-continuation .doc-copy{display:block;width:100%;min-width:0;overflow-wrap:anywhere;word-break:normal}
 .doc-article:first-child{margin-top:0;padding-top:0}
 .doc-article+.doc-level-1{margin-top:0}
 .doc-level-1 .doc-copy,.doc-level-2 .doc-copy,.doc-level-3 .doc-copy,.doc-level-4 .doc-copy{min-width:0;overflow-wrap:anywhere}
