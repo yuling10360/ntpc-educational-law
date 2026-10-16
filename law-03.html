@@ -62,10 +62,10 @@ body{font-family:'Noto Sans TC',sans-serif}
 #detail .official-doc.first-law-format .doc-copy{font-weight:400!important}
 #detail .official-doc.first-law-format .doc-marker{font-weight:700!important}
 /* 僅第1項法規：第1條、第2條、第3條及後續每一條均依參考截圖排版 */
-#detail .official-doc.first-law-format .doc-article{display:block;margin-top:1.5em;padding-top:.25em}
-#detail .official-doc.first-law-format .doc-article:first-child{margin-top:0;padding-top:0}
-#detail .official-doc.first-law-format .doc-article .doc-marker{display:block;width:auto;white-space:nowrap;text-align:left}
-#detail .official-doc.first-law-format .doc-article .doc-copy{display:block;width:100%;min-width:0;overflow-wrap:anywhere}
+#detail .official-doc.first-law-format .doc-article{display:grid!important;grid-template-columns:4.2em minmax(0,1fr)!important;column-gap:.2em!important;align-items:start!important;margin:1.5em 0 .25em!important;padding:0!important;width:100%!important;box-sizing:border-box!important}
+#detail .official-doc.first-law-format .doc-article:first-child{margin-top:0!important}
+#detail .official-doc.first-law-format .doc-article .doc-marker{display:block!important;width:4.2em!important;min-width:0!important;white-space:nowrap!important}
+#detail .official-doc.first-law-format .doc-article .doc-copy{display:block!important;width:100%!important;min-width:0!important;overflow-wrap:anywhere!important}
 #detail .official-doc.first-law-format .doc-row-continuation{display:block;grid-template-columns:minmax(0,1fr);margin-top:0;padding-left:0}
 #detail .official-doc.first-law-format .doc-row-continuation .doc-marker{display:none}
 #detail .official-doc.first-law-format .doc-row-continuation .doc-copy{display:block;width:100%;min-width:0;overflow-wrap:anywhere}
