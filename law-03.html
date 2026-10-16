@@ -227,7 +227,7 @@ const laws = [
   },
   {
     "title": "函轉教育部關於藝術才能優異學生鑑定安置之相關規範供參",
-    "content": "依據教育部97年6月25日台特教字第0970117284號書函辦理。\n依據特殊教育法、國民小學及國民中學常態編班及分組學習準則並無隨班附讀相關規定，故藝術才能班不得開放未通過資賦優異鑑定學生隨班附讀。\n依據地方制度法第七十五條第四項規定，縣(市)政府辦理自治事項違背憲法、法律或基於法律授權之法規者，由中央各該主管機關報行政院予以徹銷、變更、廢止或停止其執行。另縣(市)政府辦理自治事項經中央各該主管機關令其限期改善未改善者，得將相關資料送請監察院處理。",
+    "content": "一、 依據教育部97年6月25日台特教字第0970117284號書函辦理。\n二、 依據特殊教育法、國民小學及國民中學常態編班及分組學習準則並無隨班附讀相關規定，故藝術才能班不得開放未通過資賦優異鑑定學生隨班附讀。\n三、 依據地方制度法第七十五條第四項規定，縣(市)政府辦理自治事項違背憲法、法律或基於法律授權之法規者，由中央各該主管機關報行政院予以徹銷、變更、廢止或停止其執行。另縣(市)政府辦理自治事項經中央各該主管機關令其限期改善未改善者，得將相關資料送請監察院處理。",
     "history": "97年7月2日北教特字第0970479319號。"
   },
   {
@@ -305,7 +305,7 @@ function renderDetail(){
  document.getElementById('detail').innerHTML=`
  <div class="flex flex-wrap items-center gap-2 mb-4"><span class="text-xs font-bold text-blue-700 bg-blue-50 border border-blue-100 rounded-full px-3 py-1">第 ${currentIndex+1} 項／共 ${laws.length} 項</span><span class="text-xs text-slate-400">常態編班、教學正常化</span></div>
  <h2 class="text-xl md:text-2xl font-extrabold leading-relaxed text-slate-900 mb-6">${esc(law.title)}</h2>
- <div class="border-t border-slate-200 pt-6"><div class="official-doc text-sm md:text-[15px] text-slate-700 ${(currentIndex===0||currentIndex===6||currentIndex===15||currentIndex===16||currentIndex===17)?'first-law-format':(currentIndex>=1&&currentIndex<=5?'law02-match':'')}">${formatLawText(law.content,currentIndex)}</div></div>
+ <div class="border-t border-slate-200 pt-6"><div class="official-doc text-sm md:text-[15px] text-slate-700 ${(currentIndex===0||currentIndex===6||currentIndex===15||currentIndex===16||currentIndex===17||currentIndex===22)?'first-law-format':(currentIndex>=1&&currentIndex<=5?'law02-match':'')}">${formatLawText(law.content,currentIndex)}</div></div>
  <div class="mt-8 border-t border-slate-200 pt-6"><h3 class="flex items-center gap-2 text-sm font-bold text-slate-700 mb-3"><i class="fa-solid fa-clock-rotate-left text-blue-600"></i> 日期及文號／法源簡述／備註</h3><div class="history-text text-sm text-slate-600 bg-slate-50 border border-slate-200 rounded-xl p-4">${law.history.trim()?esc(law.history):'原始文件未提供此項資料。'}</div></div>
  <div class="flex justify-between gap-3 mt-8 pt-5 border-t border-slate-100"><button onclick="go(-1)" ${currentIndex===0?'disabled':''} class="px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed"><i class="fa-solid fa-arrow-left mr-2"></i>上一項</button><button onclick="go(1)" ${currentIndex===laws.length-1?'disabled':''} class="px-4 py-2.5 rounded-xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 disabled:opacity-30 disabled:cursor-not-allowed">下一項<i class="fa-solid fa-arrow-right ml-2"></i></button></div>`;
 }
