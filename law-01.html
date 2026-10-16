@@ -3218,8 +3218,10 @@
 
         const esc = value => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
         const articlePattern = /^第\s*\d+(?:-\d+)?\s*條(?:之\s*\d+)?$/;
-        const parenthesisPattern = /^([（(][一二三四五六七八九十百千\d]+[）)])\s*(.*)$/;
-        const numberedPattern = /^([一二三四五六七八九十百千]+、)\s*(.*)$/;
+        const parenthesisPattern = /^([（(][一二三四五六七八九十百千]+[）)])\s*(.*)$/;
+        const numberedPattern = /^([一二三四五六七八九十百]+、)\s*(.*)$/;
+        const numericPattern = /^([１２３４５６７８９０1-9]+[、.．])\s*(.*)$/;
+        const smallPattern = /^[（(]([１２３４５６７８９０1-9]+)[）)]\s*(.*)$/;
 
         const formatText = text => {
           const lines = text.replace(/\r/g, '').split('\n');
@@ -3255,28 +3257,38 @@
                 output.push('<div class="doc-row doc-level-1"><span class="doc-marker">' + esc(numbered[1]) + '</span><span class="doc-copy">' + esc(numbered[2]) + '</span></div>');
                 continue;
               }
-              output.push('<div class="doc-article-body">' + esc(t) + '</div>');
+              const numeric = t.match(numericPattern);
+              if (numeric) {
+                output.push('<div class="doc-row doc-level-3"><span class="doc-marker">' + esc(numeric[1]) + '</span><span class="doc-copy">' + esc(numeric[2]) + '</span></div>');
+                continue;
+              }
+              const small = t.match(smallPattern);
+              if (small) {
+                output.push('<div class="doc-row doc-level-4"><span class="doc-marker">（' + esc(small[1]) + '）</span><span class="doc-copy">' + esc(small[2]) + '</span></div>');
+                continue;
+              }
+              output.push('<div class="doc-row doc-level-1 doc-row-continuation"><span class="doc-marker"></span><span class="doc-copy">' + esc(t) + '</span></div>');
               continue;
             }
             const sub = t.match(parenthesisPattern);
             if (sub) {
               const marker = sub[1].replace(/^\(/, '（').replace(/\)$/, '）');
-              const namedSub = sub[2].match(/^([^：:]{1,36}[：:])\s*(.*)$/);
-              if (namedSub) {
-                output.push('<div class="grid grid-cols-[4.5rem_minmax(6rem,auto)_minmax(0,1fr)] gap-2 pl-10 items-start"><span class="text-slate-600 font-medium">' + esc(marker) + '</span><span class="font-medium text-slate-800">' + esc(namedSub[1]) + '</span><span class="min-w-0">' + esc(namedSub[2]) + '</span></div>');
-              } else {
-                output.push('<div class="grid grid-cols-[4.5rem_minmax(0,1fr)] gap-2 pl-10 items-start"><span class="text-slate-600 font-medium">' + esc(marker) + '</span><span class="min-w-0">' + esc(sub[2]) + '</span></div>');
-              }
+              output.push('<div class="doc-row doc-level-2"><span class="doc-marker">' + esc(marker) + '</span><span class="doc-copy">' + esc(sub[2]) + '</span></div>');
               continue;
             }
             const numbered = t.match(numberedPattern);
             if (numbered) {
-              const namedItem = numbered[2].match(/^([^：:]{1,36}[：:])\s*(.*)$/);
-              if (namedItem) {
-                output.push('<div class="grid grid-cols-[3rem_minmax(6.5rem,auto)_minmax(0,1fr)] gap-2 pl-3 items-start"><span class="font-medium text-slate-700">' + esc(numbered[1]) + '</span><span class="font-medium text-slate-800">' + esc(namedItem[1]) + '</span><span class="min-w-0">' + esc(namedItem[2]) + '</span></div>');
-              } else {
-                output.push('<div class="grid grid-cols-[3rem_minmax(0,1fr)] gap-2 pl-3 items-start"><span class="font-medium text-slate-700">' + esc(numbered[1]) + '</span><span class="min-w-0">' + esc(numbered[2]) + '</span></div>');
-              }
+              output.push('<div class="doc-row doc-level-1"><span class="doc-marker">' + esc(numbered[1]) + '</span><span class="doc-copy">' + esc(numbered[2]) + '</span></div>');
+              continue;
+            }
+            const numeric = t.match(numericPattern);
+            if (numeric) {
+              output.push('<div class="doc-row doc-level-3"><span class="doc-marker">' + esc(numeric[1]) + '</span><span class="doc-copy">' + esc(numeric[2]) + '</span></div>');
+              continue;
+            }
+            const small = t.match(smallPattern);
+            if (small) {
+              output.push('<div class="doc-row doc-level-4"><span class="doc-marker">（' + esc(small[1]) + '）</span><span class="doc-copy">' + esc(small[2]) + '</span></div>');
               continue;
             }
             const named = t.match(/^([^：:]{1,36}[：:])\s*(.*)$/);
