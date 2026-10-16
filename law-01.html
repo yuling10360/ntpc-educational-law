@@ -19,9 +19,14 @@
         color: #1e293b;
         text-align: justify;
       }
-      /* 條次法規比照 law-02：條次獨立一行，正文另起一行並自然換行。 */
-      .doc-article { display: block; margin-top: 0; margin-bottom: 0; font-weight: 700; line-height: inherit; }
-      .doc-article-body { display: block; margin: 0; line-height: inherit; }
+      /* 有條次法規比照 law-03：條次固定左欄、正文右欄，正文續行對齊正文起始位置。 */
+      .doc-article { display: grid; grid-template-columns: 4.2em minmax(0, 1fr); column-gap: 0.2em; align-items: start; margin: 1.5em 0 0.25em; padding: 0; width: 100%; box-sizing: border-box; font-weight: 400; line-height: inherit; }
+      .doc-article:first-child { margin-top: 0; }
+      .doc-article-marker { display: block; grid-column: 1; width: 4.2em; white-space: nowrap; font-weight: 700; }
+      .doc-article-copy { display: block; grid-column: 2; min-width: 0; width: 100%; overflow-wrap: anywhere; word-break: normal; }
+      .doc-article-body { display: grid; grid-template-columns: 4.2em minmax(0, 1fr); column-gap: 0.2em; margin: 0; padding: 0; line-height: inherit; }
+      .doc-article-body > span:first-child { grid-column: 1; visibility: hidden; }
+      .doc-article-body > .doc-article-copy { grid-column: 2; }
       .doc-row { display: grid; grid-template-columns: 2.8em minmax(0, 1fr); align-items: start; column-gap: 0.2em; }
       .doc-marker { display: block; white-space: nowrap; }
       .doc-copy { display: block; min-width: 0; }
@@ -3226,16 +3231,18 @@
           for (let index = 0; index < lines.length; index++) {
             const t = lines[index].trim();
             if (!t) {
-              output.push('<div class="h-3"></div>');
+              if (!hasArticleNumbers) output.push('<div class="h-3"></div>');
               continue;
             }
             if (articlePattern.test(t)) {
               inArticle = true;
-              output.push('<div class="doc-article">' + esc(t.replace(/\\s+/g, '')) + '</div>');
+              const articleText = esc(t.replace(/\\s+/g, ''));
               const next = (lines[index + 1] || '').trim();
               if (next && !articlePattern.test(next)) {
                 index++;
-                output.push('<div class="doc-article-body">' + esc(next) + '</div>');
+                output.push('<div class="doc-article"><span class="doc-article-marker">' + articleText + '</span><span class="doc-article-copy">' + esc(next) + '</span></div>');
+              } else {
+                output.push('<div class="doc-article"><span class="doc-article-marker">' + articleText + '</span><span class="doc-article-copy"></span></div>');
               }
               continue;
             }
@@ -3251,7 +3258,7 @@
                 output.push('<div class="doc-row doc-level-1"><span class="doc-marker">' + esc(numbered[1]) + '</span><span class="doc-copy">' + esc(numbered[2]) + '</span></div>');
                 continue;
               }
-              output.push('<div class="doc-article-body">' + esc(t) + '</div>');
+              output.push('<div class="doc-article-body"><span aria-hidden="true"></span><span class="doc-article-copy">' + esc(t) + '</span></div>');
               continue;
             }
             const sub = t.match(parenthesisPattern);
