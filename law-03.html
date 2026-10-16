@@ -34,6 +34,9 @@ body{font-family:'Noto Sans TC',sans-serif}
 .doc-paragraph{grid-template-columns:2.8em minmax(0,1fr);margin-bottom:.15em}
 .active-law{background:#2563eb!important;color:white!important}
 .history-text{display:block;width:100%;max-width:none;min-width:0;box-sizing:border-box;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.8}
+/* 法規第1項及第7項：條文內文不加粗，僅條次維持粗體 */
+#detail .official-doc.first-law-format .doc-article .doc-copy,
+#detail .official-doc.first-law-format .doc-row-continuation .doc-copy{font-weight:400!important}
 /* 僅第1項法規：第1條、第2條、第3條及後續每一條均依參考截圖排版 */
 #detail .official-doc.first-law-format .doc-article{display:block;margin-top:1.5em;padding-top:.25em}
 #detail .official-doc.first-law-format .doc-article:first-child{margin-top:0;padding-top:0}
