@@ -33,14 +33,14 @@ body{font-family:'Noto Sans TC',sans-serif}
 .doc-paragraph{grid-template-columns:2.8em minmax(0,1fr);margin-bottom:.15em}
 .active-law{background:#2563eb!important;color:white!important}
 .history-text{display:block;width:100%;max-width:none;min-width:0;box-sizing:border-box;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.8}
-/* 僅第1項法規依參考截圖：條次一行、內文下一行，全部靠左且各條間留白 */
+/* 僅第1項法規：第1條、第2條、第3條及後續每一條均依參考截圖排版 */
 #detail .official-doc.first-law-format .doc-article{display:block;margin-top:1.5em;padding-top:.25em}
 #detail .official-doc.first-law-format .doc-article:first-child{margin-top:0;padding-top:0}
 #detail .official-doc.first-law-format .doc-article .doc-marker{display:block;width:auto;white-space:nowrap;text-align:left}
 #detail .official-doc.first-law-format .doc-article .doc-copy{display:block;width:100%;min-width:0;overflow-wrap:anywhere}
-#detail .official-doc.first-law-format .doc-article + .doc-row-continuation{display:block;margin-top:0;padding-left:0}
-#detail .official-doc.first-law-format .doc-article + .doc-row-continuation .doc-marker{display:none}
-#detail .official-doc.first-law-format .doc-article + .doc-row-continuation .doc-copy{display:block;width:100%;min-width:0;overflow-wrap:anywhere}
+#detail .official-doc.first-law-format .doc-row-continuation{display:block;grid-template-columns:minmax(0,1fr);margin-top:0;padding-left:0}
+#detail .official-doc.first-law-format .doc-row-continuation .doc-marker{display:none}
+#detail .official-doc.first-law-format .doc-row-continuation .doc-copy{display:block;width:100%;min-width:0;overflow-wrap:anywhere}
 </style></head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
 <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm"><div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-3"><a href="index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-blue-600"><i class="fa-solid fa-arrow-left"></i> 返回手冊目錄</a><span class="text-xs bg-blue-50 text-blue-700 font-semibold px-2.5 py-1 rounded-full border border-blue-200">第三類法規全文查閱</span></div></header>
