@@ -4741,7 +4741,7 @@
 　　　合併計算。`;
      // 僅移除第35項正文中為窄欄排版而人工插入的單行換行與縮排，
      // 保留各點、各款之間的空白行，讓文字依正文區實際寬度自然換行。
-     finalText = finalText.replace(/\\n[　 \\t]+/g, '');
+     finalText = finalText.replace(/\n[　 \t]+/g, '');
      bodyEl.textContent = finalText;
      history.length=0;
      history.push(
