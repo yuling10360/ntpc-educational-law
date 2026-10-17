@@ -324,7 +324,7 @@ function formatLawText(content, lawIndex){
  return normalized.split('\n').map(raw=>{
   const t=raw.trim(); if(!t) return '<div class="doc-paragraph-gap" aria-hidden="true"></div>';
   const chapter=t.match(/^(第\s*[一二三四五六七八九十百0-9０-９]+\s*章\s*.*)$/);
-  if(chapter) return '<div class="doc-chapter">'+esc(t.replace(/\s{2,}/g,' '))+'</div>';
+  if(chapter) return '<div class="doc-chapter" style="display:block;font-size:1.25rem !important;font-weight:800 !important;line-height:2.2 !important;margin:1.25em 0 0.6em !important;">'+esc(t.replace(/\s{2,}/g,' '))+'</div>';
   const article=t.match(/^(第\s*[0-9０-９一二三四五六七八九十百]+\s*條)(.*)$/);
   if(article){
    const heading='<div class="doc-article-heading">'+esc(article[1].replace(/\s+/g,''))+'</div>';
