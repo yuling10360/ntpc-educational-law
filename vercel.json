@@ -1,7 +1,8 @@
 {
   "git": {
     "deploymentEnabled": {
-      "law-07-layout-no-deploy": false
+      "law-07-layout-no-deploy": false,
+      "law-07-layout": false
     }
   }
 }
