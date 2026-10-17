@@ -13,6 +13,9 @@ body{font-family:'Noto Sans TC',sans-serif}
 /* 項次排版統一規則：標記與內文採雙欄，內文換行後與內文起始位置對齊 */
 .doc-row{display:grid;grid-template-columns:max-content minmax(0,1fr);align-items:start;column-gap:.35em;box-sizing:border-box;width:100%;min-width:0}
 .doc-marker{display:block;white-space:nowrap;text-align:left;font-weight:700}
+/* 法規36、37、39的法規內文：續行文字對齊紅線內側 */
+.doc-paragraph{padding-left:2.8em;text-indent:-2.8em;box-sizing:border-box}
+.doc-paragraph .doc-copy{grid-column:2;min-width:0;white-space:pre-wrap;overflow-wrap:anywhere}
 .doc-copy{display:block;min-width:0;overflow-wrap:anywhere;word-break:normal}
 .doc-level-0{padding-left:0}
 .doc-level-1{padding-left:0;font-weight:600}
