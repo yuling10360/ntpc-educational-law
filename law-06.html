@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh-TW"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>六、教師研習、進修、請假 - 新北市115學年度教務行政法規手冊</title>
+<script src="https://cdn.tailwindcss.com"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<style>
+/* Retry Vercel deployment after rate-limit failure (2026-10-16). */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+body{font-family:'Noto Sans TC',sans-serif}
+.law-panel{display:none}.law-panel.active{display:block}
+.official-doc{display:block;width:100%;max-width:none;min-width:0;box-sizing:border-box;line-height:2;color:#1e293b;text-align:justify;overflow-wrap:anywhere}
+.doc-row{display:grid;grid-template-columns:3.2em minmax(0,1fr);align-items:start;column-gap:.2em;box-sizing:border-box;width:100%}
+
+/* 項次排版統一規則：標記與內文採雙欄，內文換行後與內文起始位置對齊 */
+.doc-row{display:grid;grid-template-columns:max-content minmax(0,1fr);align-items:start;column-gap:.35em;box-sizing:border-box;width:100%;min-width:0}
+.doc-marker{display:block;white-space:nowrap;text-align:left;font-weight:700}
+/* 僅法規第36、37、39項：無標記的續行段落縮排至紅線內側 */
+#detail .official-doc.law-indent-format .doc-row.doc-paragraph{padding-left:2.8em!important;box-sizing:border-box!important}
+.doc-copy{display:block;min-width:0;overflow-wrap:anywhere;word-break:normal}
+.doc-level-0{padding-left:0}
+.doc-level-1{padding-left:0;font-weight:600}
+.doc-level-2{padding-left:2em;font-weight:500}
+.doc-level-3{padding-left:4em;color:#334155}
+.doc-level-4{padding-left:6em;font-weight:400}
+.doc-row-continuation{grid-template-columns:2.8em minmax(0,1fr)}
+.doc-paragraph{display:grid;grid-template-columns:0 minmax(0,1fr);width:100%;min-width:0;writing-mode:horizontal-tb;text-orientation:mixed;margin-bottom:.15em}.doc-paragraph .doc-copy{grid-column:2;min-width:0;white-space:pre-wrap;overflow-wrap:anywhere}.doc-paragraph-gap{display:block;width:100%;height:.65em;grid-column:1 / -1}
+.active-law{background:#2563eb!important;color:white!important}
+.history-text{display:block;width:100%;max-width:none;min-width:0;box-sizing:border-box;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.8}
+/* 法規第1項及第7項：明確指定所有內文為一般字重，條次標籤維持粗體 */
+#detail .official-doc.first-law-format .doc-copy{font-weight:400!important}
+#detail .official-doc.first-law-format .doc-marker{font-weight:700!important}
+
+
+
+
+#detail .official-doc.first-law-format .doc-row-continuation{display:block;grid-template-columns:minmax(0,1fr);margin-top:0;padding-left:0}
+#detail .official-doc.first-law-format .doc-row-continuation .doc-marker{display:none}
+#detail .official-doc.first-law-format .doc-row-continuation .doc-copy{display:block;width:100%;min-width:0;overflow-wrap:anywhere}
+
+/* 僅法規第7項：續行內文縮排至條文文字欄，其他法規維持原樣 */
+#detail .official-doc.law-seven-format .doc-row-continuation{
+  display:grid!important;
+  grid-template-columns:4.4em minmax(0,1fr)!important;
+  column-gap:0!important;
+  margin-top:0!important;
+  padding-left:0!important;
+}
+#detail .official-doc.law-seven-format .doc-row-continuation .doc-marker{
+  display:block!important;
+  visibility:hidden!important;
+  width:4.4em!important;
+}
+#detail .official-doc.law-seven-format .doc-row-continuation .doc-copy{
+  display:block!important;
+  grid-column:2!important;
+  width:100%!important;
+  min-width:0!important;
+  overflow-wrap:anywhere!important;
+}
+/* 修正第2至第6項內文被擠成直排：確保每列及內文欄位使用可用寬度 */
+#detail .official-doc.law02-match{display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;writing-mode:horizontal-tb!important}
+#detail .official-doc.law02-match .doc-row{width:100%;max-width:100%;min-width:0;box-sizing:border-box;writing-mode:horizontal-tb!important}
+#detail .official-doc.law02-match .doc-copy{display:block;width:auto;max-width:100%;min-width:0;white-space:normal;word-break:normal;overflow-wrap:anywhere;writing-mode:horizontal-tb!important}
+#detail .official-doc.law02-match .doc-paragraph{display:block!important;width:100%;margin:0 0 .65em;padding:0}
+#detail .official-doc.law02-match .doc-paragraph .doc-copy{width:100%}
+/* 第2至第6項法規：保留橫向文字；項次使用雙欄排版，避免換行後回到標記左側 */
+.doc-paragraph-gap{height:.65em}
+#detail .official-doc.law02-match,
+#detail .official-doc.law02-match *{
+  writing-mode:horizontal-tb!important;
+  text-orientation:mixed!important;
+}
+#detail .official-doc.law02-match .doc-row{
+  display:grid!important;
+  grid-template-columns:max-content minmax(0,1fr)!important;
+  column-gap:.35em!important;
+  align-items:start!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  box-sizing:border-box!important;
+  margin:0!important;
+  white-space:normal!important;
+}
+#detail .official-doc.law02-match .doc-row.doc-level-2{padding-left:2em!important}
+#detail .official-doc.law02-match .doc-row.doc-level-3{padding-left:4em!important}
+#detail .official-doc.law02-match .doc-row.doc-level-4{padding-left:6em!important}
+#detail .official-doc.law02-match .doc-marker{
+  display:block!important;
+  width:auto!important;
+  max-width:none!important;
+  white-space:nowrap!important;
+  margin:0!important;
+}
+#detail .official-doc.law02-match .doc-copy{
+  display:block!important;
+  width:auto!important;
+  max-width:100%!important;
+  min-width:0!important;
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+  word-break:normal!important;
+}
+#detail .official-doc.law02-match .doc-paragraph{
+  display:block!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  margin:0 0 .65em!important;
+  padding:0!important;
+  box-sizing:border-box!important;
+}
+#detail .official-doc.law02-match .doc-paragraph .doc-marker{display:none!important}
+#detail .official-doc.law02-match .doc-paragraph .doc-copy{
+  display:block!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  box-sizing:border-box!important;
+}
+/* 僅法規第10項：依 壹、／一、／（一）／1、／（1）逐層縮排 */
+#detail .official-doc.law-ten-format .doc-level-0{padding-left:0!important}
+#detail .official-doc.law-ten-format .doc-level-1{padding-left:2em!important}
+#detail .official-doc.law-ten-format .doc-level-2{padding-left:4em!important}
+#detail .official-doc.law-ten-format .doc-level-3{padding-left:6em!important}
+#detail .official-doc.law-ten-format .doc-level-4{padding-left:8em!important}
+
+/* 條次排版唯一規則：條次固定左欄、條文從右欄同列開始 */
+/* 條次格式比照 law-03：條次獨立粗體一行，條文內容另起一行 */
+#detail .official-doc .doc-article-heading{display:block!important;font-weight:700!important;margin:1.25em 0 0!important;padding:0!important;color:#1e293b!important;line-height:2!important}
+#detail .official-doc .doc-article-heading:first-child{margin-top:0!important}
+#detail .official-doc .doc-article-body{display:block!important;width:100%!important;min-width:0!important;margin:0 0 .35em!important;padding:0!important;font-weight:400!important;line-height:2!important;overflow-wrap:anywhere!important;word-break:normal!important}
+
+/* 原有條次雙欄樣式保留 */
+#detail .official-doc .doc-row.doc-article{
+ display:grid!important;
+ grid-template-columns:4.2em minmax(0,1fr)!important;
+ column-gap:.2em!important;
+ align-items:start!important;
+ margin:1.5em 0 .25em!important;
+ padding:0!important;
+ width:100%!important;
+ box-sizing:border-box!important;
+}
+#detail .official-doc .doc-row.doc-article:first-child{margin-top:0!important}
+#detail .official-doc .doc-row.doc-article>.doc-marker{
+ display:block!important;
+ grid-column:1!important;
+ width:4.2em!important;
+ min-width:0!important;
+ margin:0!important;
+ padding:0!important;
+ white-space:nowrap!important;
+}
+#detail .official-doc .doc-row.doc-article>.doc-copy{
+ display:block!important;
+ grid-column:2!important;
+ width:100%!important;
+ min-width:0!important;
+ margin:0!important;
+ padding:0!important;
+ overflow-wrap:anywhere!important;
+ word-break:normal!important;
+}
+#detail .official-doc .doc-row.doc-article+.doc-row-continuation{
+ display:grid!important;
+ grid-template-columns:4.2em minmax(0,1fr)!important;
+ column-gap:.2em!important;
+ margin-top:0!important;
+ padding:0!important;
+}
+#detail .official-doc .doc-row.doc-article+.doc-row-continuation .doc-marker{visibility:hidden!important}
+#detail .official-doc .doc-row.doc-article+.doc-row-continuation .doc-copy{grid-column:2!important;min-width:0!important;width:100%!important;overflow-wrap:anywhere!important}
+
+/* 法規清單第7項專用：確保所有續行內文均從條文文字欄開始。
+   本規則放在條次規則之後，避免被一般條次續行樣式覆蓋。 */
+#detail .official-doc.law-seven-format .doc-row.doc-row-continuation{
+  display:grid!important;
+  grid-template-columns:4.4em minmax(0,1fr)!important;
+  column-gap:0!important;
+  align-items:start!important;
+  width:100%!important;
+  min-width:0!important;
+  box-sizing:border-box!important;
+  padding:0!important;
+  margin-top:0!important;
+}
+#detail .official-doc.law-seven-format .doc-row.doc-row-continuation>.doc-marker{
+  display:block!important;
+  visibility:hidden!important;
+  grid-column:1!important;
+  width:4.4em!important;
+  min-width:4.4em!important;
+  margin:0!important;
+  padding:0!important;
+}
+#detail .official-doc.law-seven-format .doc-row.doc-row-continuation>.doc-copy{
+  display:block!important;
+  grid-column:2!important;
+  width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:0!important;
+  overflow-wrap:anywhere!important;
+  word-break:normal!important;
+}
+/* 僅法規第27項：第四層「（1）」項次與內文整列移至紅線右側 */
+/* 第1層：一、 */
+#detail .official-doc.law-twenty-seven-format .doc-level-1 {
+  padding-left: 0 !important;
+}
+
+/* 第2層：（一） */
+#detail .official-doc.law-twenty-seven-format .doc-level-2 {
+  padding-left: 2em !important;
+}
+
+/* 第3層：1、 */
+#detail .official-doc.law-twenty-seven-format .doc-level-3 {
+  padding-left: 4em !important;
+}
+
+/* 第4層：（1）：項次標記及內文全部從紅線右側開始 */
+#detail .official-doc.law-twenty-seven-format .doc-level-4 {
+  display: grid !important;
+  grid-template-columns: max-content minmax(0, 1fr) !important;
+  column-gap: 0.35em !important;
+  padding-left: 6em !important;
+  margin-left: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* 第4層內文：換行後與內文起點對齊 */
+#detail .official-doc.law-twenty-seven-format .doc-level-4 .doc-copy {
+  min-width: 0 !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+}
+
+
+/* 章名格式：加粗並保留清楚的上下行距 */
+#detail .official-doc .doc-chapter {
+  display: block !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  margin: 1.25em 0 0.5em !important;
+  padding: 0 !important;
+  font-size: 1.2em !important;
+  font-weight: 700 !important;
+  line-height: 2 !important;
+  color: #1e293b !important;
+}
+#detail .official-doc .doc-chapter:first-child {
+  margin-top: 0 !important;
+}
+
+/* 有條次法規統一文字起始位置：條次獨立一行，條文與一般續行文字皆由左側正文起點對齊 */
+#detail .official-doc .doc-article-heading {
+  display: block !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+#detail .official-doc .doc-article-body {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+  text-indent: 0 !important;
+}
+#detail .official-doc .doc-row.doc-paragraph {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  margin: 0 0 .15em !important;
+  padding: 0 !important;
+}
+#detail .official-doc .doc-row.doc-paragraph > .doc-marker {
+  display: none !important;
+}
+#detail .official-doc .doc-row.doc-paragraph > .doc-copy {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  grid-column: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-indent: 0 !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+}
+
+
+
+/* 僅第20項：子項次及其續行內文縮排，避免影響其他法規。 */
+#detail .official-doc.law-twenty-format .doc-row.doc-level-1 {
+  padding-left: 0 !important;
+}
+#detail .official-doc.law-twenty-format .doc-row.doc-level-2 {
+  display: grid !important;
+  grid-template-columns: max-content minmax(0, 1fr) !important;
+  column-gap: .35em !important;
+  align-items: start !important;
+  padding-left: 2em !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+#detail .official-doc.law-twenty-format .doc-row.doc-level-2 > .doc-marker {
+  display: block !important;
+  width: auto !important;
+  white-space: nowrap !important;
+}
+#detail .official-doc.law-twenty-format .doc-row.doc-level-2 > .doc-copy {
+  display: block !important;
+  grid-column: 2 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+}
+#detail .official-doc.law-twenty-format .doc-row.doc-level-3 {
+  padding-left: 4em !important;
+}
+#detail .official-doc.law-twenty-format .doc-row.doc-level-4 {
+  padding-left: 6em !important;
+}
+/* 無項次標記的續行段落，與上一層項次的正文起點對齊。 */
+#detail .official-doc.law-twenty-format .doc-row.doc-paragraph {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  padding: 0 0 0 2.35em !important;
+  margin: 0 0 .15em !important;
+}
+#detail .official-doc.law-twenty-format .doc-row.doc-paragraph > .doc-marker {
+  display: none !important;
+}
+#detail .official-doc.law-twenty-format .doc-row.doc-paragraph > .doc-copy {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  text-indent: 0 !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+}
+
+</style></head><body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm"><div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-3"><a href="index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-blue-600"><i class="fa-solid fa-arrow-left"></i> 返回手冊目錄</a><span class="text-xs bg-blue-50 text-blue-700 font-semibold px-2.5 py-1 rounded-full border border-blue-200">第六類法規全文查閱</span></div></header>
+<section class="bg-gradient-to-r from-slate-900 via-indigo-950 to-blue-900 text-white py-8 px-4"><div class="max-w-7xl mx-auto space-y-3"><div class="inline-flex items-center gap-2 text-blue-300 text-xs font-semibold"><i class="fa-solid fa-chalkboard-user"></i> 法規章節</div><h1 class="text-2xl md:text-3xl font-extrabold">六、教師研習、進修、請假</h1><p class="text-xs md:text-sm text-slate-300">本頁版型沿用第四類法規，先供確認版面；確認後再匯入本類法規內容。</p><div class="relative max-w-xl pt-1"><i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i><input id="searchInput" type="search" oninput="renderList()" placeholder="搜尋法規名稱、條文或文號" class="w-full pl-11 pr-4 py-3 bg-white text-slate-800 rounded-2xl shadow-lg outline-none text-sm"></div></div></section>
+<main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start"><aside class="lg:col-span-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] overflow-y-auto"><div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3"><h2 class="text-xs font-bold text-slate-500">點選項目查閱</h2><span id="count" class="text-[11px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full font-semibold"></span></div><div id="lawList" class="space-y-1 text-xs"></div><p id="none" class="hidden text-sm text-slate-500 py-4">找不到符合的項目。</p></aside>
+<section class="lg:col-span-8 min-w-0 w-full bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm min-h-[500px]"><div id="detail"></div></section></main>
+<footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500 mt-12">新北市立中等學校法規彙編與重點工作指引平台</footer>
+<script>
+const laws = [];
+let currentIndex=0;
+function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function renderList(){
+ const q=document.getElementById('searchInput').value.trim().toLowerCase();
+ const list=document.getElementById('lawList');
+ const count=document.getElementById('count');
+ const none=document.getElementById('none');
+ if(!laws.length){
+  count.textContent='待匯入法規';
+  none.classList.add('hidden');
+  list.innerHTML='<div class="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-4 text-sm leading-relaxed text-slate-500">法規清單將於版型確認後匯入。</div>';
+  return;
+ }
+ const filtered=laws.map((law,i)=>({...law,i})).filter(x=>(x.title+'\\n'+x.content+'\\n'+x.history).toLowerCase().includes(q));
+ count.textContent=`${filtered.length} / ${laws.length} 項`;
+ none.classList.toggle('hidden',filtered.length>0);
+ filtered.forEach(x=>{
+  const b=document.createElement('button');
+  b.type='button';
+  b.className='w-full text-left px-3 py-3 rounded-xl hover:bg-blue-50 text-slate-700 transition '+(x.i===currentIndex?'active-law':'');
+  b.innerHTML=`<span class="inline-flex w-6 h-6 rounded-lg items-center justify-center mr-2 text-[10px] font-bold ${x.i===currentIndex?'bg-white/20':'bg-slate-100 text-slate-500'}">${x.i+1}</span><span class="align-middle">${esc(x.title.replace(/^\\s*\\d+[、.．]?\\s*/,''))}</span>`;
+  b.onclick=()=>{currentIndex=x.i;renderList();renderDetail();};
+  list.appendChild(b);
+ });
+}
+function formatLawText(content, lawIndex){
+ let normalized=String(content||'').replace(/\\n/g,'\n').replace(/^(第\s*[0-9０-９一二三四五六七八九十百]+\s*條)\s*\n(?!第\s*[0-9０-９一二三四五六七八九十百]+\s*條)([^\n]+)$/gm,'$1 $2');
+ // 第25至27項原始文字含有句中換行；合併續行，保留各款、目之換行。
+ if(lawIndex===24 || lawIndex===25 || lawIndex===26){
+  normalized=normalized.split('\n').reduce((acc,line)=>{
+   const t=line.trim();
+   if(!t) return acc;
+   const isNewItem=/^(?:[一二三四五六七八九十百]+、|[（(][一二三四五六七八九十百壹貳參肆伍陸柒捌玖拾0-9０-９]+[）)]|[0-9０-９]+[、.．])/.test(t);
+   if(acc.length===0 || isNewItem) acc.push(t);
+   else acc[acc.length-1]+=' '+t;
+   return acc;
+  },[]).join('\n');
+ }
+ return normalized.split('\n').map(raw=>{
+  const t=raw.trim(); if(!t) return '<div class="doc-paragraph-gap" aria-hidden="true"></div>';
+  const chapter=t.match(/^(第\s*[一二三四五六七八九十百0-9０-９]+\s*章\s*.*)$/);
+  if(chapter) return '<div class="doc-chapter" style="display:block;font-size:1.25rem !important;font-weight:800 !important;line-height:2.2 !important;margin:1.25em 0 0.6em !important;">'+esc(t.replace(/\s{2,}/g,' '))+'</div>';
+  const article=t.match(/^(第\s*[0-9０-９一二三四五六七八九十百]+\s*條)(.*)$/);
+  if(article){
+   const heading='<div class="doc-article-heading">'+esc(article[1].replace(/\s+/g,''))+'</div>';
+   const inlineText=article[2].trim();
+   return heading+(inlineText?'<div class="doc-article-body">'+esc(inlineText)+'</div>':'');
+  }
+  const levels=[
+  {re:/^([壹貳參肆伍陸柒捌玖拾]+、)(.*)$/,n:0},
+  {re:/^([一二三四五六七八九十百]+、)(.*)$/,n:1},
+  {re:/^([（(][一二三四五六七八九十百壹貳參肆伍陸柒捌玖拾]+[）)])\s*(.*)$/,n:2}, // 刪除 0-9０-９
+  {re:/^([0-9０-９]+[、.．])(.*)$/,n:3},
+  {re:/^([（(][0-9０-９]+[）)])\s*(.*)$/,n:4}
+];
+  for(const level of levels){const m=t.match(level.re);if(m)return '<div class="doc-row doc-level-'+level.n+'"><span class="doc-marker">'+esc(m[1])+'</span><span class="doc-copy">'+esc(m[2].trimStart())+'</span></div>';}
+  const indentContinuation=[35,36,38].includes(lawIndex); return '<div class="doc-row doc-paragraph'+(indentContinuation?' law-indent-paragraph':'')+'"'+(indentContinuation?' style="padding-left:2.8em!important;box-sizing:border-box!important"':'')+'><span class="doc-marker"></span><span class="doc-copy">'+esc(t)+'</span></div>';
+ }).join('');
+}
+function renderDetail(){
+ const detail=document.getElementById('detail');
+ if(!laws.length){
+  detail.innerHTML=`<div class="flex flex-wrap items-center gap-2 mb-4"><span class="text-xs font-bold text-blue-700 bg-blue-50 border border-blue-100 rounded-full px-3 py-1">第六類法規版型確認</span><span class="text-xs text-slate-400">版型確認階段</span></div><h2 class="text-xl md:text-2xl font-extrabold leading-relaxed text-slate-900 mb-6">法規內容預留區</h2><div class="border-t border-slate-200 pt-6"><div class="official-doc text-sm md:text-[15px]"><div class="rounded-xl border border-dashed border-slate-200 bg-slate-50 p-5 text-sm leading-relaxed text-slate-500">目前先確認頁面版型。確認後再匯入第六類法規名稱、條文及項次內容。</div></div></div><div class="mt-8 border-t border-slate-200 pt-6"><h3 class="flex items-center gap-2 text-sm font-bold text-slate-700 mb-3"><i class="fa-solid fa-clock-rotate-left text-blue-600"></i>法規沿革／日期及文號／法源簡述／備註</h3><div class="history-text text-sm text-slate-600 bg-slate-50 border border-slate-200 rounded-xl p-4">法規沿革預留區；確認版型後再匯入。</div></div>`;
+  return;
+ }
+ const law=laws[currentIndex];
+ const content=formatLawText(law.content,currentIndex);
+ detail.innerHTML=`<div class="flex flex-wrap items-center gap-2 mb-4"><span class="text-xs font-bold text-blue-700 bg-blue-50 border border-blue-100 rounded-full px-3 py-1">第 ${currentIndex+1} 項／共 ${laws.length} 項</span><span class="text-xs text-slate-400">教師研習、進修、請假</span></div><h2 class="text-xl md:text-2xl font-extrabold leading-relaxed text-slate-900 mb-6">${esc(law.title)}</h2><div class="border-t border-slate-200 pt-6"><div class="official-doc text-sm md:text-[15px]">${content||'<p>原始文件未提供此項資料。</p>'}</div></div><div class="mt-8 border-t border-slate-200 pt-6"><h3 class="flex items-center gap-2 text-sm font-bold text-slate-700 mb-3"><i class="fa-solid fa-clock-rotate-left text-blue-600"></i>法規沿革／日期及文號／法源簡述／備註</h3><div class="history-text text-sm text-slate-600 bg-slate-50 border border-slate-200 rounded-xl p-4">${law.history.trim()?esc(law.history):'原始文件未提供此項資料。'}</div></div><div class="flex justify-between gap-3 mt-8 pt-5 border-t border-slate-100"><button onclick="go(-1)" ${currentIndex===0?'disabled':''} class="px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed"><i class="fa-solid fa-arrow-left mr-2"></i>上一項</button><button onclick="go(1)" ${currentIndex===laws.length-1?'disabled':''} class="px-4 py-2.5 rounded-xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 disabled:opacity-30 disabled:cursor-not-allowed">下一項<i class="fa-solid fa-arrow-right ml-2"></i></button></div>`;
+}
+function go(d){if(!laws.length)return;currentIndex=Math.max(0,Math.min(laws.length-1,currentIndex+d));renderList();renderDetail();}
+document.getElementById('searchInput').addEventListener('input',renderList);renderList();renderDetail();
+</script></body></html>
