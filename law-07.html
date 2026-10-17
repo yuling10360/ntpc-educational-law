@@ -467,6 +467,7 @@ function renderList(){
 }
 function formatLawText(content, lawIndex){
  const normalized=String(content||'').replace(/\\n/g,'\n');
+ const hasArticleStructure=/(?:^|\n)\s*第\s*[0-9０-９一二三四五六七八九十百千]+\s*條(?:\s*之\s*[0-9０-９一二三四五六七八九十百千]+)?/m.test(normalized);
  let lastItem=null;
  return normalized.split('\n').map(raw=>{
   const t=raw.trim();
@@ -484,7 +485,7 @@ function formatLawText(content, lawIndex){
    {re:/^([A-ZＡ-Ｚ]+[、.．])(.*)$/,n:5}
   ];
   for(const level of levels){const m=t.match(level.re);if(m){lastItem={marker:m[1],level:level.n};return '<div class="doc-row doc-level-'+level.n+'"><span class="doc-marker">'+esc(m[1])+'</span><span class="doc-copy">'+esc(m[2].trimStart())+'</span></div>';}}
-  if(lawIndex===6 && lastItem){return '<div class="doc-row doc-level-'+lastItem.level+' doc-continuation"><span class="doc-marker" aria-hidden="true" style="visibility:hidden!important">'+esc(lastItem.marker)+'</span><span class="doc-copy">'+esc(t)+'</span></div>';}
+  if(!hasArticleStructure && lastItem){return '<div class="doc-row doc-level-'+lastItem.level+' doc-continuation"><span class="doc-marker" aria-hidden="true" style="visibility:hidden!important">'+esc(lastItem.marker)+'</span><span class="doc-copy">'+esc(t)+'</span></div>';}
   return '<div class="doc-row doc-paragraph"><span class="doc-marker"></span><span class="doc-copy">'+esc(t)+'</span></div>';
  }).join('');
 }
