@@ -332,12 +332,12 @@ function formatLawText(content, lawIndex){
    return heading+(inlineText?'<div class="doc-article-body">'+esc(inlineText)+'</div>':'');
   }
   const levels=[
-   {re:/^([壹貳參肆伍陸柒捌玖拾]+、)(.*)$/,n:0},
-   {re:/^([一二三四五六七八九十百]+、)(.*)$/,n:1},
-   {re:/^([（(][一二三四五六七八九十百壹貳參肆伍陸柒捌玖拾0-9０-９]+[）)])\s*(.*)$/,n:2},
-   {re:/^([0-9０-９]+[、.．])(.*)$/,n:3},
-   {re:/^([（(][0-9０-９]+[）)])\s*(.*)$/,n:4}
-  ];
+  {re:/^([壹貳參肆伍陸柒捌玖拾]+、)(.*)$/,n:0},
+  {re:/^([一二三四五六七八九十百]+、)(.*)$/,n:1},
+  {re:/^([（(][一二三四五六七八九十百壹貳參肆伍陸柒捌玖拾]+[）)])\s*(.*)$/,n:2}, // 刪除 0-9０-９
+  {re:/^([0-9０-９]+[、.．])(.*)$/,n:3},
+  {re:/^([（(][0-9０-９]+[）)])\s*(.*)$/,n:4}
+];
   for(const level of levels){const m=t.match(level.re);if(m)return '<div class="doc-row doc-level-'+level.n+'"><span class="doc-marker">'+esc(m[1])+'</span><span class="doc-copy">'+esc(m[2].trimStart())+'</span></div>';}
   return '<div class="doc-row doc-paragraph"><span class="doc-marker"></span><span class="doc-copy">'+esc(t)+'</span></div>';
  }).join('');
