@@ -35,12 +35,14 @@ body{font-family:'Noto Sans TC',sans-serif}
 #detail .official-doc.first-law-format .doc-row-continuation .doc-copy{display:block;width:100%;min-width:0;overflow-wrap:anywhere}
 
 /* 僅法規第7項：續行內文縮排至條文文字欄，其他法規維持原樣 */
-#detail .official-doc.law-seven-format .doc-row-continuation{
-  display:grid!important;
-  grid-template-columns:4.4em minmax(0,1fr)!important;
-  column-gap:0!important;
-  margin-top:0!important;
-  padding-left:0!important;
+#detail .official-doc.law-twenty-seven-format .doc-level-4 {
+  display: grid !important;
+  grid-template-columns: 2.8em minmax(0, 1fr) !important; /* 🌟 關鍵修正：將 max-content 改為固定寬度，強制內文對齊 */
+  column-gap: 0.35em !important;
+  padding-left: 4.2em !important; /* 維持剛剛調好的紅線距離 */
+  margin-left: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
 }
 #detail .official-doc.law-seven-format .doc-row-continuation .doc-marker{
   display:block!important;
