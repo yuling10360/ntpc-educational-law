@@ -201,11 +201,39 @@ body{font-family:'Noto Sans TC',sans-serif}
   overflow-wrap:anywhere!important;
   word-break:normal!important;
 }
-/* 僅法規第27項：第四層「（1）」標記與內文整列移至紅線右側 */
-#detail .official-doc.law-twenty-seven-format .doc-level-1{padding-left:0!important}
-#detail .official-doc.law-twenty-seven-format .doc-level-2{padding-left:2em!important}
-#detail .official-doc.law-twenty-seven-format .doc-level-3{padding-left:4em!important}
-#detail .official-doc.law-twenty-seven-format .doc-level-4{padding-left:10em!important;margin-left:0!important}
+/* 僅法規第27項：第四層「（1）」項次標記與內文分欄對齊 */
+/* 第1層：一、 */
+#detail .official-doc.law-twenty-seven-format .doc-level-1 {
+  padding-left: 0 !important;
+}
+
+/* 第2層：（一） */
+#detail .official-doc.law-twenty-seven-format .doc-level-2 {
+  padding-left: 2em !important;
+}
+
+/* 第3層：1、 */
+#detail .official-doc.law-twenty-seven-format .doc-level-3 {
+  padding-left: 4em !important;
+}
+
+/* 第4層：（1）：項次標記在左，內文欄往右移 */
+#detail .official-doc.law-twenty-seven-format .doc-level-4 {
+  display: grid !important;
+  grid-template-columns: 4em minmax(0, 1fr) !important;
+  column-gap: 0.35em !important;
+  padding-left: 4em !important;
+  margin-left: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* 第4層內文：換行後與內文起點對齊 */
+#detail .official-doc.law-twenty-seven-format .doc-level-4 .doc-copy {
+  min-width: 0 !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+}
 
 </style></head><body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
 <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm"><div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-3"><a href="index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-blue-600"><i class="fa-solid fa-arrow-left"></i> 返回手冊目錄</a><span class="text-xs bg-blue-50 text-blue-700 font-semibold px-2.5 py-1 rounded-full border border-blue-200">第四類法規全文查閱</span></div></header>
