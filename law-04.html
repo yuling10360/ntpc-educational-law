@@ -201,7 +201,7 @@ body{font-family:'Noto Sans TC',sans-serif}
   overflow-wrap:anywhere!important;
   word-break:normal!important;
 }
-/* 僅法規第27項：第四層「（1）」項次標記與內文分欄對齊 */
+/* 僅法規第27項：第四層「（1）」項次與內文整列移至紅線右側 */
 /* 第1層：一、 */
 #detail .official-doc.law-twenty-seven-format .doc-level-1 {
   padding-left: 0 !important;
@@ -217,12 +217,12 @@ body{font-family:'Noto Sans TC',sans-serif}
   padding-left: 4em !important;
 }
 
-/* 第4層：（1）：項次標記在左，內文欄往右移 */
+/* 第4層：（1）：項次標記及內文全部從紅線右側開始 */
 #detail .official-doc.law-twenty-seven-format .doc-level-4 {
   display: grid !important;
-  grid-template-columns: 4em minmax(0, 1fr) !important;
+  grid-template-columns: max-content minmax(0, 1fr) !important;
   column-gap: 0.35em !important;
-  padding-left: 4em !important;
+  padding-left: 8em !important;
   margin-left: 0 !important;
   width: 100% !important;
   box-sizing: border-box !important;
