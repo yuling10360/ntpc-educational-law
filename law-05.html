@@ -17,8 +17,6 @@ body{font-family:'Noto Sans TC',sans-serif}
 /* 項次排版統一規則：標記與內文採雙欄，內文換行後與內文起始位置對齊 */
 .doc-row{display:grid;grid-template-columns:max-content minmax(0,1fr);align-items:start;column-gap:.35em;box-sizing:border-box;width:100%;min-width:0}
 .doc-marker{display:block;white-space:nowrap;text-align:left;font-weight:700}
-/* 僅法規第36、37、39項：無標記的續行段落縮排至紅線內側 */
-#detail .official-doc.law-indent-format .doc-row.doc-paragraph{padding-left:2.8em!important;box-sizing:border-box!important}
 .doc-copy{display:block;min-width:0;overflow-wrap:anywhere;word-break:normal}
 .doc-level-0{padding-left:0}
 .doc-level-1{padding-left:0;font-weight:600}
@@ -303,6 +301,47 @@ body{font-family:'Noto Sans TC',sans-serif}
   word-break: normal !important;
 }
 
+
+
+/* law-05 內文縮排：正文區相對條次／章名縮排，層級項次採懸掛縮排，換行與內文起點對齊。 */
+#detail .official-doc.law05-indent-format .doc-article-body {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  padding-left: 2em !important;
+  margin-left: 0 !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+}
+#detail .official-doc.law05-indent-format .doc-row.doc-paragraph {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  padding: 0 !important;
+  margin: 0 0 .15em !important;
+}
+#detail .official-doc.law05-indent-format .doc-row.doc-paragraph > .doc-copy {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  padding-left: 2em !important;
+  margin: 0 !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+}
+/* 層級項次：一、→（一）→1、→（1）；內文與項次標記保持同列。 */
+#detail .official-doc.law05-indent-format .doc-row.doc-level-0 { padding-left: 0 !important; }
+#detail .official-doc.law05-indent-format .doc-row.doc-level-1 { padding-left: 0 !important; }
+#detail .official-doc.law05-indent-format .doc-row.doc-level-2 { padding-left: 2em !important; }
+#detail .official-doc.law05-indent-format .doc-row.doc-level-3 { padding-left: 4em !important; }
+#detail .official-doc.law05-indent-format .doc-row.doc-level-4 { padding-left: 6em !important; }
 </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
@@ -345,56 +384,45 @@ function esc(value) {
 }
 function formatLawText(content, lawIndex){
  let normalized=String(content||'').replace(/\\n/g,'\n').replace(/^(第\s*[0-9０-９一二三四五六七八九十百]+\s*條)\s*\n(?!第\s*[0-9０-９一二三四五六七八九十百]+\s*條)([^\n]+)$/gm,'$1 $2');
- // 第25至27項原始文字含有句中換行；合併續行，保留各款、目之換行。
- if(lawIndex===24 || lawIndex===25 || lawIndex===26){
-  normalized=normalized.split('\n').reduce((acc,line)=>{
-   const t=line.trim();
-   if(!t) return acc;
-   const isNewItem=/^(?:[一二三四五六七八九十百]+、|[（(][一二三四五六七八九十百壹貳參肆伍陸柒捌玖拾0-9０-９]+[）)]|[0-9０-９]+[、.．])/.test(t);
-   if(acc.length===0 || isNewItem) acc.push(t);
-   else acc[acc.length-1]+=' '+t;
-   return acc;
-  },[]).join('\n');
- }
  return normalized.split('\n').map(raw=>{
   const t=raw.trim(); if(!t) return '<div class="doc-paragraph-gap" aria-hidden="true"></div>';
   const chapter=t.match(/^(第\s*[一二三四五六七八九十百0-9０-９]+\s*章\s*.*)$/);
   if(chapter) return '<div class="doc-chapter" style="display:block;font-size:1.25rem !important;font-weight:800 !important;line-height:2.2 !important;margin:1.25em 0 0.6em !important;">'+esc(t.replace(/\s{2,}/g,' '))+'</div>';
-  const article=t.match(/^(第\s*[0-9０-９一二三四五六七八九十百]+\s*條)(.*)$/);
+  const article=t.match(/^(第\s*[0-9０-９一二三四五六七八九十百]+\s*條(?:\s*之\s*[0-9０-９一二三四五六七八九十百]+)?)(.*)$/);
   if(article){
    const heading='<div class="doc-article-heading">'+esc(article[1].replace(/\s+/g,''))+'</div>';
    const inlineText=article[2].trim();
    return heading+(inlineText?'<div class="doc-article-body">'+esc(inlineText)+'</div>':'');
   }
   const levels=[
-  {re:/^([壹貳參肆伍陸柒捌玖拾]+、)(.*)$/,n:0},
-  {re:/^([一二三四五六七八九十百]+、)(.*)$/,n:1},
-  {re:/^([（(][一二三四五六七八九十百壹貳參肆伍陸柒捌玖拾]+[）)])\s*(.*)$/,n:2}, // 刪除 0-9０-９
-  {re:/^([0-9０-９]+[、.．])(.*)$/,n:3},
-  {re:/^([（(][0-9０-９]+[）)])\s*(.*)$/,n:4}
-];
+   {re:/^([壹貳參肆伍陸柒捌玖拾]+、)(.*)$/,n:0},
+   {re:/^([一二三四五六七八九十百]+、)(.*)$/,n:1},
+   {re:/^([（(][一二三四五六七八九十百壹貳參肆伍陸柒捌玖拾]+[）)])\s*(.*)$/,n:2},
+   {re:/^([0-9０-９]+[、.．])(.*)$/,n:3},
+   {re:/^([（(][0-9０-９]+[）)])\s*(.*)$/,n:4}
+  ];
   for(const level of levels){const m=t.match(level.re);if(m)return '<div class="doc-row doc-level-'+level.n+'"><span class="doc-marker">'+esc(m[1])+'</span><span class="doc-copy">'+esc(m[2].trimStart())+'</span></div>';}
-  const indentContinuation=[35,36,38].includes(lawIndex); return '<div class="doc-row doc-paragraph'+(indentContinuation?' law-indent-paragraph':'')+'"'+(indentContinuation?' style="padding-left:2.8em!important;box-sizing:border-box!important"':'')+'><span class="doc-marker"></span><span class="doc-copy">'+esc(t)+'</span></div>';
+  return '<div class="doc-row doc-paragraph"><span class="doc-marker"></span><span class="doc-copy">'+esc(t)+'</span></div>';
  }).join('');
 }
-
-function renderList() {
-  const q = (document.getElementById('searchInput').value || '').trim().toLowerCase();
-  const visible = laws.map((law,index) => ({law,index})).filter(x => !q || (x.law.title + ' ' + x.law.content + ' ' + (x.law.history || '')).toLowerCase().includes(q));
-  document.getElementById('count').textContent = '共 ' + laws.length + ' 項';
-  document.getElementById('none').classList.toggle('hidden', visible.length > 0);
-  document.getElementById('lawList').innerHTML = visible.map(x =>
-    '<button type="button" onclick="openLaw(' + x.index + ')" class="w-full text-left px-3 py-2.5 rounded-xl border border-transparent hover:bg-blue-50 hover:text-blue-700 transition">' + esc(x.law.title) + '</button>'
-  ).join('');
-}
+function renderList(){const q=document.getElementById('searchInput').value.trim().toLowerCase();const list=document.getElementById('lawList');list.innerHTML='';const filtered=laws.map((law,i)=>({...law,i})).filter(x=>(x.title+'\n'+x.content+'\n'+x.history).toLowerCase().includes(q));document.getElementById('count').textContent=`${filtered.length} / ${laws.length} 項`;document.getElementById('none').classList.toggle('hidden',filtered.length>0);filtered.forEach(x=>{const b=document.createElement('button');b.type='button';b.className='w-full text-left px-3 py-3 rounded-xl hover:bg-blue-50 text-slate-700 transition '+(x.i===currentIndex?'active-law':'');b.innerHTML=`<span class="inline-flex w-6 h-6 rounded-lg items-center justify-center mr-2 text-[10px] font-bold ${x.i===currentIndex?'bg-white/20':'bg-slate-100 text-slate-500'}">${x.i+1}</span><span class="align-middle">${esc(x.title.replace(/^\s*\d+[、.．]?\s*/,''))}</span>`;b.onclick=()=>{currentIndex=x.i;renderList();renderDetail();};list.appendChild(b);});}
 function openLaw(index) {
   currentIndex = index;
   renderDetail();
   renderList();
 }
-function renderDetail(){const law=laws[currentIndex];const content=formatLawText(law.content,-1);document.getElementById('detail').innerHTML=`<div class="flex flex-wrap items-center gap-2 mb-4"><span class="text-xs font-bold text-blue-700 bg-blue-50 border border-blue-100 rounded-full px-3 py-1">第 ${currentIndex+1} 項／共 ${laws.length} 項</span><span class="text-xs text-slate-400">教師聘任、兼任代課、代理、權利義務、教師甄選等</span></div><h2 class="text-xl md:text-2xl font-extrabold leading-relaxed text-slate-900 mb-6">${esc(law.title)}</h2><div class="border-t border-slate-200 pt-6"><div class="official-doc text-sm md:text-[15px]">${content||'<p>原始文件未提供此項資料。</p>'}</div></div><div class="mt-8 border-t border-slate-200 pt-6"><h3 class="flex items-center gap-2 text-sm font-bold text-slate-700 mb-3"><i class="fa-solid fa-clock-rotate-left text-blue-600"></i>法規沿革／日期及文號／法源簡述／備註</h3><div class="history-text text-sm text-slate-600 bg-slate-50 border border-slate-200 rounded-xl p-4">${law.history.trim()?esc(law.history):'原始文件未提供此項資料。'}</div></div><div class="flex justify-between gap-3 mt-8 pt-5 border-t border-slate-100"><button onclick="go(-1)" ${currentIndex===0?'disabled':''} class="px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed"><i class="fa-solid fa-arrow-left mr-2"></i>上一項</button><button onclick="go(1)" ${currentIndex===laws.length-1?'disabled':''} class="px-4 py-2.5 rounded-xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 disabled:opacity-30 disabled:cursor-not-allowed">下一項<i class="fa-solid fa-arrow-right ml-2"></i></button></div>`;}
-function go(d){currentIndex=Math.max(0,Math.min(laws.length-1,currentIndex+d));renderList();renderDetail();}
+function renderDetail(){
+ const law=laws[currentIndex];
+ const content=formatLawText(law.content,currentIndex);
+ // 僅對「有項次、且沒有條次結構」的法規套用內文縮排。
+ // 有「第X條」條次的法規維持原有排版，不套用 law05-indent-format。
+ const hasArticleStructure=/(?:^|\n)\s*第\s*[0-9０-９一二三四五六七八九十百]+\s*條/m.test(law.content||'');
+ const hasItemMarkers=/(?:^|\n)\s*(?:[壹貳參肆伍陸柒捌玖拾]+、|[一二三四五六七八九十百]+、|[（(][一二三四五六七八九十百壹貳參肆伍陸柒捌玖拾0-9０-９]+[）)]|[0-9０-９]+[、.．])/m.test(law.content||'');
+ const indentClass=(!hasArticleStructure && hasItemMarkers)?' law05-indent-format':'';
+ document.getElementById('detail').innerHTML=`<div class="flex flex-wrap items-center gap-2 mb-4"><span class="text-xs font-bold text-blue-700 bg-blue-50 border border-blue-100 rounded-full px-3 py-1">第 ${currentIndex+1} 項／共 ${laws.length} 項</span><span class="text-xs text-slate-400">教師聘任、兼任代課、代理、權利義務、教師甄選等</span></div><h2 class="text-xl md:text-2xl font-extrabold leading-relaxed text-slate-900 mb-6">${esc(law.title)}</h2><div class="border-t border-slate-200 pt-6"><div class="official-doc${indentClass} text-sm md:text-[15px]">${content||'<p>原始文件此筆未另分列正文，完整文字已保留於上方法規名稱。</p>'}</div></div><div class="mt-8 border-t border-slate-200 pt-6"><h3 class="flex items-center gap-2 text-sm font-bold text-slate-700 mb-3"><i class="fa-solid fa-clock-rotate-left text-blue-600"></i>法規沿革／日期及文號／法源簡述／備註</h3><div class="history-text text-sm text-slate-600 bg-slate-50 border border-slate-200 rounded-xl p-4">${law.history && law.history.trim()?esc(law.history):'原始文件未提供此項資料。'}</div></div><div class="flex justify-between gap-3 mt-8 pt-5 border-t border-slate-100"><button onclick="go(-1)" ${currentIndex===0?'disabled':''} class="px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed"><i class="fa-solid fa-arrow-left mr-2"></i>上一項</button><button onclick="go(1)" ${currentIndex===laws.length-1?'disabled':''} class="px-4 py-2.5 rounded-xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 disabled:opacity-30 disabled:cursor-not-allowed">下一項<i class="fa-solid fa-arrow-right ml-2"></i></button></div>`;
+}
 
+function go(d){currentIndex=Math.max(0,Math.min(laws.length-1,currentIndex+d));renderList();renderDetail();}
 renderList();
 renderDetail();
 </script>
