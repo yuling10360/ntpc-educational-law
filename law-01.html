@@ -208,6 +208,11 @@ main,main>*{min-width:0;max-width:100%}
   #lawSearchResults{width:100%;max-width:100%;overflow-wrap:anywhere}
   #lawSearchResults button{white-space:normal}
   .law-history{overflow-wrap:anywhere}
+  body.mobile-law-detail main>aside{display:none!important}
+  body.mobile-law-detail main>#lawDetail{display:block!important;grid-column:1/-1}
+  body.mobile-law-list main>#lawDetail{display:none!important}
+  body.mobile-law-list main>aside{display:block!important}
+  #mobileBackToList{display:inline-flex}
 }
 @media(max-width:640px){
   body{font-size:16px}
@@ -362,7 +367,10 @@ main,main>*{min-width:0;max-width:100%}
     </aside>
 
     <!-- 右側法規條文展示區 -->
-    <div class="lg:col-span-8 bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm min-h-[500px]">
+    <div id="lawDetail" class="lg:col-span-8 bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm min-h-[500px]">
+      <button id="mobileBackToList" type="button" onclick="showLawList()" class="mb-4 items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm">
+        <i class="fa-solid fa-arrow-left"></i> 返回法規項目清單
+      </button>
 
       <!-- 1. 新北市立高級中等學校組織規程準則 -->
       <section id="law-01" class="law-panel active space-y-4">
@@ -3268,6 +3276,14 @@ main,main>*{min-width:0;max-width:100%}
 
     // 全部原始文字法規面板統一格式；原有左側導覽與面板切換功能保持不變。
     formatLawDocuments();
+    if (window.innerWidth < 1024) document.body.classList.add('mobile-law-list');
+
+    function showLawList() {
+      document.body.classList.remove('mobile-law-detail');
+      document.body.classList.add('mobile-law-list');
+      const list = document.getElementById('lawList');
+      if (window.innerWidth < 1024 && list) list.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 
     function showLaw(lawId, btnElement) {
       document.querySelectorAll('.law-panel').forEach(panel => panel.classList.remove('active'));
@@ -3287,7 +3303,9 @@ main,main>*{min-width:0;max-width:100%}
       }
 
       if (window.innerWidth < 1024 && activePanel) {
-        activePanel.scrollIntoView({ behavior: 'smooth' });
+        document.body.classList.remove('mobile-law-list');
+        document.body.classList.add('mobile-law-detail');
+        activePanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }
   </script>
