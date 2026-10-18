@@ -214,17 +214,28 @@
             const source = await response.text();
             const doc = new DOMParser().parseFromString(source, "text/html");
             const blocks = [];
-            // 法規主要內容常放在 div 中，不能只擷取 p、li、td。
             const main = doc.querySelector("main, article, .law-content, #law-content") || doc.body;
             if (main) {
-              const rawText = main.innerText || main.textContent || "";
-              rawText.split(/\\n+/).map(s => s.replace(/\\s+/g, " ").trim()).filter(s => s.length >= 8)
-                .forEach(s => blocks.push({ text: s, link: cat.link, title: cat.title }));
+              const clean = main.cloneNode(true);
+              clean.querySelectorAll("script, style, nav, header, footer, button, input, select, textarea").forEach(el => el.remove());
+              // 在 HTML 區塊結尾建立段落分隔，避免 detached document 的 textContent 把整頁黏成一大段。
+              const separated = clean.innerHTML
+                .replace(/<br\\s*\\/?\\s*>/gi, "\\n")
+                .replace(/<\\/(?:p|li|tr|td|th|h[1-6]|section|article|div|blockquote|pre)>/gi, "\\n")
+                .replace(/<[^>]*>/g, " ");
+              const textHolder = doc.createElement("div");
+              textHolder.innerHTML = separated;
+              const lines = (textHolder.textContent || "").split(/\\n+/)
+                .map(s => s.replace(/\\s+/g, " ").trim())
+                .filter(s => s.length >= 8);
+              const seen = new Set();
+              lines.forEach(line => {
+                if (!seen.has(line)) {
+                  seen.add(line);
+                  blocks.push({ text: line, link: cat.link, title: cat.title });
+                }
+              });
             }
-            Array.from(doc.querySelectorAll("td, th"))
-              .map(el => (el.innerText || el.textContent || "").replace(/\\s+/g, " ").trim())
-              .filter(s => s.length >= 8)
-              .forEach(s => blocks.push({ text: s, link: cat.link, title: cat.title }));
             return blocks;
           } catch (_) { return []; }
         })).then(groups => groups.flat());
@@ -242,7 +253,15 @@
       const sequence = ++searchSequence;
       const index = await getLegalTextIndex();
       if (sequence !== searchSequence) return;
-      const matches = index.filter(item => item.text.toLowerCase().includes(q.toLowerCase())).slice(0, 12);
+      const normalizedQuery = q.toLowerCase();
+      const matches = index
+        .filter(item => item.text.toLowerCase().includes(normalizedQuery))
+        .sort((a, b) => {
+          const aExact = a.text.toLowerCase().startsWith(normalizedQuery) ? 1 : 0;
+          const bExact = b.text.toLowerCase().startsWith(normalizedQuery) ? 1 : 0;
+          return bExact - aExact || a.text.length - b.text.length;
+        })
+        .slice(0, 12);
       if (!matches.length) {
         panel.innerHTML = '<div class="px-4 py-3 text-sm text-slate-500">法規內文中沒有找到相符段落。</div>';
         return;
