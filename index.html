@@ -392,7 +392,24 @@
       document.querySelectorAll('.legalbot-level').forEach(button => {
         button.addEventListener('click', () => chooseSchoolLevel(button.dataset.schoolLevel));
       })
+      function resetConversation() {
+        // 每次關閉小幫手都清除本次對話，重新詢問學制。
+        const persistentElements = [messages.firstElementChild, levelChoices, scopeBadge, suggestions];
+        Array.from(messages.children).forEach(child => {
+          if (!persistentElements.includes(child)) child.remove();
+        });
+        persistentElements.forEach(element => messages.appendChild(element));
+        selectedSchoolLevel = null;
+        levelChoices.classList.remove('hidden');
+        scopeBadge.classList.add('hidden');
+        suggestions.classList.add('hidden');
+        suggestions.classList.remove('flex');
+        form.classList.add('hidden');
+        input.value = '';
+        messages.scrollTop = 0;
+      }
       function closePanel() {
+        resetConversation();
         panel.classList.add('hidden'); launcher.classList.remove('hidden');
         launcher.setAttribute('aria-expanded','false');
       }
