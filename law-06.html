@@ -626,4 +626,35 @@ document.getElementById('searchInput').addEventListener('input',renderList);rend
 (function(){function showSelectedLaw(){if(!window.matchMedia('(max-width: 1023px)').matches)return;var content=document.getElementById('lawPanels');if(!content)return;window.setTimeout(function(){content.scrollIntoView({behavior:'smooth',block:'start'});},80)}document.addEventListener('click',function(e){if(e.target.closest('#lawList button[data-law]'))showSelectedLaw()})})();
 </script>
 
+
+<style id="mobile-law-detail-switch-style">
+@media(max-width:1023px){
+ body.mobile-law-detail-view main>aside{display:none!important}
+ body.mobile-law-detail-view main>section,body.mobile-law-detail-view main>div:not(aside){display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;grid-column:1/-1!important}
+ body.mobile-law-detail-view main{display:block!important}
+ #mobileLawBackButton{display:block;width:100%;margin:0 0 14px;padding:11px 14px;border-radius:10px;border:1px solid #cbd5e1;background:#eff6ff;color:#1d4ed8;font-weight:700;text-align:left}
+}
+@media(min-width:1024px){#mobileLawBackButton{display:none!important}}
+</style>
+<script id="mobile-law-detail-switch-script">
+(function(){
+ function mobile(){return window.matchMedia('(max-width:1023px)').matches}
+ function returnToList(){document.body.classList.remove('mobile-law-detail-view');var a=document.querySelector('main>aside');if(a)a.scrollIntoView({behavior:'smooth',block:'start'});}
+ document.addEventListener('click',function(e){
+   var btn=e.target.closest('#lawList button[data-law], aside button[data-law]');
+   if(!btn||!mobile())return;
+   var main=document.querySelector('main'), aside=main&&main.querySelector(':scope > aside');
+   if(!main||!aside)return;
+   var detail=Array.from(main.children).find(function(el){return el!==aside && (el.matches('section')||el.id==='lawPanels'||el.querySelector('#detail, .law-panel, [id*="detail"]'));});
+   if(!detail)return;
+   var back=document.getElementById('mobileLawBackButton');
+   if(!back){back=document.createElement('button');back.id='mobileLawBackButton';back.type='button';back.textContent='← 返回法規項目清單';back.addEventListener('click',returnToList);}
+   if(!detail.contains(back))detail.insertBefore(back,detail.firstChild);
+   document.body.classList.add('mobile-law-detail-view');
+   setTimeout(function(){detail.scrollIntoView({behavior:'smooth',block:'start'});},180);
+ });
+ window.addEventListener('resize',function(){if(!mobile())document.body.classList.remove('mobile-law-detail-view');});
+})();
+</script>
+
 </body></html>
