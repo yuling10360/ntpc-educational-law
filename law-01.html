@@ -185,6 +185,42 @@
 @media(max-width:640px){.header-category-full{max-width:54vw;font-size:10px;padding-left:.45rem;padding-right:.45rem;line-height:1.35}}
 </style>
 <style id="full-text-search-results-style">#lawSearchResults{position:relative;z-index:60;max-height:55vh;overflow-y:auto}#lawSearchResults button:last-child{border-bottom:0}</style>
+
+<style id="mobile-responsive-overrides">
+/* 手機版比照第 2 類：維持法規內容與既有桌面版，修正手機閱讀及選取後定位 */
+*,*::before,*::after{box-sizing:border-box}
+html,body{max-width:100%;overflow-x:clip}
+img,svg,video,canvas,iframe{max-width:100%}
+main,main>*{min-width:0;max-width:100%}
+.law-panel{scroll-margin-top:6rem}
+.law-panel .official-doc,.law-panel .whitespace-pre-line{min-width:0;overflow-wrap:anywhere;word-break:normal}
+@media(max-width:1023px){
+  main{display:grid;grid-template-columns:minmax(0,1fr);width:100%;padding-left:12px!important;padding-right:12px!important;gap:16px!important}
+  main>aside{position:static!important;top:auto!important;max-height:none!important;height:auto!important;overflow:visible!important;width:100%;min-width:0}
+  main>div:last-child{grid-column:1/-1;width:100%;min-width:0;padding:16px!important}
+  .law-btn{min-width:0;white-space:normal}
+  .law-btn span{white-space:normal;overflow-wrap:anywhere}
+  .topic-dropdown-bar{padding:12px}
+  .topic-dropdown-inner{align-items:stretch;gap:8px}
+  .topic-dropdown-label{white-space:normal}
+  .topic-dropdown-select{width:100%;max-width:100%;min-width:0;font-size:16px}
+  .header-category-full{max-width:54vw;font-size:10px;line-height:1.35}
+  #lawSearchResults{width:100%;max-width:100%;overflow-wrap:anywhere}
+  #lawSearchResults button{white-space:normal}
+  .law-history{overflow-wrap:anywhere}
+}
+@media(max-width:640px){
+  body{font-size:16px}
+  header>div{gap:8px;flex-wrap:wrap}
+  header>div>a{font-size:13px}
+  .law-panel h2{font-size:1.15rem;line-height:1.5;overflow-wrap:anywhere}
+  .law-panel .doc-row{min-width:0}
+  .law-panel .doc-copy,.law-panel .doc-article-body{min-width:0;overflow-wrap:anywhere;word-break:normal}
+  .law-panel table{display:block;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  input,select,textarea,button{max-width:100%}
+}
+</style>
+
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
 <!-- 頂部返回導覽列 -->
@@ -229,96 +265,96 @@
         <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider">點選法規查閱</h3>
         <span class="text-[11px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full font-semibold">共 23 項目</span>
       </div>
-      <div class="space-y-1 text-xs">
-        <button onclick="showLaw('law-01', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between bg-blue-600 text-white font-bold shadow-sm">
+      <div id="lawList" class="space-y-1 text-xs">
+        <button data-law="0" onclick="showLaw('law-01', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between bg-blue-600 text-white font-bold shadow-sm">
           <span class="truncate pr-2">1. 新北市立高級中等學校組織規程準則</span>
           <i class="fa-solid fa-angle-right text-[10px]"></i>
         </button>
-        <button onclick="showLaw('law-02', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
+        <button data-law="1" onclick="showLaw('law-02', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
           <span class="truncate pr-2">2. 高級中等學校組織設置及員額編制標準</span>
           <i class="fa-solid fa-angle-right text-[10px] text-slate-400"></i>
         </button>
-        <button onclick="showLaw('law-03', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
+        <button data-law="2" onclick="showLaw('law-03', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
           <span class="truncate pr-2">3. 新北市立高級中等學校教師每週教學節數標準</span>
           <i class="fa-solid fa-angle-right text-[10px] text-slate-400"></i>
         </button>
-        <button onclick="showLaw('law-04', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
+        <button data-law="3" onclick="showLaw('law-04', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
           <span class="truncate pr-2">4. 教育部國民及學前教育署補助高級中等學校實施十二年國民基本教育課程及國立高級中等學校教師每週教學節數標準新增鐘點費要點</span>
           <i class="fa-solid fa-angle-right text-[10px] text-slate-400"></i>
         </button>
-        <button onclick="showLaw('law-05', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
+        <button data-law="4" onclick="showLaw('law-05', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
           <span class="truncate pr-2">5. 國民小學與國民中學班級編制及教職員員額編制準則</span>
           <i class="fa-solid fa-angle-right text-[10px] text-slate-400"></i>
         </button>
-        <button onclick="showLaw('law-06', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
+        <button data-law="5" onclick="showLaw('law-06', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
           <span class="truncate pr-2">6. 國民中小學教師授課節數訂定基準</span>
           <i class="fa-solid fa-angle-right text-[10px] text-slate-400"></i>
         </button>
-        <button onclick="showLaw('law-07', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
+        <button data-law="6" onclick="showLaw('law-07', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
           <span class="truncate pr-2">7. 新北市立國民中學及國民中小學組織規程</span>
           <i class="fa-solid fa-angle-right text-[10px] text-slate-400"></i>
         </button>
-        <button onclick="showLaw('law-08', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
+        <button data-law="7" onclick="showLaw('law-08', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
           <span class="truncate pr-2">8. 新北市立國中及國民中小學教職員員額設置基準</span>
           <i class="fa-solid fa-angle-right text-[10px] text-slate-400"></i>
         </button>
-        <button onclick="showLaw('law-09', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
+        <button data-law="8" onclick="showLaw('law-09', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
           <span class="truncate pr-2">9. 新北市國民中學教師每週授課節數補充原則</span>
           <i class="fa-solid fa-angle-right text-[10px] text-slate-400"></i>
         </button>
-        <button onclick="showLaw('law-10', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
+        <button data-law="9" onclick="showLaw('law-10', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
           <span class="truncate pr-2">10. 教師授課排配課折算公式函釋及範例</span>
           <i class="fa-solid fa-angle-right text-[10px] text-slate-400"></i>
         </button>
-        <button onclick="showLaw('law-11', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
+        <button data-law="10" onclick="showLaw('law-11', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
           <span class="truncate pr-2">11. 專任教師協助校務酌減時數折算函釋</span>
           <i class="fa-solid fa-angle-right text-[10px] text-slate-400"></i>
         </button>
-        <button onclick="showLaw('law-12', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
+        <button data-law="11" onclick="showLaw('law-12', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
           <span class="truncate pr-2">12. 重申各國民中學教師授課排配課確依折算公式計算函釋</span>
           <i class="fa-solid fa-angle-right text-[10px] text-slate-400"></i>
         </button>
-        <button onclick="showLaw('law-13', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
+        <button data-law="12" onclick="showLaw('law-13', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
           <span class="truncate pr-2">13. 有關國民中小學兼任輔導教師減課規定函釋</span>
           <i class="fa-solid fa-angle-right text-[10px] text-slate-400"></i>
         </button>
-        <button onclick="showLaw('law-14', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
+        <button data-law="13" onclick="showLaw('law-14', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
           <span class="truncate pr-2">14. 導師協助行政減課以一種為限函釋</span>
           <i class="fa-solid fa-angle-right text-[10px] text-slate-400"></i>
         </button>
-        <button onclick="showLaw('law-15', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
+        <button data-law="14" onclick="showLaw('law-15', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
           <span class="truncate pr-2">15. 兼職教師授課時數班級數認定函釋</span>
           <i class="fa-solid fa-angle-right text-[10px] text-slate-400"></i>
         </button>
-        <button onclick="showLaw('law-16', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
+        <button data-law="15" onclick="showLaw('law-16', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
           <span class="truncate pr-2">16. 兼任員生社職務不得減課函釋</span>
           <i class="fa-solid fa-angle-right text-[10px] text-slate-400"></i>
         </button>
-        <button onclick="showLaw('law-17', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
+        <button data-law="16" onclick="showLaw('law-17', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
           <span class="truncate pr-2">17. 專任運動教練績效評量基準</span>
           <i class="fa-solid fa-angle-right text-[10px] text-slate-400"></i>
         </button>
-        <button onclick="showLaw('law-18', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
+        <button data-law="17" onclick="showLaw('law-18', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
           <span class="truncate pr-2">18. 高級中等以下學校藝術才能班設立標準</span>
           <i class="fa-solid fa-angle-right text-[10px] text-slate-400"></i>
         </button>
-        <button onclick="showLaw('law-19', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
+        <button data-law="18" onclick="showLaw('law-19', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
           <span class="truncate pr-2">19. 高級中等以下學校體育班設立辦法</span>
           <i class="fa-solid fa-angle-right text-[10px] text-slate-400"></i>
         </button>
-        <button onclick="showLaw('law-20', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
+        <button data-law="19" onclick="showLaw('law-20', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
           <span class="truncate pr-2">20. 配合教育部修正國中每班教師員額編制提高至2.2人案</span>
           <i class="fa-solid fa-angle-right text-[10px] text-slate-400"></i>
         </button>
-        <button onclick="showLaw('law-21', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
+        <button data-law="20" onclick="showLaw('law-21', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
           <span class="truncate pr-2">21. 國中小教師協助校內外行政減授課額度補充案</span>
           <i class="fa-solid fa-angle-right text-[10px] text-slate-400"></i>
         </button>
-        <button onclick="showLaw('law-22', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
+        <button data-law="21" onclick="showLaw('law-22', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
           <span class="truncate pr-2">22. 私立學校法</span>
           <i class="fa-solid fa-angle-right text-[10px] text-slate-400"></i>
         </button>
-        <button onclick="showLaw('law-23', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
+        <button data-law="22" onclick="showLaw('law-23', this)" class="law-btn w-full text-left p-2.5 rounded-xl transition flex items-center justify-between text-slate-700 hover:bg-slate-100">
           <span class="truncate pr-2">23. 私立高級中等以上學校退場條例</span>
           <i class="fa-solid fa-angle-right text-[10px] text-slate-400"></i>
         </button>
@@ -3273,6 +3309,9 @@
  }
  const norm=s=>(s||'').toLocaleLowerCase().replace(/\s+/g,' ').trim();
  function getPanel(btn,index){
+   const handler=btn.getAttribute('onclick')||'';
+   const match=handler.match(/showLaw\(['"]([^'"]+)['"]/);
+   if(match) return document.getElementById(match[1]);
    const i=btn.getAttribute('data-law')||String(index);
    const panels=Array.from(document.querySelectorAll('.law-panel'));
    return panels[Number(i)] || null;
