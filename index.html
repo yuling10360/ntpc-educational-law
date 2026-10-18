@@ -213,14 +213,18 @@
             if (!response.ok) return [];
             const source = await response.text();
             const doc = new DOMParser().parseFromString(source, "text/html");
-            const blocks = Array.from(doc.querySelectorAll("p, li, td"))
-              .map(el => ({ text: (el.innerText || el.textContent || "").replace(/\\s+/g, " ").trim(), link: cat.link, title: cat.title }))
-              .filter(item => item.text.length >= 8);
-            if (!blocks.length) {
-              const main = doc.querySelector("main, article, .law-content, #law-content, body");
-              if (main) (main.innerText || main.textContent || "").split(/\\n+/).map(s => s.trim()).filter(s => s.length >= 8)
+            const blocks = [];
+            // 法規主要內容常放在 div 中，不能只擷取 p、li、td。
+            const main = doc.querySelector("main, article, .law-content, #law-content") || doc.body;
+            if (main) {
+              const rawText = main.innerText || main.textContent || "";
+              rawText.split(/\\n+/).map(s => s.replace(/\\s+/g, " ").trim()).filter(s => s.length >= 8)
                 .forEach(s => blocks.push({ text: s, link: cat.link, title: cat.title }));
             }
+            Array.from(doc.querySelectorAll("td, th"))
+              .map(el => (el.innerText || el.textContent || "").replace(/\\s+/g, " ").trim())
+              .filter(s => s.length >= 8)
+              .forEach(s => blocks.push({ text: s, link: cat.link, title: cat.title }));
             return blocks;
           } catch (_) { return []; }
         })).then(groups => groups.flat());
