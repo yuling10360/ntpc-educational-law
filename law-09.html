@@ -44,6 +44,32 @@ body{font-family:'Noto Sans TC',sans-serif}.law-panel{display:none}.law-panel.ac
 @media(max-width:640px){.header-category-full{max-width:54vw;font-size:10px;padding-left:.45rem;padding-right:.45rem;line-height:1.35}}
 </style>
 <style id="full-text-search-results-style">#lawSearchResults{position:relative;z-index:60;max-height:55vh;overflow-y:auto}#lawSearchResults button:last-child{border-bottom:0}</style>
+
+<style id="mobile-responsive-overrides">
+/* 手機版響應式修正：只調整呈現，不修改法規文字與既有互動 */
+*,*::before,*::after{box-sizing:border-box}
+html{max-width:100%;overflow-x:clip;scroll-padding-top:5rem}
+body{max-width:100%;overflow-x:clip}
+img,svg,video,canvas,iframe{max-width:100%}
+main,article,section,.container,.content,.law-content,.law-container,.main-content{min-width:0;max-width:100%}
+pre{max-width:100%;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}
+table{max-width:100%}
+@media(max-width:640px){
+  body{font-size:16px}
+  main{width:100%;padding-left:12px!important;padding-right:12px!important}
+  header,nav,.navinner,.navbar,.top-nav{max-width:100%}
+  nav,.navinner,.navbar,.top-nav{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .container,.content,.law-content,.law-container,.main-content,.article-content{width:100%;max-width:100%;min-width:0}
+  h1,h2,h3,h4,p,li,td,th,a,button,label{overflow-wrap:anywhere}
+  .grid{min-width:0}
+  table{display:block;width:100%;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  pre,code{overflow-wrap:anywhere}
+  input,select,textarea,button{max-width:100%;font-size:16px}
+  .section-head,.section-header,.header-row{flex-wrap:wrap}
+  .section-head h2,.section-header h2{min-width:0}
+  #legalBotPanel,#legalBotPanel *{min-width:0}
+}
+</style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
 <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm"><div class="max-w-7xl mx-auto px-4 min-h-16 py-3 flex items-center justify-between gap-3 gap-3"><a href="index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-blue-600"><i class="fa-solid fa-arrow-left"></i> 返回手冊目錄</a><span class="text-xs bg-blue-50 text-blue-700 font-semibold px-2.5 py-1 rounded-full border border-blue-200 header-category-full">
