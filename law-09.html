@@ -283,7 +283,7 @@ document.getElementById('searchInput').addEventListener('input',renderList);rend
  function mobile(){return window.matchMedia('(max-width:1023px)').matches}
  function returnToList(){document.body.classList.remove('mobile-law-detail-view');var a=document.querySelector('main>aside');if(a)a.scrollIntoView({behavior:'smooth',block:'start'});}
  document.addEventListener('click',function(e){
-   var btn=e.target.closest('#lawList button[data-law], aside button[data-law]');
+   var btn=e.target.closest('#lawList button');
    if(!btn||!mobile())return;
    var main=document.querySelector('main'), aside=main&&main.querySelector(':scope > aside');
    if(!main||!aside)return;
