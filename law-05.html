@@ -343,12 +343,20 @@ body{font-family:'Noto Sans TC',sans-serif}
 #detail .official-doc.law05-indent-format .doc-row.doc-level-3 { padding-left: 4em !important; }
 #detail .official-doc.law05-indent-format .doc-row.doc-level-4 { padding-left: 6em !important; }
 </style>
+<style>
+/* 法規類別全名標籤：完整顯示並可換行，避免固定高度裁切 */
+.header-category-full{display:inline-block;max-width:min(58vw,760px);white-space:normal!important;overflow-wrap:anywhere;word-break:normal;text-align:center;line-height:1.4;flex-shrink:1;height:auto;}
+@media(max-width:640px){.header-category-full{max-width:54vw;font-size:10px;padding-left:.45rem;padding-right:.45rem;line-height:1.35}}
+</style>
+<style id="full-text-search-results-style">#lawSearchResults{position:relative;z-index:60;max-height:55vh;overflow-y:auto}#lawSearchResults button:last-child{border-bottom:0}</style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
 <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm">
-  <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-3">
+  <div class="max-w-7xl mx-auto px-4 min-h-16 py-3 flex items-center justify-between gap-3 gap-3">
     <a href="index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-blue-600"><i class="fa-solid fa-arrow-left"></i> 返回手冊目錄</a>
-    <span class="text-xs bg-blue-50 text-blue-700 font-semibold px-2.5 py-1 rounded-full border border-blue-200">第五類法規全文查閱</span>
+    <span class="text-xs bg-blue-50 text-blue-700 font-semibold px-2.5 py-1 rounded-full border border-blue-200 header-category-full">
+        五、教師聘任、兼任代課、代理、權利義務、教師甄選等
+      </span>
   </div>
 </header>
 <section class="bg-gradient-to-r from-slate-900 via-indigo-950 to-blue-900 text-white py-8 px-4">
@@ -362,6 +370,16 @@ body{font-family:'Noto Sans TC',sans-serif}
     </div>
   </div>
 </section>
+<style id="topic-dropdown-style">
+.topic-dropdown-bar{background:#fff;border-bottom:1px solid #e2e8f0;padding:14px 24px;position:relative;z-index:20}
+.topic-dropdown-inner{max-width:80rem;margin:0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.topic-dropdown-label{font-size:.875rem;font-weight:700;color:#64748b;white-space:nowrap}
+.topic-dropdown-select{display:block;width:100%;max-width:760px;min-width:0;padding:11px 42px 11px 14px;border:1px solid #cbd5e1;border-radius:12px;background:#f8fafc;color:#1e293b;font-size:.95rem;line-height:1.5;cursor:pointer;box-sizing:border-box}
+.topic-dropdown-select:focus{outline:2px solid #93c5fd;outline-offset:2px}
+@media(max-width:640px){.topic-dropdown-bar{padding:12px}.topic-dropdown-inner{gap:8px}.topic-dropdown-select{max-width:100%;font-size:.85rem}}
+</style>
+<section class="topic-dropdown-bar" aria-label="法規主題快速切換"><div class="topic-dropdown-inner"><label class="topic-dropdown-label" for="lawTopicSelect">法規主題快速切換（共 11 類）</label><select id="lawTopicSelect" class="topic-dropdown-select" aria-label="選擇法規主題" onchange="if(this.value) window.location.href=this.value;"><option value="law-01.html">一、組織編制、員額基準、授課時數</option><option value="law-02.html">二、課程與教學</option><option value="law-03.html">三、常態編班、正常教學</option><option value="law-04.html">四、新生入學、學籍管理、成績評量</option><option value="law-05.html" selected>五、教師聘任、兼任代課、代理、權利義務、教師甄選等</option><option value="law-06.html">六、教師研習、進修、請假</option><option value="law-07.html">七、課後照顧、寒暑假學藝活動</option><option value="law-08.html">八、特殊教育、技藝教育、補習進修學校</option><option value="law-09.html">九、高級中等教育、職業教育、實習課程、技能檢定、職業安全</option><option value="law-10.html">十、實驗教育</option><option value="law-11.html">十一、其它</option></select></div></section>
+
 <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
   <aside class="lg:col-span-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] overflow-y-auto">
     <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
@@ -426,5 +444,75 @@ function go(d){currentIndex=Math.max(0,Math.min(laws.length-1,currentIndex+d));r
 renderList();
 renderDetail();
 </script>
+<script id="topic-nav-search-script">
+(function(){
+ const input=document.getElementById('searchInput');
+ if(!input) return;
+ const list=document.getElementById('lawList') || document.querySelector('aside');
+ if(!list) return;
+ const buttons=Array.from(list.querySelectorAll('button[data-law]'));
+ if(!buttons.length) return;
+ let results=document.getElementById('lawSearchResults');
+ if(!results){
+   results=document.createElement('div');
+   results.id='lawSearchResults';
+   results.className='mt-3 max-w-xl rounded-xl bg-white text-slate-800 shadow-lg border border-slate-200 overflow-hidden';
+   results.style.display='none';
+   input.parentElement.insertAdjacentElement('afterend',results);
+ }
+ const norm=s=>(s||'').toLocaleLowerCase().replace(/\s+/g,' ').trim();
+ function getPanel(btn,index){
+   const i=btn.getAttribute('data-law')||String(index);
+   const panels=Array.from(document.querySelectorAll('.law-panel'));
+   return panels[Number(i)] || null;
+ }
+ function excerpt(text,q){
+   const plain=(text||'').replace(/\s+/g,' ').trim();
+   const at=norm(plain).indexOf(norm(q));
+   if(at<0) return plain.slice(0,115)+(plain.length>115?'…':'');
+   const start=Math.max(0,at-45), end=Math.min(plain.length,at+q.length+75);
+   return (start?'…':'')+plain.slice(start,end)+(end<plain.length?'…':'');
+ }
+ function render(){
+   const raw=(input.value||'').trim();
+   const q=norm(raw);
+   results.replaceChildren();
+   if(!q){results.style.display='none';return;}
+   const matches=[];
+   buttons.forEach((btn,index)=>{
+     const panel=getPanel(btn,index);
+     const title=(btn.innerText||btn.textContent||'').replace(/\s+/g,' ').trim();
+     const body=panel ? (panel.innerText||panel.textContent||'') : title;
+     if(norm(title).includes(q)||norm(body).includes(q)) matches.push({btn,title,body,index});
+   });
+   const heading=document.createElement('div');
+   heading.className='px-4 py-2 text-xs font-bold text-slate-500 bg-slate-50 border-b border-slate-100';
+   heading.textContent=matches.length?'搜尋結果（'+matches.length+' 項）':'找不到符合的法規';
+   results.appendChild(heading);
+   if(matches.length){
+     matches.slice(0,30).forEach(item=>{
+       const a=document.createElement('button');
+       a.type='button';
+       a.className='block w-full text-left px-4 py-3 border-b border-slate-100 hover:bg-blue-50 focus:bg-blue-50';
+       const name=document.createElement('div');name.className='text-sm font-semibold text-blue-700';name.textContent=item.title;
+       const desc=document.createElement('div');desc.className='mt-1 text-xs leading-relaxed text-slate-600';desc.textContent=excerpt(item.body,raw);
+       a.append(name,desc);
+       a.addEventListener('click',()=>{
+         item.btn.click();
+         results.style.display='none';
+         input.blur();
+       });
+       results.appendChild(a);
+     });
+     if(matches.length>30){const more=document.createElement('div');more.className='px-4 py-2 text-xs text-slate-500';more.textContent='另有 '+(matches.length-30)+' 項符合，請輸入更完整的關鍵字縮小範圍。';results.appendChild(more);}
+   }
+   results.style.display='block';
+ }
+ input.addEventListener('input',render);
+ input.addEventListener('focus',render);
+ document.addEventListener('click',e=>{if(!results.contains(e.target)&&e.target!==input)results.style.display='none';});
+})();
+</script>
+<footer class="border-t border-slate-200 bg-white px-4 py-5 mt-8 text-center text-xs sm:text-sm text-slate-500 leading-relaxed"><p>本法規僅供參考，如有異動，以教育部電子法規資料庫及新北市政府電子法規資料庫為主</p></footer>
 </body>
 </html>
