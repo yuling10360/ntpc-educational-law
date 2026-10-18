@@ -545,5 +545,13 @@
   </script>
 
 
+
+<style id="mobile-law-content-fix">
+@media(max-width:1023px){#lawPanels{scroll-margin-top:16px}#lawPanels>.law-panel{width:100%;min-width:0;overflow-wrap:anywhere}.law-panel .official-doc,.law-panel .law-body{max-width:100%;overflow-wrap:anywhere;word-break:normal}main aside{position:relative!important;top:auto!important;max-height:none!important;overflow:visible!important}main>div.lg\\:col-span-8{min-width:0;width:100%;max-width:100%;padding:16px!important}}
+</style>
+<script id="mobile-law-content-fix-script">
+(function(){function showSelectedLaw(){if(!window.matchMedia('(max-width: 1023px)').matches)return;var content=document.getElementById('lawPanels');if(!content)return;window.setTimeout(function(){content.scrollIntoView({behavior:'smooth',block:'start'});},80)}document.addEventListener('click',function(e){if(e.target.closest('#lawList button[data-law]'))showSelectedLaw()})})();
+</script>
+
 </body>
 </html>
