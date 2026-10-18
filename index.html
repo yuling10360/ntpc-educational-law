@@ -291,5 +291,232 @@
       renderPage();
     });
   </script>
+  <!-- 免費智慧法規客服：僅依網站既有法規原文進行關鍵詞／同義詞檢索，不呼叫 AI API -->
+  <style>
+    #legalBotLauncher{position:fixed;right:22px;bottom:22px;z-index:80}
+    #legalBotPanel{position:fixed;right:22px;bottom:88px;width:min(410px,calc(100vw - 28px));height:min(590px,calc(100vh - 125px));z-index:80;box-shadow:0 18px 55px rgba(15,23,42,.22)}
+    #legalBotMessages{scroll-behavior:smooth}
+    .legalbot-bubble{max-width:92%;white-space:pre-wrap;overflow-wrap:anywhere}
+    .legalbot-result{border:1px solid #dbeafe;border-radius:12px;padding:11px;background:#fff}
+    .legalbot-result mark{background:#fef08a;border-radius:3px}
+  </style>
+  <button id="legalBotLauncher" type="button" aria-label="開啟法規客服" aria-expanded="false"
+    class="rounded-full bg-indigo-700 hover:bg-indigo-800 text-white shadow-xl px-5 py-3 flex items-center gap-2 font-semibold">
+    <i class="fa-solid fa-comments"></i><span>法規小幫手</span>
+  </button>
+  <section id="legalBotPanel" class="hidden bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col" aria-label="免費智慧法規客服">
+    <div class="bg-indigo-800 text-white px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3"><span class="w-9 h-9 rounded-full bg-white/15 flex items-center justify-center"><i class="fa-solid fa-scale-balanced"></i></span>
+        <div><h2 class="font-bold text-sm">教務行政法規小幫手</h2><p class="text-xs text-indigo-100">免費檢索・依網站法規原文回答</p></div>
+      </div>
+      <button id="legalBotClose" class="w-8 h-8 rounded-lg hover:bg-white/15" aria-label="關閉客服"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div id="legalBotMessages" class="flex-1 overflow-y-auto p-4 space-y-3 bg-slate-50">
+      <div class="legalbot-bubble rounded-2xl rounded-tl-sm bg-white border border-slate-200 p-3 text-sm text-slate-700">您好！為了讓搜尋更聚焦，請先選擇您要查詢的是國中還是高中相關問題。</div>
+      <div id="legalBotLevelChoices" class="grid grid-cols-2 gap-2">
+        <button type="button" data-school-level="junior" class="legalbot-level rounded-xl border-2 border-indigo-200 bg-white p-3 text-left hover:border-indigo-600 hover:bg-indigo-50"><span class="block text-base font-bold text-indigo-800">國中</span><span class="block text-xs text-slate-500 mt-1">國民中學相關問題</span></button>
+        <button type="button" data-school-level="senior" class="legalbot-level rounded-xl border-2 border-indigo-200 bg-white p-3 text-left hover:border-indigo-600 hover:bg-indigo-50"><span class="block text-base font-bold text-indigo-800">高中</span><span class="block text-xs text-slate-500 mt-1">高中職相關問題</span></button>
+      </div>
+      <div id="legalBotScopeBadge" class="hidden text-xs text-indigo-800 bg-indigo-50 border border-indigo-100 rounded-lg px-3 py-2 cursor-pointer" title="點此重新選擇學制"></div>
+      <div id="legalBotSuggestions" class="hidden flex-wrap gap-2">
+        <button type="button" class="legalbot-suggestion text-xs rounded-full bg-white border border-indigo-200 text-indigo-700 px-3 py-2 hover:bg-indigo-50">基鐘／每週授課節數</button>
+        <button type="button" class="legalbot-suggestion text-xs rounded-full bg-white border border-indigo-200 text-indigo-700 px-3 py-2 hover:bg-indigo-50">減課／減授課</button>
+        <button type="button" class="legalbot-suggestion text-xs rounded-full bg-white border border-indigo-200 text-indigo-700 px-3 py-2 hover:bg-indigo-50">代理教師聘任</button>
+        <button type="button" class="legalbot-suggestion text-xs rounded-full bg-white border border-indigo-200 text-indigo-700 px-3 py-2 hover:bg-indigo-50">實驗教育</button>
+        <button type="button" class="legalbot-suggestion text-xs rounded-full bg-white border border-indigo-200 text-indigo-700 px-3 py-2 hover:bg-indigo-50">課後照顧</button>
+      </div>
+    </div>
+    <form id="legalBotForm" class="hidden border-t border-slate-200 bg-white p-3 flex gap-2">
+      <input id="legalBotInput" type="text" maxlength="180" autocomplete="off" placeholder="例如：國中教師減授課有哪些規定？"
+        class="min-w-0 flex-1 rounded-xl border border-slate-300 px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-indigo-300 focus:border-indigo-500">
+      <button type="submit" class="rounded-xl bg-indigo-700 hover:bg-indigo-800 text-white px-4 py-2" aria-label="送出問題"><i class="fa-solid fa-paper-plane"></i></button>
+    </form>
+  </section>
+  <script>
+    (function () {
+      const launcher = document.getElementById('legalBotLauncher');
+      const panel = document.getElementById('legalBotPanel');
+      const close = document.getElementById('legalBotClose');
+      const form = document.getElementById('legalBotForm');
+      const input = document.getElementById('legalBotInput');
+      const messages = document.getElementById('legalBotMessages');
+      const synonymGroups = [
+        ['基鐘','每週授課節數','基本授課節數'],
+        ['減課','減授課'],
+        ['家長會','家長組織','家長參與','家長委員'],
+        ['代理教師','代理老師','代課教師','兼任代課','教師聘任','教師甄選'],
+        ['實驗教育','實驗學校','實驗機構','非學校型態'],
+        ['課後照顧','課後班','課後托育','寒暑假學藝','學藝活動'],
+        ['課程發展委員會','課發會','課程委員會','課程發展'],
+        ['授課時數','授課節數','教師節數','減授課'],
+        ['編班','常態編班','能力分班','分班'],
+        ['請假','教師請假','差假','休假'],
+        ['成績評量','學習評量','定期評量','成績'],
+        ['特殊教育','資優','身心障礙','特教'],
+        ['學生入學','新生入學','學籍','轉學'],
+        ['教師進修','研習','在職進修'],
+        ['技能檢定','職業安全','實習課程','技職教育']
+      ];
+      let selectedSchoolLevel = null;
+      const levelChoices = document.getElementById('legalBotLevelChoices');
+      const scopeBadge = document.getElementById('legalBotScopeBadge');
+      const suggestions = document.getElementById('legalBotSuggestions');
+      function openPanel() {
+        panel.classList.remove('hidden'); launcher.classList.add('hidden');
+        launcher.setAttribute('aria-expanded','true');
+        if (selectedSchoolLevel) input.focus();
+      }
+      function chooseSchoolLevel(level) {
+        selectedSchoolLevel = level;
+        const label = level === 'junior' ? '國中' : '高中';
+        levelChoices.classList.add('hidden');
+        scopeBadge.textContent = '目前查詢範圍：' + label + '（點此重新選擇）';
+        scopeBadge.classList.remove('hidden');
+        suggestions.classList.remove('hidden');
+        suggestions.classList.add('flex');
+        form.classList.remove('hidden');
+        addBubble('好的，請輸入您想了解的問題。我會優先呈現「' + label + '」相關法規；若條文屬於國高中共同適用，也會保留相關結果。', 'bot');
+        input.focus();
+      }
+      function resetSchoolLevel() {
+        selectedSchoolLevel = null;
+        levelChoices.classList.remove('hidden');
+        scopeBadge.classList.add('hidden');
+        suggestions.classList.add('hidden');
+        suggestions.classList.remove('flex');
+        form.classList.add('hidden');
+        addBubble('請先選擇您要查詢國中還是高中。', 'bot');
+      }
+      scopeBadge.addEventListener('click', resetSchoolLevel);
+      document.querySelectorAll('.legalbot-level').forEach(button => {
+        button.addEventListener('click', () => chooseSchoolLevel(button.dataset.schoolLevel));
+      })
+      function resetConversation() {
+        // 每次關閉小幫手都清除本次對話，重新詢問學制。
+        const persistentElements = [messages.firstElementChild, levelChoices, scopeBadge, suggestions];
+        Array.from(messages.children).forEach(child => {
+          if (!persistentElements.includes(child)) child.remove();
+        });
+        persistentElements.forEach(element => messages.appendChild(element));
+        selectedSchoolLevel = null;
+        levelChoices.classList.remove('hidden');
+        scopeBadge.classList.add('hidden');
+        suggestions.classList.add('hidden');
+        suggestions.classList.remove('flex');
+        form.classList.add('hidden');
+        input.value = '';
+        messages.scrollTop = 0;
+      }
+      function closePanel() {
+        resetConversation();
+        panel.classList.add('hidden'); launcher.classList.remove('hidden');
+        launcher.setAttribute('aria-expanded','false');
+      }
+      launcher.addEventListener('click', openPanel);
+      close.addEventListener('click', closePanel);
+      function addBubble(text, kind) {
+        const bubble = document.createElement('div');
+        bubble.className = 'legalbot-bubble rounded-2xl p-3 text-sm ' +
+          (kind === 'user' ? 'ml-auto bg-indigo-700 text-white rounded-tr-sm' : 'bg-white border border-slate-200 text-slate-700 rounded-tl-sm');
+        bubble.textContent = text;
+        messages.appendChild(bubble); messages.scrollTop = messages.scrollHeight;
+        return bubble;
+      }
+      function termsFor(query) {
+        const q = query.toLowerCase().replace(/[，。！？、；：,.!?;:（）()\s]/g,'');
+        const terms = new Set();
+        if (q.length >= 2) terms.add(q);
+        // 原問題中的有意義片語與中文字詞，避免只用整句精確比對。
+        for (let n = Math.min(6,q.length); n >= 2; n--) {
+          for (let i = 0; i <= q.length - n; i++) terms.add(q.slice(i,i+n));
+        }
+        synonymGroups.forEach(group => {
+          if (group.some(term => q.includes(term))) group.forEach(term => terms.add(term.toLowerCase()));
+        });
+        return [...terms].filter(t => t.length >= 2).sort((a,b)=>b.length-a.length).slice(0,100);
+      }
+      function highlight(text, query) {
+        const safe = escapeSearchHtml(text);
+        const q = query.trim();
+        if (!q) return safe;
+        const i = safe.toLowerCase().indexOf(escapeSearchHtml(q).toLowerCase());
+        if (i < 0) return safe;
+        const sq = escapeSearchHtml(q);
+        return safe.slice(0,i)+'<mark>'+safe.slice(i,i+sq.length)+'</mark>'+safe.slice(i+sq.length);
+      }
+      async function answerQuestion(query) {
+        addBubble(query, 'user');
+        const waiting = addBubble('正在比對 11 類法規原文，請稍候…', 'bot');
+        try {
+          const index = await getLegalTextIndex();
+          waiting.remove();
+          const terms = termsFor(query);
+          const scored = index.map(item => {
+            const text = item.text.toLowerCase();
+            let score = 0; let hits = 0;
+            terms.forEach(term => { if (text.includes(term)) { score += Math.min(term.length,8); hits++; } });
+            const normalized = query.toLowerCase().replace(/\\s/g,'');
+            if (normalized.length >= 2 && text.includes(normalized)) score += 20;
+            const levelTerms = selectedSchoolLevel === 'junior'
+              ? ['國民中學','國民中小學','國中','國民中學部']
+              : ['高級中等','高中職','高級中學','高職','普通型高級中等','技術型高級中等'];
+            const otherLevelTerms = selectedSchoolLevel === 'junior'
+              ? ['高級中等','高中職','高級中學','高職']
+              : ['國民中學','國中'];
+            if (levelTerms.some(term => text.includes(term))) score += 7;
+            if (otherLevelTerms.some(term => text.includes(term))) score -= 3;
+            return { ...item, score, hits };
+          }).filter(x => x.score >= 5 && x.hits >= 1)
+            .sort((a,b)=>b.score-a.score || a.text.length-b.text.length);
+          const unique = []; const seen = new Set();
+          for (const item of scored) {
+            const key = item.title + '|' + item.text;
+            if (!seen.has(key)) { seen.add(key); unique.push(item); }
+            if (unique.length >= 5) break;
+          }
+          if (!unique.length) {
+            addBubble('目前在網站已收錄的法規原文中，沒有找到足夠相關的段落。您可以試著縮短問題，改用法規用語或主題詞（例如「教師聘任」、「課程發展」、「實驗教育」）再查一次。', 'bot');
+            return;
+          }
+          addBubble('我找到以下可能相關的法規原文。請點選「前往法規」查閱完整條文；排序依關鍵詞命中程度，請以原文及現行規定為準。', 'bot');
+          unique.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'legalbot-result space-y-2';
+            const title = document.createElement('div');
+            title.className = 'text-xs font-bold text-indigo-700';
+            title.textContent = item.title;
+            const excerpt = document.createElement('div');
+            excerpt.className = 'text-sm leading-relaxed text-slate-700';
+            excerpt.innerHTML = highlight(item.text, query);
+            const link = document.createElement('a');
+            link.href = item.link;
+            link.className = 'inline-flex items-center gap-2 text-sm font-semibold text-blue-700 hover:text-blue-900';
+            link.innerHTML = '前往法規 <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>';
+            card.append(title, excerpt, link); messages.appendChild(card);
+          });
+          messages.scrollTop = messages.scrollHeight;
+        } catch (error) {
+          waiting.textContent = '目前無法讀取法規頁面。請稍後再試，或使用首頁原有的關鍵字搜尋功能。';
+        }
+      }
+      form.addEventListener('submit', event => {
+        event.preventDefault();
+        if (!selectedSchoolLevel) {
+          addBubble('請先選擇要查詢「國中」或「高中」相關問題。', 'bot');
+          return;
+        }
+        const query = input.value.trim();
+        if (!query) return;
+        input.value = '';
+        answerQuestion(query);
+      });
+      document.querySelectorAll('.legalbot-suggestion').forEach(button => button.addEventListener('click', () => {
+        if (!selectedSchoolLevel) return;
+        openPanel(); const query = button.textContent.trim(); answerQuestion(query);
+      }));
+    })();
+  </script>
+
+
 </body>
 </html>
