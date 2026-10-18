@@ -218,15 +218,15 @@
             if (main) {
               const clean = main.cloneNode(true);
               clean.querySelectorAll("script, style, nav, header, footer, button, input, select, textarea").forEach(el => el.remove());
-              // 在 HTML 區塊結尾建立段落分隔，避免 detached document 的 textContent 把整頁黏成一大段。
+              // 保留法規頁原有區塊邊界，避免整頁文字混成一大段。
               const separated = clean.innerHTML
-                .replace(/<br\\s*\\/?\\s*>/gi, "\\n")
-                .replace(/<\\/(?:p|li|tr|td|th|h[1-6]|section|article|div|blockquote|pre)>/gi, "\\n")
+                .replace(/<br\s*\/?\s*>/gi, "\n")
+                .replace(/<\/(?:p|li|tr|td|th|h[1-6]|section|article|div|blockquote|pre)>/gi, "\n")
                 .replace(/<[^>]*>/g, " ");
               const textHolder = doc.createElement("div");
               textHolder.innerHTML = separated;
-              const lines = (textHolder.textContent || "").split(/\\n+/)
-                .map(s => s.replace(/\\s+/g, " ").trim())
+              const lines = (textHolder.textContent || "").split(/\n+/)
+                .map(s => s.replace(/\s+/g, " ").trim())
                 .filter(s => s.length >= 8);
               const seen = new Set();
               lines.forEach(line => {
