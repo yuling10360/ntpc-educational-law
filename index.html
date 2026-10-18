@@ -12,6 +12,33 @@
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
     body { font-family: 'Noto Sans TC', sans-serif; }
   </style>
+
+  <style id="mobile-responsive-overrides">
+    /* 手機版版面調整：不變更法規文字或既有互動 */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { max-width: 100%; overflow-x: clip; }
+    img, svg, video, canvas { max-width: 100%; }
+    input, select, textarea, button { max-width: 100%; }
+    #searchResults { width: 100%; overflow-wrap: anywhere; }
+    #searchResults a, #searchResults div { overflow-wrap: anywhere; }
+    @media (max-width: 640px) {
+      header > div { gap: 8px; }
+      header h1 { font-size: .875rem; }
+      header > div > div:last-child { flex-wrap: wrap; justify-content: flex-end; max-width: 52%; }
+      header > div > div:last-child button { padding: .35rem .45rem; font-size: .7rem; white-space: nowrap; }
+      main { padding-left: .75rem !important; padding-right: .75rem !important; }
+      main .grid { gap: 1.25rem; }
+      #section-laws > div:first-child, #section-tasks > div:first-child { align-items: flex-start; gap: .5rem; flex-wrap: wrap; }
+      #section-laws > div:first-child > span, #section-tasks > div:first-child > span { white-space: normal; }
+      #laws-container a, #tasks-container a { padding: .75rem; }
+      #laws-container a > div, #tasks-container a > div { gap: .5rem; align-items: flex-start; }
+      #laws-container h4, #tasks-container h4 { overflow-wrap: anywhere; }
+      #laws-container a > div > div:last-child, #tasks-container a > div > div:last-child { flex: 0 0 auto; }
+      #legalBotLauncher { right: 12px !important; bottom: 12px !important; padding: .65rem .85rem !important; }
+      #legalBotLauncher span { display: inline; }
+      #legalBotPanel { right: 8px !important; bottom: 72px !important; width: calc(100vw - 16px) !important; height: min(72dvh, 590px) !important; max-height: calc(100dvh - 88px) !important; }
+    }
+  </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
 
