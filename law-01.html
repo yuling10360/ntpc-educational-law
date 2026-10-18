@@ -23,7 +23,22 @@
       .doc-article { display: block; margin: 0; padding: 0; font-weight: 400; line-height: inherit; }
       .doc-article-marker { display: block; font-weight: 400; white-space: nowrap; }
       .doc-article-copy { display: block; min-width: 0; overflow-wrap: anywhere; word-break: normal; }
-      .doc-article-body { display: block; margin: 0; padding: 0; line-height: inherit; }
+      .doc-article-body {
+        display: block;
+        margin: 0 !important;
+        margin-left: 0 !important;
+        padding: 0 !important;
+        padding-left: 0 !important;
+        text-indent: 0 !important;
+        line-height: inherit;
+      }
+      /* 有條次的法規：條次內文靠左，不套用項次的縮排；項次層級維持原設定。 */
+      .official-doc .doc-article + .doc-article-body,
+      .official-doc .doc-article-body {
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+        text-indent: 0 !important;
+      }
       .doc-article-gap { display: block; height: 2em; }
       .doc-row { display: grid; grid-template-columns: 2.8em minmax(0, 1fr); align-items: start; column-gap: 0.2em; }
       .doc-marker { display: block; white-space: nowrap; }
@@ -3074,7 +3089,8 @@
                 output.push('<div class="doc-row doc-level-4"><span class="doc-marker">（' + esc(small[1]) + '）</span><span class="doc-copy">' + esc(small[2]) + '</span></div>');
                 continue;
               }
-              output.push('<div class="doc-row ' + lastItemLevel + ' doc-row-continuation"><span class="doc-marker"></span><span class="doc-copy">' + esc(t) + '</span></div>');
+              /* 非項次的法條內文直接靠左，不使用 doc-row 的空白項次欄位。 */
+              output.push('<div class="doc-article-body">' + esc(t) + '</div>');
               continue;
             }
             const sub = t.match(parenthesisPattern);
