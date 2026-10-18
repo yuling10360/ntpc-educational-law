@@ -53,6 +53,7 @@
             placeholder="請輸入關鍵字（例如：授課時數、編班、中教科、校安...）"
             class="w-full pl-11 pr-4 py-3 bg-white text-slate-800 rounded-2xl shadow-lg focus:ring-4 focus:ring-blue-400/30 outline-none text-sm transition">
         </div>
+        <div id="searchResults" class="hidden mt-3 max-w-2xl mx-auto text-left bg-white rounded-xl shadow-xl border border-slate-200 overflow-hidden"></div>
       </div>
     </section>
 
@@ -202,8 +203,65 @@
       `).join('');
     }
 
+    // 法規全文搜尋：即時比對各法規頁面的原文段落
+    let legalTextIndexPromise = null;
+    function getLegalTextIndex() {
+      if (!legalTextIndexPromise) {
+        legalTextIndexPromise = Promise.all(lawsCategories.map(async cat => {
+          try {
+            const response = await fetch(cat.link);
+            if (!response.ok) return [];
+            const source = await response.text();
+            const doc = new DOMParser().parseFromString(source, "text/html");
+            const blocks = Array.from(doc.querySelectorAll("p, li, td"))
+              .map(el => ({ text: (el.innerText || el.textContent || "").replace(/\\s+/g, " ").trim(), link: cat.link, title: cat.title }))
+              .filter(item => item.text.length >= 8);
+            if (!blocks.length) {
+              const main = doc.querySelector("main, article, .law-content, #law-content, body");
+              if (main) (main.innerText || main.textContent || "").split(/\\n+/).map(s => s.trim()).filter(s => s.length >= 8)
+                .forEach(s => blocks.push({ text: s, link: cat.link, title: cat.title }));
+            }
+            return blocks;
+          } catch (_) { return []; }
+        })).then(groups => groups.flat());
+      }
+      return legalTextIndexPromise;
+    }
+
+    let searchSequence = 0;
+    async function showLegalSearchResults(query) {
+      const panel = document.getElementById("searchResults");
+      const q = (query || "").trim();
+      if (!q) { panel.classList.add("hidden"); panel.innerHTML = ""; return; }
+      panel.classList.remove("hidden");
+      panel.innerHTML = '<div class="px-4 py-3 text-sm text-slate-500">正在搜尋法規原文…</div>';
+      const sequence = ++searchSequence;
+      const index = await getLegalTextIndex();
+      if (sequence !== searchSequence) return;
+      const matches = index.filter(item => item.text.toLowerCase().includes(q.toLowerCase())).slice(0, 12);
+      if (!matches.length) {
+        panel.innerHTML = '<div class="px-4 py-3 text-sm text-slate-500">法規內文中沒有找到相符段落。</div>';
+        return;
+      }
+      panel.innerHTML = '<div class="px-4 py-2 bg-slate-50 border-b border-slate-200 text-xs text-slate-500">法規原文搜尋結果（最多顯示 12 段）</div>' +
+        matches.map(item => '<a href="' + item.link + '" class="block px-4 py-3 border-b border-slate-100 last:border-b-0 hover:bg-blue-50 transition">' +
+          '<div class="text-xs font-semibold text-blue-700 mb-1">' + escapeSearchHtml(item.title) + '</div>' +
+          '<div class="text-sm text-slate-700 leading-relaxed">' + highlightSearchText(item.text, q) + '</div></a>').join("");
+    }
+    function escapeSearchHtml(value) {
+      return String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+    function highlightSearchText(text, query) {
+      const safeText = escapeSearchHtml(text);
+      const safeQuery = escapeSearchHtml(query);
+      const index = safeText.toLowerCase().indexOf(safeQuery.toLowerCase());
+      if (index < 0) return safeText;
+      return safeText.slice(0, index) + '<mark class="bg-yellow-200 text-slate-900 rounded px-0.5">' + safeText.slice(index, index + safeQuery.length) + '</mark>' + safeText.slice(index + safeQuery.length);
+    }
+
     function handleSearch() {
       renderPage();
+      showLegalSearchResults(document.getElementById("searchInput").value);
     }
 
     window.addEventListener('DOMContentLoaded', () => {
