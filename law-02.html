@@ -4375,6 +4375,17 @@ table{max-width:100%}
      }
    }
    let finalText=flowed.join('\n').trim()||'原始文件中未能自動定位此項文字，請核對原始手冊。';
+   // 法規33：比照 law-04 法規32，依公文項次層級呈現縮排；只套用於本法規。
+   if(i===32){
+     finalText = finalText.split('\\n').map(line=>{
+       const t=line.trim();
+       if(/^[一二三四五六七八九十百]+、/.test(t)) return t;
+       if(/^[（(][一二三四五六七八九十百]+[）)]/.test(t)) return '　'+t;
+       if(/^\\d+[、.．]/.test(t)) return '　　'+t;
+       if(/^[（(]\\d+[）)]/.test(t)) return '　　　'+t;
+       return line;
+     }).join('\\n');
+   }
    // 第 32 項：依教育部主管法規共用系統 GL001300 逐字整理正文及法規沿革。
    if(i===31){
      finalText = [
@@ -4574,7 +4585,8 @@ table{max-width:100%}
        const safe = esc33(line);
        if(/^[一二三四五六七八九]+、/.test(line)) return '<div style="margin-top:.45em;">'+safe+'</div>';
        if(/^（[一二三四五六七八九十]+）/.test(line)) return '<div style="padding-left:2em;text-indent:-2em;">'+safe+'</div>';
-       if(/^(?:１、|（１）)/.test(line)) return '<div style="padding-left:4em;text-indent:-2em;">'+safe+'</div>';
+       if(/^１、/.test(line)) return '<div style="padding-left:4em;text-indent:-2em;">'+safe+'</div>';
+       if(/^（１）/.test(line)) return '<div style="padding-left:6em;text-indent:-2em;">'+safe+'</div>';
        return '<div>'+safe+'</div>';
      }).join('');
      // 第二道防線：若舊版標記仍被其他流程帶入，直接以表格取代。
@@ -5463,8 +5475,8 @@ table{max-width:100%}
        if(i===32 && t==='__LAW33_REGION_TABLE_INSERT__') return window.law33RegionTable || '';
        // 與第一類 law-01.html 相同的公文排版：doc-level-1/2/3 控制縮排與段落間距。
        const majorMatch=t.match(/^([一二三四五六七八九十百]+、)(.*)$/);
-       const subMatch=t.match(/^([（(][一二三四五六七八九十百\d]+[）)])(.*)$/);
-       const numMatch=t.match(/^(\d+[、.．])(.*)$/);
+       const subMatch=t.match(/^([（(][一二三四五六七八九十百\d０-９]+[）)])(.*)$/);
+       const numMatch=t.match(/^([\d０-９]+[、.．])(.*)$/);
        // 編號與文字分欄：所有項目的文字起點固定，換行後也與文字對齊。
        if(majorMatch) return '<div class="doc-row doc-level-1"><span class="doc-marker">'+safe(majorMatch[1])+'</span><span class="doc-copy">'+safe(majorMatch[2].trimStart())+'</span></div>';
        if(subMatch) return '<div class="doc-row doc-level-2 font-medium"><span class="doc-marker">'+safe(subMatch[1])+'</span><span class="doc-copy">'+safe(subMatch[2].trimStart())+'</span></div>';
