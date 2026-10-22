@@ -185,6 +185,22 @@
 @media(max-width:640px){.header-category-full{max-width:54vw;font-size:10px;padding-left:.45rem;padding-right:.45rem;line-height:1.35}}
 </style>
 <style id="full-text-search-results-style">#lawSearchResults{position:relative;z-index:60;max-height:55vh;overflow-y:auto}#lawSearchResults button:last-child{border-bottom:0}</style>
+
+<style id="law01-uniform-law-spacing-match-law04">
+/* 比照 law-04 統一法條排版間距：內文行高一致、段落／條文間隔一致；不改文字、項次縮排、表格內容及功能 */
+.law-panel .official-doc,
+.law-panel .official-doc * { line-height: 2 !important; }
+.law-panel .doc-article { margin: 0 !important; padding: 0 !important; }
+.law-panel .doc-article-body { margin: 0 !important; padding: 0 !important; }
+.law-panel .doc-article-gap,
+.law-panel .doc-paragraph-gap { display: block !important; height: .65em !important; margin: 0 !important; padding: 0 !important; }
+.law-panel .doc-row,
+.law-panel .doc-paragraph { margin-top: 0 !important; margin-bottom: .15em !important; }
+.law-panel .official-doc p { margin-top: 0 !important; margin-bottom: .15em !important; }
+.law-panel .law-history,
+.law-panel .history-text { line-height: 1.8 !important; }
+</style>
+
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
 <!-- 頂部返回導覽列 -->
