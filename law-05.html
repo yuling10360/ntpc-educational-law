@@ -429,9 +429,60 @@ function openLaw(index) {
   renderDetail();
   renderList();
 }
+function buildHourlyFeeTable(){
+ const rows = [
+  {type:'section',label:'一、兼任及代課教師'},
+  {type:'header',cells:['任教學校','支給數額']},
+  {type:'data',cells:['高級中等學校','505']},
+  {type:'data',cells:['國民中學','455']},
+  {type:'data',cells:['國民小學','405']},
+  {type:'section',label:'二、藝術才能班外聘兼任教師'},
+  {type:'header',cells:['所具資格條件','支給數額下限']},
+  {type:'data',cells:['具(副)學士以上學歷無大學教師證書且非大學專業技術人員','具(副)學士學歷者','596']},
+  {type:'data',cells:['','具碩士學歷者','660']},
+  {type:'data',cells:['','具博士學歷者','723']},
+  {type:'data',cells:['具大學教師證書或係大學專業技術人員','具講師證書或係講師級專業技術人員','660']},
+  {type:'data',cells:['','具助理教授證書或係助理教授級專業技術人員','723']},
+  {type:'data',cells:['','具副教授證書或係副教授級專業技術人員','786']},
+  {type:'data',cells:['','具教授證書或係教授級專業技術人員','912']},
+  {type:'data',cells:['專業藝術人士','地方性藝術類科競賽獲得前三等獎項，且個人展演經歷達6年以上','660']},
+  {type:'data',cells:['','全國性藝術類科競賽獲得獎項，且個人展演經歷達9年以上未達12年','723']},
+  {type:'data',cells:['','全國性藝術類科競賽獲得獎項，且個人展演經歷達12年以上','786']},
+  {type:'data',cells:['','國際性藝術類科競賽獲得獎項或經教育部立案、認可之國內外大學頒授藝術領域名譽博士學位，且個人展演經歷達15年以上','912']}
+ ];
+ let html='<div class="fee-table-wrap" style="width:100%;overflow-x:auto;margin:0 0 1.25rem;"><table class="fee-table" style="width:100%;border-collapse:collapse;table-layout:fixed;font-size:14px;line-height:1.7;color:#1e293b;"><tbody>';
+ for(let i=0;i<rows.length;i++){
+  const r=rows[i];
+  if(r.type==='section'){
+   html+='<tr><th colspan="3" style="border:1px solid #64748b;background:#e2e8f0;padding:8px;text-align:left;font-weight:700;">'+r.label+'</th></tr>';
+  }else if(r.type==='header'){
+   if(i===1) html+='<tr><th colspan="2" style="border:1px solid #64748b;background:#f1f5f9;padding:8px;text-align:center;">'+r.cells[0]+'</th><th style="border:1px solid #64748b;background:#f1f5f9;padding:8px;text-align:center;">'+r.cells[1]+'</th></tr>';
+   else html+='<tr><th colspan="2" style="border:1px solid #64748b;background:#f1f5f9;padding:8px;text-align:center;">'+r.cells[0]+'</th><th style="border:1px solid #64748b;background:#f1f5f9;padding:8px;text-align:center;">'+r.cells[1]+'</th></tr>';
+  }else{
+   const idx=rows.indexOf(r);
+   let first='';
+   if(idx===7) first='<td rowspan="3" style="border:1px solid #94a3b8;padding:8px;vertical-align:top;">具(副)學士以上學歷無大學教師證書且非大學專業技術人員</td>';
+   else if(idx===10) first='<td rowspan="4" style="border:1px solid #94a3b8;padding:8px;vertical-align:top;">具大學教師證書或係大學專業技術人員</td>';
+   else if(idx===14) first='<td rowspan="4" style="border:1px solid #94a3b8;padding:8px;vertical-align:top;">專業藝術人士</td>';
+   const second = r.cells.length===2 ? r.cells[0] : r.cells[1];
+   const amount = r.cells[r.cells.length-1];
+   const showSecond = (idx===2||idx===3||idx===4) ? r.cells[0] : second;
+   if(idx===2||idx===3||idx===4){
+    html+='<tr><td colspan="2" style="border:1px solid #94a3b8;padding:8px;">'+showSecond+'</td><td style="border:1px solid #94a3b8;padding:8px;text-align:center;white-space:nowrap;">'+amount+'</td></tr>';
+   }else{
+    html+='<tr>'+first+'<td style="border:1px solid #94a3b8;padding:8px;vertical-align:top;">'+showSecond+'</td><td style="border:1px solid #94a3b8;padding:8px;text-align:center;vertical-align:top;white-space:nowrap;">'+amount+'</td></tr>';
+   }
+  }
+ }
+ html+='</tbody></table></div>';
+ return html;
+}
 function renderDetail(){
  const law=laws[currentIndex];
- const content=formatLawText(law.content,currentIndex);
+ let content=formatLawText(law.content,currentIndex);
+ if(law.title === "公立中小學兼任及代課教師鐘點費支給基準表"){
+   content = buildHourlyFeeTable() + content;
+ }
  // 僅對「有項次、且沒有條次結構」的法規套用內文縮排。
  // 有「第X條」條次的法規維持原有排版，不套用 law05-indent-format。
  const hasArticleStructure=/(?:^|\n)\s*第\s*[0-9０-９一二三四五六七八九十百]+\s*條/m.test(law.content||'');
