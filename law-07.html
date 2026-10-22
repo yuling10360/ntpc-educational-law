@@ -435,6 +435,13 @@ body{font-family:'Noto Sans TC',sans-serif}
  word-break:normal!important;
 }
 
+
+/* 法規1第20條收費計算表：僅新增表格樣式，不變更既有條次與項次設定 */
+.law07-fee-table{width:100%;border-collapse:collapse;table-layout:fixed;margin:.5em 0 1em;font-size:.95em;line-height:1.6;color:#1e293b}
+.law07-fee-table th,.law07-fee-table td{border:1px solid #94a3b8;padding:.55em .65em;vertical-align:top;overflow-wrap:anywhere}
+.law07-fee-table th{background:#f1f5f9;font-weight:700;text-align:center}
+.law07-fee-table th:first-child,.law07-fee-table td:first-child{width:43%}
+
 </style></head><body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
 <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm"><div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-3"><a href="index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-blue-600"><i class="fa-solid fa-arrow-left"></i> 返回手冊目錄</a><span class="text-xs bg-blue-50 text-blue-700 font-semibold px-2.5 py-1 rounded-full border border-blue-200">第七類法規全文查閱</span></div></header>
 <section class="bg-gradient-to-r from-slate-900 via-indigo-950 to-blue-900 text-white py-8 px-4"><div class="max-w-7xl mx-auto space-y-3"><div class="inline-flex items-center gap-2 text-blue-300 text-xs font-semibold"><i class="fa-solid fa-chalkboard-user"></i> 法規章節</div><h1 class="text-2xl md:text-3xl font-extrabold">七、課後照顧、寒暑假學藝活動</h1><p class="text-xs md:text-sm text-slate-300">依據《07.課後照顧、寒暑假學藝活動(1151017).docx》整理。選取左側標題可查看法規全文及日期文號／法源簡述。</p><div class="relative max-w-xl pt-1"><i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i><input id="searchInput" type="search" oninput="renderList()" placeholder="搜尋法規名稱、條文或文號" class="w-full pl-11 pr-4 py-3 bg-white text-slate-800 rounded-2xl shadow-lg outline-none text-sm"></div></div></section>
@@ -525,6 +532,40 @@ function renderDetail(){
  const hasItemMarkers=/(?:^|\n)\s*(?:[壹貳參肆伍陸柒捌玖拾]+、|[一二三四五六七八九十百千]+、|[（(][一二三四五六七八九十百千壹貳參肆伍陸柒捌玖拾0-9０-９]+[）)]|[0-9０-９]+[、.．]|[A-ZＡ-Ｚ]+[、.．])/m.test(law.content||'');
  const formatClass=hasArticleStructure?'law07-article-format':(hasItemMarkers?'law07-item-format':'law07-plain-format');
  detail.innerHTML='<div class="flex flex-wrap items-center gap-2 mb-4"><span class="text-xs font-bold text-blue-700 bg-blue-50 border border-blue-100 rounded-full px-3 py-1">第 '+(currentIndex+1)+' 項／共 '+laws.length+' 項</span><span class="text-xs text-slate-400">課後照顧、寒暑假學藝活動</span></div><h2 class="text-xl md:text-2xl font-extrabold leading-relaxed text-slate-900 mb-6">'+esc(law.title)+'</h2><div class="border-t border-slate-200 pt-6"><div class="official-doc text-sm md:text-[15px] '+formatClass+'">'+(content||'<p>原始文件未提供此項資料。</p>')+'</div></div><div class="mt-8 border-t border-slate-200 pt-6"><h3 class="flex items-center gap-2 text-sm font-bold text-slate-700 mb-3"><i class="fa-solid fa-clock-rotate-left text-blue-600"></i>法規沿革／日期及文號／法源簡述／備註</h3><div class="history-text text-sm text-slate-600 bg-slate-50 border border-slate-200 rounded-xl p-4">'+(law.history&&law.history.trim()?esc(law.history):'原始文件未提供此項資料。')+'</div></div><div class="flex justify-between gap-3 mt-8 pt-5 border-t border-slate-100"><button onclick="go(-1)" '+(currentIndex===0?'disabled':'')+' class="px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed"><i class="fa-solid fa-arrow-left mr-2"></i>上一項</button><button onclick="go(1)" '+(currentIndex===laws.length-1?'disabled':'')+' class="px-4 py-2.5 rounded-xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 disabled:opacity-30 disabled:cursor-not-allowed">下一項<i class="fa-solid fa-arrow-right ml-2"></i></button></div>';
+ if(currentIndex===0){
+  const docArea=detail.querySelector('.official-doc');
+  const makeFeeTable=(rows)=> {
+   const table=document.createElement('table');
+   table.className='law07-fee-table';
+   table.innerHTML='<thead><tr><th>辦理方式</th><th>每位學生收費計算方式</th></tr></thead><tbody>'+
+    rows.map(r=>'<tr><td>'+r[0]+'</td><td>'+r[1]+'</td></tr>').join('')+'</tbody>';
+   return table;
+  };
+  const feeTables=[
+   {label:'一、', heading:'學校自辦', rows:[
+    ['於學校上班時間辦理時','新臺幣二六○元 × 服務總節數 ÷ ○.七 ÷ 學生數'],
+    ['於學校下班時間及寒暑假辦理時','新臺幣四○○元 × 服務總節數 ÷ ○.七 ÷ 學生數'],
+    ['一併於學校上班時間及下班時間辦理時','（新臺幣二六○元 × 上班時間服務總節數 ÷ ○.七 ÷ 學生數）＋（新臺幣四○○元 × 下班時間服務總節數 ÷ ○.七 ÷ 學生數）']
+   ]},
+   {label:'二、', heading:'委託辦理', rows:[
+    ['於學校上班時間辦理時','新臺幣四一○元 × 服務總時數 ÷ ○.七 ÷ 學生數'],
+    ['於學校下班時間及寒暑假辦理時','新臺幣四一○元 × 服務總時數 ÷ ○.七 ÷ 學生數'],
+    ['一併於學校上班時間及下班時間辦理時','新臺幣四一○元 × 服務總時數 ÷ ○.七 ÷ 學生數']
+   ]}
+  ];
+  feeTables.forEach((f)=>{
+   const markerRows=[...docArea.querySelectorAll('.doc-row')];
+   const labelRow=markerRows.find(el=>el.querySelector('.doc-marker')?.textContent.trim()===f.label && el.querySelector('.doc-copy')?.textContent.trim().startsWith(f.heading));
+   if(labelRow){
+    let next=labelRow.nextElementSibling;
+    while(next && next.classList.contains('doc-row') && /新臺幣|服務總節數|服務總時數|學生收費|上班時間服務總/.test(next.textContent)){
+     const remove=next; next=next.nextElementSibling; remove.remove();
+    }
+    labelRow.insertAdjacentElement('afterend',makeFeeTable(f.rows));
+   }
+  });
+ }
+
 }
 function go(d){currentIndex=Math.max(0,Math.min(laws.length-1,currentIndex+d));renderList();renderDetail();}
 document.getElementById('searchInput').addEventListener('input',renderList);renderList();renderDetail();
